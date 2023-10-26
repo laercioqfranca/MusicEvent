@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using MusicEvent.Application.Interfaces.Administracao;
+using MusicEvent.Application.ViewModels.Administracao;
+using MusicEvent.Core.Interfaces;
+using MusicEvent.Domain.Commands.Administracao;
+using MusicEvent.Domain.Interfaces.Infra.Data.Repositories.Auth;
+using MusicEvent.Application.ViewModels.Auth;
+using MusicEvent.Application.DTO;
+
+namespace MusicEvent.Application.AppServices.Administracao
+{
+    public class UsuarioAppService : IUsuarioAppService
+    {
+        private readonly IMapper _mapper;
+        private readonly IMediatorHandler _bus;
+        private readonly IUsuarioRepository _repository;
+        private readonly IHttpContextAccessor _httpContextAcessor;
+
+        public UsuarioAppService(IMapper mapper, IMediatorHandler bus, IUsuarioRepository repository, IHttpContextAccessor httpContextAccessor)
+        {
+            _mapper = mapper;
+            _bus = bus;
+            _repository = repository;
+            _httpContextAcessor = httpContextAccessor;
+        }
+
+        public async Task<IEnumerable<UsuarioViewModel>> GetAll()
+        {
+            var usuarios = await _repository.GetAll();
+            return _mapper.Map<IEnumerable<UsuarioViewModel>>(usuarios);
+        }
+
+        public async Task<UsuarioViewModel> GetById(Guid id)
+        {
+            var query = await _repository.GetById(id);
+            return _mapper.Map<IEnumerable<UsuarioViewModel>>(query).FirstOrDefault();
+        }
+
+        public async Task<UsuarioViewModel> GetByLogin(string login)
+        {
+            var query = await _repository.GetByLogin(login);
+            return _mapper.Map<IEnumerable<UsuarioViewModel>>(query).FirstOrDefault();
+        }
+
+        public async Task<IEnumerable<UsuarioViewModel>> GetByFiltro(ConsultarPorFiltroViewModel filtro)
+        {
+            var usuarios = await _repository.GetByFiltro(filtro.Nome, filtro.CPF, filtro.Email);
+            return _mapper.ProjectTo<UsuarioViewModel>(usuarios.AsQueryable());
+        }
+
+        public async Task Create(UsuarioDTO usuarioDTO)
+        {
+            var command = _mapper.Map<UsuarioCreateCommand>(usuarioDTO);
+            //command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            await _bus.SendCommand(command);
+        }
+
+        public async Task Update(UsuarioViewModel model)
+        {
+            var command = _mapper.Map<UsuarioUpdateCommand>(model);
+           // command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            await _bus.SendCommand(command);
+        }
+
+        public async Task Delete(Guid id)
+        {
+            var command = new UsuarioDeleteCommand(id);
+           // command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            await _bus.SendCommand(command);
+
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
+    }
+}

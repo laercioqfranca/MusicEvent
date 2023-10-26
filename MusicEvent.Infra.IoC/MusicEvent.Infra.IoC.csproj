@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+	  <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MusicEvent.Application\MusicEvent.Application.csproj" />
+		<ProjectReference Include="..\MusicEvent.Core\MusicEvent.Core.csproj" />
+		<ProjectReference Include="..\MusicEvent.Domain\MusicEvent.Domain.csproj" />
+		<ProjectReference Include="..\MusicEvent.Infra.Bus\MusicEvent.Infra.Bus.csproj" />
+		<ProjectReference Include="..\MusicEvent.Infra.Data\MusicEvent.Infra.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="TextoPadrao.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>TextoPadrao.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="TextoPadrao.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>TextoPadrao.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>

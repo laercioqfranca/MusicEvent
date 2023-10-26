@@ -1,0 +1,64 @@
+<div class="row h-100 justify-content-center" style="padding-top: 5%;">
+  <div style="width: 350px">
+    
+    <form [formGroup]="criarContaForm" (ngSubmit)="onSubmit()">
+
+      <div class="row mb-3">
+        <!-- <div class="col text-center text-secondary titulo-login">
+          Music Events
+        </div> -->
+        <div class="col text-center">
+          <img src="assets/img/logo.png" alt="" width="300px">
+        </div>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome" id="nome" required/>
+            <mat-error *ngIf="criarContaForm.get('nome')?.touched && criarContaForm.get('nome')?.value.length == 0">
+              Campo Obrigatório
+            </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col">
+            <mat-label>Idade</mat-label>
+            <input matInput formControlName="idade" required/>
+            <mat-error *ngIf="criarContaForm.get('idade')?.touched && criarContaForm.get('idade')?.value.length == 0">
+              Campo Obrigatório
+            </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field class="col">
+            <mat-label>E-mail</mat-label>
+            <input type="email" matInput formControlName="email" id="email" required/>
+            <mat-error *ngIf="criarContaForm.get('email')?.invalid && criarContaForm.get('email')?.value.length > 0">
+              E-mail inválido
+            </mat-error>
+            <mat-error *ngIf="criarContaForm.get('email')?.touched && criarContaForm.get('email')?.value.length == 0">
+              Campo Obrigatório
+            </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field class="col">
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" formControlName="senha" minlength="8" maxlength="50" id="senha" required/>
+        </mat-form-field>
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col text-start">
+          <button class="btn btn-danger" (click)="cancelar()"><i class="fa fa-sign-in"></i> Cancelar</button>
+        </div>
+        <div class="col text-end">
+          <button type="submit" [disabled]="criarContaForm.invalid" class="btn btn-warning"><i class="fa fa-sign-in"></i> Enviar</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
