@@ -73,22 +73,28 @@ export class AdminComponent implements OnInit {
       });
   }
 
-  editar(event:any){
+  editar(id:any){
 
-    this.obterEventoPorId(event);
+    this.obterEventoPorId(id); // busca o elemento selecionado e guarda na variável evento
 
-    console.log(event); //teste
+    console.log(id); //teste
     console.log(this.evento); //teste
 
-    this.criarEventoForm.get('descricao')?.setValue(this.evento.descricao);
-    this.criarEventoForm.get('data')?.setValue(this.evento.data);
+    this.carregarDados(); // carrega os dados da variável evento no formulário
 
   } 
 
-  deletar(event:any){
-    console.log(event); //teste
-    if(event != null){
-      this.eventoService.delete(event).subscribe(
+  carregarDados(){
+    setTimeout(() => {
+      this.criarEventoForm.get('descricao')?.setValue(this.evento.descricao);
+      this.criarEventoForm.get('data')?.setValue(this.evento.data);
+    }, 1000);
+  }
+
+  deletar(id:any){
+    console.log(id); //teste
+    if(id != null){
+      this.eventoService.delete(id).subscribe(
         {
           next:(res) => {
             if (res?.success) {
