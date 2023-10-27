@@ -7,7 +7,7 @@ import { Observable, map } from 'rxjs';
 })
 export class UsuarioService {
 
-constructor(private http:HttpClient) { }
+    constructor(private http:HttpClient) { }
 
     getAll(): Observable<any> {
       return this.http.get('v1/Usuario/GetAll').pipe(

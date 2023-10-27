@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'app';
 
-  usuarioLogado: boolean = false;
+  usuarioLogado: boolean = true;
+  isCliente: boolean = false;
+  isAdmin: boolean = true;
+
 }

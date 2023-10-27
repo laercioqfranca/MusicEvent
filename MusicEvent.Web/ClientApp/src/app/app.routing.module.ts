@@ -12,7 +12,10 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./login/login.module').then(x => x.LoginModule) },
 
         // Usuário admin
-  { path: 'home', loadChildren: () => import('./home/home.module').then(x=>x.HomeModule), 
+  { path: 'admin/home', loadChildren: () => import('./home/admin/admin.module').then(x=>x.AdminModule), 
+    pathMatch:'full'},
+
+  { path: 'cliente/home', loadChildren: () => import('./home/cliente/cliente.module').then(x=>x.ClienteModule), 
     pathMatch:'full'},
   
   { path: 'criar-conta', loadChildren: () => import('./criar-conta/criar-conta.module').then(x=>x.CriarContaModule), 

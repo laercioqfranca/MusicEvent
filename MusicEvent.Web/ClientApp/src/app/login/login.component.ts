@@ -37,6 +37,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+
+    this.router.navigateByUrl('/admin/home'); //teste
+
     if(this.formLogin.valid){
       this.loginService.login(this.formLogin?.value).subscribe({
         next: (res: any) => {
@@ -49,7 +52,16 @@ export class LoginComponent implements OnInit {
   
             console.log(usuario); //teste
   
-            this.router.navigateByUrl('/home');
+            // if(usuario.TipoPerfil == 'administrador'){
+            //   this.router.navigateByUrl('/admin/home');
+            // }
+
+            // if(usuario.TipoPerfil == 'cliente'){
+            //   this.router.navigateByUrl('/cliente/home');
+            // }
+
+
+            // this.router.navigateByUrl('/home');
             this.authService.setSession(userJwt);
   
           }
