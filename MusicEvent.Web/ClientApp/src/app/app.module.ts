@@ -4,15 +4,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { MenuComponent } from './menu/menu.component';
+import { MenuComponent } from './core/menu/menu.component';
 import { AppRoutingModule } from './app.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { ToastrModule } from 'ngx-toastr';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './auth/login/login.component';
 import { BsDatepickerConfig, BsDatepickerModule, BsLocaleService} from 'ngx-bootstrap/datepicker';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
+import { FooterComponent } from './core/footer/footer.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -26,10 +27,11 @@ function getDatepickerConfig(): BsDatepickerConfig {
 }
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     MenuComponent,
-  ],
+    FooterComponent
+   ],
   imports: [
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

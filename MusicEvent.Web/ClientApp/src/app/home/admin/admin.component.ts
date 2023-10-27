@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventoService } from 'src/app/services/evento.service';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from 'src/app/services/root/notification.service';
 
 @Component({
   selector: 'app-admin',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { LoginService } from '../services/login.service';
+import { AuthService } from '../../services/root/auth.service';
+import { LoginService } from '../../services/root/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,8 +11,6 @@ import { Router } from '@angular/router';
 export class MenuComponent {
 
   isLoggedIn: boolean;
-
-  perfilUsuario:string = 'admin';
 
   constructor(
     private authService: AuthService,
@@ -36,7 +34,4 @@ export class MenuComponent {
     return 'Dev';
   }
 
-  getPerfilUsuario(){
-
-  }
 }
