@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { UsuarioModel } from '../models/UsuarioModel';
+import { UsuarioModel } from '../../models/UsuarioModel';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { JwtService } from './jwt.service';
-import { ILogin } from '../interfaces/interfaces';
+import { ILogin } from '../../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'

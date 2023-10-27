@@ -1,3 +1,42 @@
-<p>
-  admin works!
-</p>
+
+<div class="row py-2">
+  <div class="col">
+    Criar evento <i class="fa fa-plus" aria-hidden="true"></i>
+  </div>
+</div>
+
+<form [formGroup]="criarEventoForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <mat-form-field class="col">
+            <mat-label>Descrição</mat-label>
+            <input matInput formControlName="descricao" required />
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+            <mat-label>Data</mat-label>
+            <input matInput formControlName="data" placeholder="DD/MM/AAAA" bsDatepicker #dp="bsDatepicker"  autocomplete="off" ondrop="return false;" required>
+        </mat-form-field>
+    </div>
+
+    <div class="row align-items-center">
+        <div class="col text-start">
+            <button type="reset" class="btn btn-warning"><i class="fa fa-sign-in"></i> Limpar</button>
+        </div>
+        <div class="col text-end">
+            <button type="submit" [disabled]="criarEventoForm.invalid" class="btn btn-success"><i
+                    class="fa fa-sign-in"></i> Criar</button>
+        </div>
+    </div>
+</form>
+<hr>
+
+<div class="flex-container">
+  <div class="card" *ngFor="let item of listaEventos">
+    <div><b>{{item.descricao}}</b></div>
+    <div>{{item.data}}</div>
+    <div>
+      <i class="fa-solid fa-pen-to-square me-3 text-primary active" (click)="editar(item.id)"></i>
+      <i class="fa fa-trash text-danger active" aria-hidden="true" (click)="deletar(item.id)"></i>
+    </div>
+  </div>
+</div>

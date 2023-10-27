@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { NotificationService } from '../services/notification.service';
-import { LoginService } from '../services/login.service';
-import { ILogin } from '../interfaces/interfaces';
-import { JwtService } from '../services/jwt.service';
+import { NotificationService } from '../../services/root/notification.service';
+import { LoginService } from '../../services/root/login.service';
+import { ILogin } from '../../interfaces/interfaces';
+import { JwtService } from '../../services/root/jwt.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/root/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +37,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+
+    this.router.navigateByUrl('/cliente/home'); //teste
+
     if(this.formLogin.valid){
       this.loginService.login(this.formLogin?.value).subscribe({
         next: (res: any) => {
@@ -49,7 +52,16 @@ export class LoginComponent implements OnInit {
   
             console.log(usuario); //teste
   
-            this.router.navigateByUrl('/home');
+            // if(usuario.TipoPerfil == 'administrador'){
+            //   this.router.navigateByUrl('/admin/home');
+            // }
+
+            // if(usuario.TipoPerfil == 'cliente'){
+            //   this.router.navigateByUrl('/cliente/home');
+            // }
+
+
+            // this.router.navigateByUrl('/home');
             this.authService.setSession(userJwt);
   
           }
