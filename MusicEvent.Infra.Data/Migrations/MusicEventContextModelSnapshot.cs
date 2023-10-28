@@ -174,6 +174,40 @@ namespace MusicEvent.Infra.Data.Migrations
                     b.ToTable("Usuario");
                 });
 
+            modelBuilder.Entity("MusicEvent.Domain.Models.Evento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Evento");
+                });
+
+            modelBuilder.Entity("MusicEvent.Domain.Models.Inscricao", b =>
+                {
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdEvento")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("IdUsuario", "IdEvento");
+
+                    b.HasIndex("IdEvento");
+
+                    b.ToTable("Inscricao");
+                });
+
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.ClaimPerfil", b =>
                 {
                     b.HasOne("MusicEvent.Domain.Models.Autenticacao.ClaimUsuario", "Claim")
@@ -204,9 +238,33 @@ namespace MusicEvent.Infra.Data.Migrations
                     b.Navigation("Perfil");
                 });
 
+            modelBuilder.Entity("MusicEvent.Domain.Models.Inscricao", b =>
+                {
+                    b.HasOne("MusicEvent.Domain.Models.Evento", "Evento")
+                        .WithMany()
+                        .HasForeignKey("IdEvento")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MusicEvent.Domain.Models.Autenticacao.Usuario", "Usuario")
+                        .WithMany("EventoUsuarios")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Evento");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.PerfilUsuario", b =>
                 {
                     b.Navigation("ClaimsPerfil");
+                });
+
+            modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.Usuario", b =>
+                {
+                    b.Navigation("EventoUsuarios");
                 });
 #pragma warning restore 612, 618
         }

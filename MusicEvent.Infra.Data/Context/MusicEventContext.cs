@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MusicEvent.Infra.Data.Mappings;
 using MusicEvent.Infra.Data.Mappings.Autenticacao;
 using MusicEvent.Infra.Data.Mappings.LogHistoricoMap;
 using System;
@@ -23,6 +24,8 @@ namespace MusicEvent.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new PerfilUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimPerfilMap());
+            modelBuilder.ApplyConfiguration(new EventoMap());
+            modelBuilder.ApplyConfiguration(new InscricaoMap());
 
 
             #region Mapeamento das Tabelas de tipos e domínios

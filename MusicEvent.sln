@@ -11,19 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Domain", "3. Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Infrastructure", "4. Infrastructure", "{D32AA881-CBAB-4383-B24A-D043A39F2F75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicEvent.Web", "MusicEvent.Web\MusicEvent.Web.csproj", "{BB323B0C-A2B6-44D9-B401-B827D59758E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicEvent.Web", "MusicEvent.Web\MusicEvent.Web.csproj", "{BB323B0C-A2B6-44D9-B401-B827D59758E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicEvent.Application", "MusicEvent.Application\MusicEvent.Application.csproj", "{CF72B178-6C2D-4C4F-BB99-6E1C9453694A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicEvent.Application", "MusicEvent.Application\MusicEvent.Application.csproj", "{CF72B178-6C2D-4C4F-BB99-6E1C9453694A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicEvent.Core", "MusicEvent.Core\MusicEvent.Core.csproj", "{F5F68697-2096-42E3-810B-52BA2485AF19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicEvent.Core", "MusicEvent.Core\MusicEvent.Core.csproj", "{F5F68697-2096-42E3-810B-52BA2485AF19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicEvent.Domain", "MusicEvent.Domain\MusicEvent.Domain.csproj", "{87BC46A0-BA6F-49C9-BCCF-0480E2E6D209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicEvent.Domain", "MusicEvent.Domain\MusicEvent.Domain.csproj", "{87BC46A0-BA6F-49C9-BCCF-0480E2E6D209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicEvent.Infra.Bus", "MusicEvent.Infra.Bus\MusicEvent.Infra.Bus.csproj", "{94F787FA-B728-4A4D-80A5-7752CA8EBD76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicEvent.Infra.Bus", "MusicEvent.Infra.Bus\MusicEvent.Infra.Bus.csproj", "{94F787FA-B728-4A4D-80A5-7752CA8EBD76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicEvent.Infra.Data", "MusicEvent.Infra.Data\MusicEvent.Infra.Data.csproj", "{57429C6D-2EB1-43EC-9EAA-9787F9CAEDDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicEvent.Infra.Data", "MusicEvent.Infra.Data\MusicEvent.Infra.Data.csproj", "{57429C6D-2EB1-43EC-9EAA-9787F9CAEDDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicEvent.Infra.IoC", "MusicEvent.Infra.IoC\MusicEvent.Infra.IoC.csproj", "{810A45BE-228D-4400-A562-C6C0E9CD3E09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicEvent.Infra.IoC", "MusicEvent.Infra.IoC\MusicEvent.Infra.IoC.csproj", "{810A45BE-228D-4400-A562-C6C0E9CD3E09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

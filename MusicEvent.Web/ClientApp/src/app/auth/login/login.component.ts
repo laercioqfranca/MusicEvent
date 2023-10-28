@@ -31,26 +31,26 @@ export class LoginComponent implements OnInit {
 
   criaFormLogin(){
     this.formLogin = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      login: new FormControl('', [Validators.required, Validators.email]),
       senha: new FormControl('', Validators.required),
     });
   }
 
   onSubmit(){
 
-    this.router.navigateByUrl('/cliente/home'); //teste
+    // this.router.navigateByUrl('/cliente/home'); //teste
 
     if(this.formLogin.valid){
       this.loginService.login(this.formLogin?.value).subscribe({
         next: (res: any) => {
   
-          console.log(res); //teste
+          // console.log(res); //teste
   
           if (res.success == true) {
             const userJwt = <ILogin>res.data;
             const usuario = this.jwtService.decodeToken(userJwt.accessToken);
   
-            console.log(usuario); //teste
+            // console.log(usuario); //teste
   
             // if(usuario.TipoPerfil == 'administrador'){
             //   this.router.navigateByUrl('/admin/home');
@@ -59,6 +59,14 @@ export class LoginComponent implements OnInit {
             // if(usuario.TipoPerfil == 'cliente'){
             //   this.router.navigateByUrl('/cliente/home');
             // }
+
+            if(usuario?.enumPerfil == '1'){
+              this.router.navigateByUrl('/admin/home');
+            }
+
+            if(usuario?.enumPerfil == '2'){
+              this.router.navigateByUrl('/cliente/home');
+            }
 
 
             // this.router.navigateByUrl('/home');

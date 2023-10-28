@@ -9,15 +9,12 @@ namespace MusicEvent.Web.Configurations
     internal class Util
     {
         internal const string ClaimTipoPerfil = "EnumPerfil";
-        internal const string ClaimCoordenador = "0";
+        internal const string ClaimAdministrador = "1";
+        internal const string ClaimCliente = "2";
 
 
 
         internal const string ClaimNamePermissao = "Permission";
-        internal const string PermissaoAdmConsultaUsuario = "Administracao.Usuarios.Consulta";
-        internal const string PermissaoAdmAlterarUsuario = "Administracao.Usuarios.Altera";
-        internal const string PermissaoAdmCadastroUsuario = "Administracao.Usuarios.Cadastro";        
-        internal const string PermissaoAdmDeleteUsuario = "Administracao.Usuarios.Delete";
         /* ------------------ Instruções ------------------
          * Os serviços RESTful que implementarem requisitos de autorização deverão implementar os seguintes atributos:
          * - [Authorize]: para autenticação do usuário via token JWT
@@ -73,8 +70,6 @@ namespace MusicEvent.Web.Configurations
         Id = 0,
         [Description("IdPerfil")]
         IdPerfil,
-        [Description("IdTipoAutoridade")]
-        IdTipoAutoridade,
         [Description("EnumPerfil")]
         EnumPerfil,
         [Description("Login")]
@@ -83,8 +78,6 @@ namespace MusicEvent.Web.Configurations
         Nome,
         [Description("Email")]
         Email,
-        [Description("Cpf")]
-        Cpf,
         [Description("NovaSenha")]
         NovaSenha,
         [Description("RedefinirSenha")]

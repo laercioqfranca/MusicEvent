@@ -23,19 +23,19 @@ export class JwtService {
     }
 
     getToken(): string | null {
-      return window.localStorage.getItem('jwtLicitacoesToken');
+      return window.localStorage.getItem('jwtMusicEventsToken');
     }
 
     saveToken(token: string) {
       if (token) {
-        window.localStorage['jwtLicitacoesToken'] = token;
+        window.localStorage['jwtMusicEventsToken'] = token;
       } else {
         console.error('Attempted to save undefined token');
       }
     }
 
     destroyToken() {
-      window.localStorage.removeItem('jwtLicitacoesToken');
+      window.localStorage.removeItem('jwtMusicEventsToken');
     }
 
     isTokenExpired(): boolean {

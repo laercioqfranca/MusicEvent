@@ -18,6 +18,11 @@ using MusicEvent.Application.Interfaces.Auth;
 using MusicEvent.Infra.Data.Repositories.LogRepository;
 using MusicEvent.Domain.Commands.Auth;
 using MusicEvent.Application.AppServices.Autenticacao;
+using MusicEvent.Domain.Commands.Inscricao;
+using MusicEvent.Application.Interfaces;
+using MusicEvent.Application.AppServices;
+using MusicEvent.Domain.Interfaces.Infra.Data.Repositories;
+using MusicEvent.Infra.Data.Repositories;
 
 namespace MusicEvent.Infra.IoC
 {
@@ -32,6 +37,8 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IAutenticacaoAppService, AutenticacaoAppService>();
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             services.AddScoped<IPerfilUsuarioAppService, PerfilUsuarioAppService>();
+            services.AddScoped<IEventoAppService, EventoAppService>();
+            services.AddScoped<IInscricaoAppService, InscricaoAppService>();
 
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
@@ -48,6 +55,9 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
 
+            services.AddScoped<IRequestHandler<InscricaoCreateCommand, Unit>, InscricaoCommandHandler>();
+            services.AddScoped<IRequestHandler<InscricaoDeleteCommand, Unit>, InscricaoCommandHandler>();
+
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();
             services.AddScoped<ILogHistoricoRepository, LogHistoricoRepository>();
@@ -57,6 +67,8 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
+            services.AddScoped<IEventoRepository, EventoRepository>();
+            services.AddScoped<IInscricaoRepository, InscricaoRepository>();
 
             // Infra - Service
         }

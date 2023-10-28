@@ -55,7 +55,8 @@ namespace MusicEvent.Web.Controllers.Auth
                 new Claim(Util.GetEnumDescription(ClaimAuthenticatedUser.IdPerfil), user.IdPerfil.ToString() ?? ""),
                 new Claim(Util.GetEnumDescription(ClaimAuthenticatedUser.Nome), user.Nome ?? ""),
                 new Claim(Util.GetEnumDescription(ClaimAuthenticatedUser.Login), user.Login ?? ""),
-                new Claim(Util.GetEnumDescription(ClaimAuthenticatedUser.RedefinirSenha), user.RedefinirSenha.ToString() ?? "")
+                new Claim(Util.GetEnumDescription(ClaimAuthenticatedUser.RedefinirSenha), user.RedefinirSenha.ToString() ?? ""),
+                new Claim(Util.GetEnumDescription(ClaimAuthenticatedUser.EnumPerfil), user.Perfil.IdTipoPerfil.ToString() ?? "")
             };
 
             // Crie a identidade do usuário

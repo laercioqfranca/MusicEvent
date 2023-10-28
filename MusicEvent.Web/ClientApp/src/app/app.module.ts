@@ -14,6 +14,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { BsDatepickerConfig, BsDatepickerModule, BsLocaleService} from 'ngx-bootstrap/datepicker';
 import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
 import { FooterComponent } from './core/footer/footer.component';
+import { CoreModule } from './core/core.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -39,6 +41,8 @@ function getDatepickerConfig(): BsDatepickerConfig {
     CollapseModule.forRoot(),
     HttpClientModule,
     BsDatepickerModule.forRoot(),
+    CoreModule,
+    NgxSpinnerModule,
 
     RouterModule.forRoot([
       { path: '', component: LoginComponent, pathMatch: 'full' }

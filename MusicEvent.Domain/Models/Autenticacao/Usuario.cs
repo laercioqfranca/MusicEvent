@@ -1,6 +1,7 @@
 ﻿using MusicEvent.Core.Models;
 using MusicEvent.Domain.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace MusicEvent.Domain.Models.Autenticacao
 {
@@ -22,6 +23,7 @@ namespace MusicEvent.Domain.Models.Autenticacao
         public bool Excluido { get; private set; }
 
         public virtual PerfilUsuario Perfil { get; private set; }
+        public virtual IEnumerable<Inscricao> EventoUsuarios { get; set; }
 
         public void setUsuario(Guid id, string nome, int idade, string senha, string email, Guid? idPerfil)
         {
@@ -29,7 +31,7 @@ namespace MusicEvent.Domain.Models.Autenticacao
             Nome = nome;
             Idade = idade;
             Email = email;
-            IdPerfil = idPerfil;         
+            IdPerfil = Guid.Parse("E3430F1F-D2D4-4A88-9E82-6C9F475F3A80"); //idPerfil;         
             Login = email;
             DataInclusao = DateTime.Now;
             setCriptografia(senha, null);
