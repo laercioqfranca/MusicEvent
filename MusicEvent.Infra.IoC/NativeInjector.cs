@@ -23,6 +23,7 @@ using MusicEvent.Application.Interfaces;
 using MusicEvent.Application.AppServices;
 using MusicEvent.Domain.Interfaces.Infra.Data.Repositories;
 using MusicEvent.Infra.Data.Repositories;
+using MusicEvent.Domain.Commands.Evento;
 
 namespace MusicEvent.Infra.IoC
 {
@@ -57,6 +58,9 @@ namespace MusicEvent.Infra.IoC
 
             services.AddScoped<IRequestHandler<InscricaoCreateCommand, Unit>, InscricaoCommandHandler>();
             services.AddScoped<IRequestHandler<InscricaoDeleteCommand, Unit>, InscricaoCommandHandler>();
+
+            services.AddScoped<IRequestHandler<EventoCreateCommand, Unit>, EventoCommandHandler>();
+            services.AddScoped<IRequestHandler<EventoDeleteCommand, Unit>, EventoCommandHandler>();
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();

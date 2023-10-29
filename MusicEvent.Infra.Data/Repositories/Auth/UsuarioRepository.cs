@@ -57,9 +57,7 @@ namespace MusicEvent.Infra.Data.Repositories.Auth
                 .Where(
                 x => !x.Excluido &&
                 (nome == null || x.Nome == nome) &&
-                (email == null || x.Email == email) 
-                //&&
-                //(cpf == null || x.CPF == cpf)
+                (email == null || x.Email == email)
             )
             .ToListAsync();
 
