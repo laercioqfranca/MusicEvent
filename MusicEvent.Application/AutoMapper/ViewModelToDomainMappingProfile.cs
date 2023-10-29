@@ -26,6 +26,7 @@ namespace MusicEvent.Application.AutoMapper
             CreateMap<InscricaoDTO, InscricaoCreateCommand>();
 
             CreateMap<EventoDTO, EventoCreateCommand>();
+            CreateMap<EventoDTO, EventoUpdateCommand>();
         }
     }
 }

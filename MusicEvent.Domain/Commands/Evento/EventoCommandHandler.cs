@@ -51,6 +51,7 @@ namespace MusicEvent.Domain.Commands.Evento
             else
             {
                 Models.Evento evento = await _repository.GetById(request.Id);
+
                 if (evento != null)
                 {
                     evento.setUpdateEvento(request.Descricao, request.Data);
@@ -68,7 +69,9 @@ namespace MusicEvent.Domain.Commands.Evento
                 NotifyValidationErrors(request);
             else
             {
+
                 Models.Evento evento = await _repository.GetById(request.IdEvento);
+
                 if (evento != null)
                 {
                     _repository.Remove(evento);
