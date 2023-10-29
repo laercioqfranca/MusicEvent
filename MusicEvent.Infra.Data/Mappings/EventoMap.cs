@@ -12,6 +12,7 @@ namespace MusicEvent.Infra.Data.Mappings
 
             builder.Property(x => x.Descricao).IsRequired().HasMaxLength(64);
             builder.Property(x => x.Data).IsRequired();
+            builder.Property(x => x.Excluido).HasDefaultValue(false);
         }
     }
 }

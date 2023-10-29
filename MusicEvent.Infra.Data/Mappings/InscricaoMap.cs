@@ -12,6 +12,7 @@ namespace MusicEvent.Infra.Data.Mappings
 
             builder.HasOne(x => x.Evento).WithMany().HasForeignKey(x => x.IdEvento).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
             builder.HasOne(x => x.Usuario).WithMany(y => y.EventoUsuarios).HasForeignKey(x => x.IdUsuario).Metadata.DeleteBehavior = DeleteBehavior.Restrict;
+
         }
     }
 }

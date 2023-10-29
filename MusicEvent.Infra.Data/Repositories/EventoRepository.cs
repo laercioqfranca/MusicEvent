@@ -20,7 +20,7 @@ namespace MusicEvent.Infra.Data.Repositories
 
         public async Task<IEnumerable<Evento>> GetAll()
         {
-            IQueryable<Evento> query = DbSet.OrderBy(x => x.Data);
+            IQueryable<Evento> query = DbSet.Where(x => !x.Excluido).OrderBy(x => x.Data);
             return await query.AsNoTracking().ToListAsync();
         }
 
@@ -28,7 +28,7 @@ namespace MusicEvent.Infra.Data.Repositories
         {
             var evento = await _context.Set<Evento>()
                 .Where(
-                    x => x.Id == idEvento
+                    x => x.Id == idEvento && !x.Excluido
             ).FirstOrDefaultAsync();
             return evento;
         }

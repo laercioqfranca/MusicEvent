@@ -54,7 +54,7 @@ namespace MusicEvent.Domain.Commands.Evento
 
                 if (evento != null)
                 {
-                    evento.setUpdateEvento(request.Descricao, request.Data);
+                    evento.SetUpdateEvento(request.Descricao, request.Data);
                     _repository.Update(evento);
 
                     await Commit();
@@ -74,7 +74,9 @@ namespace MusicEvent.Domain.Commands.Evento
 
                 if (evento != null)
                 {
-                    _repository.Remove(evento);
+                    evento.SetExcluido(true);
+
+                    _repository.Update(evento);
 
                     await Commit();
                 }

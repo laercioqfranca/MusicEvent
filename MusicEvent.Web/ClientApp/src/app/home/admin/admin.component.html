@@ -1,34 +1,37 @@
 
 <div class="row py-2">
-  <div class="col">
+  <div class="col titulo">
     Criar evento <i class="fa fa-plus" aria-hidden="true"></i>
   </div>
 </div>
 
 <form [formGroup]="criarEventoForm" (ngSubmit)="onSubmit()">
-    <div class="row">
-        <mat-form-field class="col">
-            <mat-label>Descrição</mat-label>
-            <input matInput formControlName="descricao" required />
-        </mat-form-field>
-
-        <mat-form-field class="col-6">
-            <mat-label>Data</mat-label>
-            <input matInput formControlName="data" placeholder="DD/MM/AAAA" bsDatepicker #dp="bsDatepicker"  autocomplete="off" ondrop="return false;" required>
-        </mat-form-field>
-    </div>
-
-    <div class="row align-items-center">
-        <div class="col text-start">
-            <button type="reset" class="btn btn-warning"><i class="fa fa-sign-in"></i> Limpar</button>
+    <div class="row align-items-center py-3">
+      <div class="col-md-4">
+          <label for="descricao" class="label">Descrição</label>
+            <input type="text" class="form-control" id="descricao" formControlName="descricao" required />
+            <span class="text-secondary text-danger" *ngIf="criarEventoForm.get('descricao')?.touched && criarEventoForm.get('descricao')?.invalid">Campo obrigatório</span>
         </div>
-        <div class="col text-end">
+
+        <div class="col-md-3">
+            <label for="data" class="label">Data</label>
+            <input placeholder="dd/mm/aaaa" id="data" class="form-control" formControlName="data" bsDatepicker #dp="bsDatepicker"  autocomplete="off" ondrop="return false;" required>
+            <span class="text-secondary text-danger" *ngIf="criarEventoForm.get('data')?.touched && criarEventoForm.get('data')?.invalid">Campo obrigatório</span>
+        </div>
+
+         <div class="col pt-4">
+            <button (click)="limpar()" class="btn btn-warning me-2"><i class="fa fa-sign-in"></i> Limpar</button>
             <button type="submit" [disabled]="criarEventoForm.invalid" class="btn btn-success"><i
                     class="fa fa-sign-in"></i> Criar</button>
         </div>
     </div>
 </form>
-<hr>
+
+<div class="row py-2">
+  <div class="col titulo">
+    Todos os eventos
+  </div>
+</div>
 
 <div class="flex-container">
   <div class="card" *ngFor="let item of listaEventos">
