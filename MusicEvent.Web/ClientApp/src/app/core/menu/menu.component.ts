@@ -30,8 +30,7 @@ export class MenuComponent {
   }
 
   getUserName(){
-    // return this.authService.currentUserValue?.nome;
-    return 'Dev';
+    return this.authService.currentUserValue?.nome;
   }
 
 }

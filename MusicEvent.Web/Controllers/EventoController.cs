@@ -21,7 +21,7 @@ namespace MusicEvent.Web.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetAll()
         {
             try

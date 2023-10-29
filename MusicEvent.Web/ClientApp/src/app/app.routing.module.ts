@@ -15,17 +15,16 @@ const routes: Routes = [
         // Usuário admin
   { path: 'admin/home', loadChildren: () => import('./home/admin/admin.module').then(x=>x.AdminModule), 
     pathMatch:'full', 
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
 
   { path: 'cliente/home', loadChildren: () => import('./home/cliente/cliente.module').then(x=>x.ClienteModule), 
     pathMatch:'full', 
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   
   { path: 'criar-conta', loadChildren: () => import('./criar-conta/criar-conta.module').then(x=>x.CriarContaModule), 
-    pathMatch:'full', 
-    // canActivate: [AuthGuard]
+    pathMatch:'full',
   },
   
 ];

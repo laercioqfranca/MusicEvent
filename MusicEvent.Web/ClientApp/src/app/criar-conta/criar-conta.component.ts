@@ -25,27 +25,28 @@ export class CriarContaComponent implements OnInit {
   criarForm(){
     this.criarContaForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
-      idade: new FormControl('', [Validators.required]),
+      idade: new FormControl('', [Validators.required, Validators.min(18)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      senha: new FormControl('', Validators.required),
+      senha: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
 
   }
 
   onSubmit() {
-    console.log(this.criarContaForm?.value);
+    console.log(this.criarContaForm);
     if (this.criarContaForm.valid) {
-      this.usuarioService.create(this.criarContaForm?.value).subscribe(
-        (res: any) => {
+      this.usuarioService.create(this.criarContaForm?.value).subscribe({
+        next: (res: any) => {
           if (res?.success) {
             this.notificationService.showSuccess('Conta criada com sucesso!', '');
+            this.criarContaForm.reset();
             this.router.navigateByUrl('/login');
           }
         },
-        (error: any) => {
-          this.notificationService.showError(error.message);
-        }
-      );
+        error: (e) => {
+          this.notificationService.showError(e.message);
+        },
+    });
     }
   }  
 
