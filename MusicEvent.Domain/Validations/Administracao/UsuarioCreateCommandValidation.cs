@@ -17,6 +17,9 @@ namespace MusicEvent.Domain.Validations.Administracao
 
             RuleFor(x => x.Idade)
                .NotEmpty().WithMessage("A Idade do usuário é obrigatória!");
+            
+            RuleFor(x => x.Idade > 18)
+              .NotEmpty().WithMessage("A idade precisa ser maior ou igual a 18 anos!");
 
             RuleFor(x => x.Email)
                .NotEmpty().WithMessage("O E-mail do usuário é obrigatório!");

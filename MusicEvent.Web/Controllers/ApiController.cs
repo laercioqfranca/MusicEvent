@@ -36,7 +36,7 @@ namespace MusicEvent.Web.Controllers
                 });
             }
 
-            return Ok(new
+            return BadRequest(new
             {
                 success = false,
                 errors = _notifications.GetNotifications().Select(n => n.Value)

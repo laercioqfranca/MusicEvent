@@ -8,18 +8,12 @@ import { AuthService } from './services/root/auth.service';
 export class AppComponent {
   title = 'MusicEvents';
 
-  isCliente: boolean = true;
-  isAdmin: boolean = false;
-
   isLoggedIn: boolean;
 
   constructor(private authService: AuthService) {
     this.isLoggedIn = !!this.authService.currentUserValue;
     this.authService.isAuthenticated.subscribe((res) => {
       this.isLoggedIn = res;
-
-      this.isLoggedIn = false; //remover
-
     });
   }
 

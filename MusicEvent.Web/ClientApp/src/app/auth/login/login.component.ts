@@ -38,27 +38,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
 
-    // this.router.navigateByUrl('/cliente/home'); //teste
-
     if(this.formLogin.valid){
       this.loginService.login(this.formLogin?.value).subscribe({
         next: (res: any) => {
   
-          // console.log(res); //teste
-  
           if (res.success == true) {
             const userJwt = <ILogin>res.data;
             const usuario = this.jwtService.decodeToken(userJwt.accessToken);
-  
-            // console.log(usuario); //teste
-  
-            // if(usuario.TipoPerfil == 'administrador'){
-            //   this.router.navigateByUrl('/admin/home');
-            // }
-
-            // if(usuario.TipoPerfil == 'cliente'){
-            //   this.router.navigateByUrl('/cliente/home');
-            // }
 
             if(usuario?.enumPerfil == '1'){
               this.router.navigateByUrl('/admin/home');
@@ -68,8 +54,6 @@ export class LoginComponent implements OnInit {
               this.router.navigateByUrl('/cliente/home');
             }
 
-
-            // this.router.navigateByUrl('/home');
             this.authService.setSession(userJwt);
   
           }

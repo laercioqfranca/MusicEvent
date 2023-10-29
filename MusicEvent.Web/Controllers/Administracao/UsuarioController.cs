@@ -27,7 +27,6 @@ namespace MusicEvent.Web.Controllers.Administracao
         [Route("GetAll")]
         [HttpGet]
         [Authorize]
-        //[ClaimRequirement(Util.ClaimTipoPerfil, Util.ClaimAdministrador)]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -52,7 +51,6 @@ namespace MusicEvent.Web.Controllers.Administracao
         [Route("GetByFiltro")]
         [HttpGet]
         [Authorize]
-        //[ClaimRequirement(Util.ClaimTipoPerfil, Util.ClaimCliente)]
         public async Task<IActionResult> GetByFiltro([FromQuery] ConsultarPorFiltroViewModel consultarPorFiltroViewModel)
         {
             try
@@ -97,7 +95,6 @@ namespace MusicEvent.Web.Controllers.Administracao
 
         [Route("Create")]
         [HttpPost]
-        //[Authorize]
         public async Task<IActionResult> Post([FromBody] UsuarioDTO usuarioDTO)
         {
             try
