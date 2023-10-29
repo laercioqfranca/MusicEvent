@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using MusicEvent.Core.Interfaces;
@@ -7,20 +6,19 @@ using MusicEvent.Core.Notifications;
 using MusicEvent.Domain.Interfaces.Infra.Data;
 using MusicEvent.Domain.Interfaces.Infra.Data.Repositories;
 using MusicEvent.Domain.Interfaces.Infra.Data.Repositories.Auth;
-using MusicEvent.Domain.Models.Administracao;
 
-namespace MusicEvent.Domain.Commands.Inscricao
+namespace MusicEvent.Domain.Commands.Evento
 {
-    public class InscricaoCommandHandler : CommandHandler, IRequestHandler<InscricaoCreateCommand>
-       , IRequestHandler<InscricaoDeleteCommand>
+    public class EventoCommandHandler : CommandHandler, IRequestHandler<EventoCreateCommand>
+       , IRequestHandler<EventoDeleteCommand>
     {
 
         private readonly IMediatorHandler _bus;
         private readonly DomainNotificationHandler _notifications;
-        private readonly IInscricaoRepository _repository;
+        private readonly IEventoRepository _repository;
         private readonly ILogHistoricoRepository _logHistoricoRepository;
 
-        public InscricaoCommandHandler(IInscricaoRepository repository,
+        public EventoCommandHandler(IEventoRepository repository,
             IMediatorHandler bus,
             IUnitOfWork uow,
             INotificationHandler<DomainNotification> notifications,
@@ -33,28 +31,28 @@ namespace MusicEvent.Domain.Commands.Inscricao
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(InscricaoCreateCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(EventoCreateCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 NotifyValidationErrors(request);
             else
             {
-                Models.Inscricao inscricao = new((Guid)request.UsuarioRequerenteId, request.IdEvento);
-                _repository.Add(inscricao);
+                Models.Evento evento = new(request.Descricao, request.Data);
+                _repository.Add(evento);
                 
                 await Commit();
             }
             return Unit.Value;
         }
 
-        public async Task<Unit> Handle(InscricaoDeleteCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(EventoDeleteCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 NotifyValidationErrors(request);
             else
             {
-                Models.Inscricao inscricao = await _repository.GetById((Guid)request.UsuarioRequerenteId, request.IdEvento);
-                _repository.Remove(inscricao);
+                Models.Evento evento = await _repository.GetById(request.IdEvento);
+                _repository.Remove(evento);
 
                 await Commit();
             }

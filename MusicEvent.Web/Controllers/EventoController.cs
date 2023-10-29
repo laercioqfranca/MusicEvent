@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MusicEvent.Application.DTO;
 using MusicEvent.Application.Interfaces;
 using MusicEvent.Core.Interfaces;
 using MusicEvent.Core.Notifications;
@@ -34,6 +35,53 @@ namespace MusicEvent.Web.Controllers
                 return HandleException(ex);
             }
 
+        }
+
+        [Route("Create")]
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Post([FromBody] EventoDTO eventoDTO)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response(eventoDTO);
+                }
+
+                await _appService.Create(eventoDTO);
+
+                return Response();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+                return HandleException(ex);
+            }
+        }
+
+        [Route("Delete/{id}")]
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response(id);
+                }
+
+                await _appService.Delete(id);
+
+                return Response();
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
         }
 
     }

@@ -3,6 +3,7 @@ using MusicEvent.Application.DTO;
 using MusicEvent.Application.ViewModels.Auth;
 using MusicEvent.Domain.Commands.Administracao;
 using MusicEvent.Domain.Commands.Auth;
+using MusicEvent.Domain.Commands.Evento;
 using MusicEvent.Domain.Commands.Inscricao;
 
 namespace MusicEvent.Application.AutoMapper
@@ -23,7 +24,8 @@ namespace MusicEvent.Application.AutoMapper
             CreateMap<ResetSenhaViewModel, ResetSenhaCommand>();
 
             CreateMap<InscricaoDTO, InscricaoCreateCommand>();
-            CreateMap<InscricaoDTO, InscricaoDeleteCommand>();
+
+            CreateMap<EventoDTO, EventoCreateCommand>();
         }
     }
 }
