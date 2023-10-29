@@ -3,10 +3,13 @@ using MusicEvent.Domain.Commands.Evento;
 
 namespace MusicEvent.Domain.Validations.Evento
 {
-    public class EventoCommandValidation : CommandValidation<EventoCreateCommand>
+    public class EventoUpdateCommandValidation : CommandValidation<EventoUpdateCommand>
     {
-        public EventoCommandValidation()
+        public EventoUpdateCommandValidation()
         {
+
+            RuleFor(x => x.Id)
+               .NotEmpty().WithMessage("O Id é obrigatório!");
 
             RuleFor(x => x.Descricao)
                .NotEmpty().WithMessage("A Descricao é obrigatória!");

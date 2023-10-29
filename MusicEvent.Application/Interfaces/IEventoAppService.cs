@@ -9,7 +9,9 @@ namespace MusicEvent.Application.Interfaces
     public interface IEventoAppService
     {
         Task<IEnumerable<EventoViewModel>> GetAll();
+        Task<EventoViewModel> GetById(Guid id);
         Task Create(EventoDTO eventoDTO);
+        Task Update(EventoDTO eventoDTO);
         Task Delete(Guid id);
     }
 }

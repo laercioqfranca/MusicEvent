@@ -10,7 +10,7 @@ using MusicEvent.Domain.Interfaces.Infra.Data.Repositories.Auth;
 namespace MusicEvent.Domain.Commands.Evento
 {
     public class EventoCommandHandler : CommandHandler, IRequestHandler<EventoCreateCommand>
-       , IRequestHandler<EventoDeleteCommand>
+       , IRequestHandler<EventoUpdateCommand>, IRequestHandler<EventoDeleteCommand>
     {
 
         private readonly IMediatorHandler _bus;
@@ -39,8 +39,25 @@ namespace MusicEvent.Domain.Commands.Evento
             {
                 Models.Evento evento = new(request.Descricao, request.Data);
                 _repository.Add(evento);
-                
+
                 await Commit();
+            }
+            return Unit.Value;
+        }
+        public async Task<Unit> Handle(EventoUpdateCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+                NotifyValidationErrors(request);
+            else
+            {
+                Models.Evento evento = await _repository.GetById(request.Id);
+                if (evento != null)
+                {
+                    evento.setUpdateEvento(request.Descricao, request.Data);
+                    _repository.Update(evento);
+
+                    await Commit();
+                }
             }
             return Unit.Value;
         }
@@ -52,9 +69,12 @@ namespace MusicEvent.Domain.Commands.Evento
             else
             {
                 Models.Evento evento = await _repository.GetById(request.IdEvento);
-                _repository.Remove(evento);
+                if (evento != null)
+                {
+                    _repository.Remove(evento);
 
-                await Commit();
+                    await Commit();
+                }
             }
 
             return Unit.Value;

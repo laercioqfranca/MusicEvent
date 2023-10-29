@@ -35,9 +35,22 @@ namespace MusicEvent.Application.AppServices
 
         }
 
+        public async Task<EventoViewModel> GetById(Guid id)
+        {
+            var query = await _repository.GetById(id);
+            return _mapper.Map<EventoViewModel>(query);
+        }
+
         public async Task Create(EventoDTO eventoDTO)
         {
             var command = _mapper.Map<EventoCreateCommand>(eventoDTO);
+            command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            await _bus.SendCommand(command);
+        }
+
+        public async Task Update(EventoDTO eventoDTO)
+        {
+            var command = _mapper.Map<EventoUpdateCommand>(eventoDTO);
             command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
             await _bus.SendCommand(command);
         }

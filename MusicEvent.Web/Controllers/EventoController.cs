@@ -22,7 +22,7 @@ namespace MusicEvent.Web.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -35,6 +35,28 @@ namespace MusicEvent.Web.Controllers
                 return HandleException(ex);
             }
 
+        }
+
+        [Route("GetById/{id}")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetById(Guid id)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response(id);
+                }
+                var response = await _appService.GetById(id);
+
+                return Response(response);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
         }
 
         [Route("Create")]
@@ -56,7 +78,28 @@ namespace MusicEvent.Web.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.InnerException.Message);
+                return HandleException(ex);
+            }
+        }
+        [Route("Update")]
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> Update([FromBody] EventoDTO eventoDTO)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response(eventoDTO);
+                }
+
+                await _appService.Update(eventoDTO);
+
+                return Response();
+            }
+            catch (Exception ex)
+            {
                 return HandleException(ex);
             }
         }

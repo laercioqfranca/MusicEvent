@@ -12,5 +12,10 @@ namespace MusicEvent.Domain.Models
             Descricao = descricao;
             Data = data;
         }
+        public void setUpdateEvento(string descricao, DateTime data)
+        {
+            Descricao = descricao;
+            Data = data;
+        }
     }
 }

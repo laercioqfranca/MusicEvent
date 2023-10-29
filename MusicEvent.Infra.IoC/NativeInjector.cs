@@ -60,6 +60,7 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IRequestHandler<InscricaoDeleteCommand, Unit>, InscricaoCommandHandler>();
 
             services.AddScoped<IRequestHandler<EventoCreateCommand, Unit>, EventoCommandHandler>();
+            services.AddScoped<IRequestHandler<EventoUpdateCommand, Unit>, EventoCommandHandler>();
             services.AddScoped<IRequestHandler<EventoDeleteCommand, Unit>, EventoCommandHandler>();
 
             // Infra - Data EventSourcing
