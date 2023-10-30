@@ -73,6 +73,11 @@ Senha: admin123
 <a href="https://github.com/laercioqfranca/MusicEvent">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/home-cliente.png "Página Inicial - Cliente")</a>
 
 ## Como executar o projeto
+* Para clonar o projeto com o Visual Studio 2022, clique em "Clone a repository", em seguida "GitHub" e entre com as credenciais de sua conta e url do projeto.
+* Ao clonar o projeto, deve ser executado o arquivo no diretório "MusicEvent\MusicEvent.sln".
+* Com o projeto aberto no Visual Studio 2022, clique com o botão direito do mouse no projeto Web "MusicEvent.Web", em seguida "Set as Startup Project" e selecione "IIS Express" no botão "executar" na parte superior central, para executar o projeto e abrir a página do Swagger.
+* Para executar o Front-End(Angular) utilizando o Visual Studio Code, clique em "Open Folder...", selecione a pasta "MusicEvent\MusicEvent.Web\ClientApp", em seguida no terminal do Visual Studio Code, execute o comando "npm install", e ao concluir execute o comando "ng serve -o" para executar a aplicação e abrir a página de login.
+
 ### Tecnologias utilizadas
 * .NET 7
 * EntityFrameworkCore
