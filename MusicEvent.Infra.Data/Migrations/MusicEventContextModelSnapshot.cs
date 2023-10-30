@@ -152,11 +152,6 @@ namespace MusicEvent.Infra.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("RedefinirSenha")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.Property<string>("Salt")
                         .IsRequired()
                         .HasMaxLength(50)
