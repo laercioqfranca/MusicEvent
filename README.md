@@ -61,16 +61,16 @@ Senha: admin123
 
 ## Protótipos
 ### Tela de login
-<a href="https://github.com/laercioqfranca/MusicEvent">![Tela de login!](MusicEvent.Web/ClientApp/src/assets/img/tela-login.png "Tela de login")</a>
+<a href="#">![Tela de login!](MusicEvent.Web/ClientApp/src/assets/img/tela-login.png "Tela de login")</a>
 
 ### Tela de cadastro de usuário
-<a href="https://github.com/laercioqfranca/MusicEvent">![Tela de cadastro de usuário!](MusicEvent.Web/ClientApp/src/assets/img/tela-criar-conta.png "Tela de cadastro")</a>
+<a href="#">![Tela de cadastro de usuário!](MusicEvent.Web/ClientApp/src/assets/img/tela-criar-conta.png "Tela de cadastro")</a>
 
 ### Página inicial do administrador
-<a href="https://github.com/laercioqfranca/MusicEvent">![Página Inicial - Administrador!](MusicEvent.Web/ClientApp/src/assets/img/admin-home.png "Página Inicial - Administrador")</a>
+<a href="#">![Página Inicial - Administrador!](MusicEvent.Web/ClientApp/src/assets/img/admin-home.png "Página Inicial - Administrador")</a>
 
 ### Página inicial do cliente
-<a href="https://github.com/laercioqfranca/MusicEvent">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/home-cliente.png "Página Inicial - Cliente")</a>
+<a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/home-cliente.png "Página Inicial - Cliente")</a>
 
 ## Como executar o projeto
 * Para clonar o projeto com o Visual Studio 2022, clique em "Clone a repository", em seguida "GitHub" e entre com as credenciais de sua conta e url do projeto.
