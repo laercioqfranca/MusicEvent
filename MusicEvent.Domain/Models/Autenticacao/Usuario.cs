@@ -1,6 +1,7 @@
 ﻿using MusicEvent.Core.Models;
 using MusicEvent.Domain.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace MusicEvent.Domain.Models.Autenticacao
 {
@@ -18,10 +19,10 @@ namespace MusicEvent.Domain.Models.Autenticacao
         public string Email { get; private set; }
         public Guid? IdPerfil { get; private set; }      
         public DateTime DataInclusao { get; private set; }
-        public bool RedefinirSenha { get; private set; }
         public bool Excluido { get; private set; }
 
         public virtual PerfilUsuario Perfil { get; private set; }
+        public virtual IEnumerable<Inscricao> EventoUsuarios { get; set; }
 
         public void setUsuario(Guid id, string nome, int idade, string senha, string email, Guid? idPerfil)
         {
@@ -29,7 +30,7 @@ namespace MusicEvent.Domain.Models.Autenticacao
             Nome = nome;
             Idade = idade;
             Email = email;
-            IdPerfil = idPerfil;         
+            IdPerfil = Guid.Parse("E3430F1F-D2D4-4A88-9E82-6C9F475F3A80"); //Perfil cliente.          
             Login = email;
             DataInclusao = DateTime.Now;
             setCriptografia(senha, null);
@@ -40,13 +41,8 @@ namespace MusicEvent.Domain.Models.Autenticacao
             Excluido = excluido;
         }
 
-        public void setRedefinirSenha(bool redefinirSenha)
-        {
-            RedefinirSenha = redefinirSenha;
-        }
         public string setGerarSenhaAleatoria()
         {
-            //TO DO incluir gerador de senha aleatorioa
             string senhagerada = CreateRandomPassword();
             setCriptografia(senhagerada, "");
             return senhagerada;

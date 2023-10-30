@@ -29,7 +29,7 @@ namespace MusicEvent.Infra.Data.Repositories.Auth
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Usuario>> GetByLogin(string login) //Utilizado na autenticação
+        public async Task<IEnumerable<Usuario>> GetByLogin(string login)
         {
             return await _context.Set<Usuario>()
                  .Include(x => x.Perfil)
@@ -57,9 +57,7 @@ namespace MusicEvent.Infra.Data.Repositories.Auth
                 .Where(
                 x => !x.Excluido &&
                 (nome == null || x.Nome == nome) &&
-                (email == null || x.Email == email) 
-                //&&
-                //(cpf == null || x.CPF == cpf)
+                (email == null || x.Email == email)
             )
             .ToListAsync();
 

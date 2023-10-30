@@ -60,21 +60,18 @@ namespace MusicEvent.Application.AppServices.Administracao
         public async Task Create(UsuarioDTO usuarioDTO)
         {
             var command = _mapper.Map<UsuarioCreateCommand>(usuarioDTO);
-            //command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
             await _bus.SendCommand(command);
         }
 
         public async Task Update(UsuarioViewModel model)
         {
             var command = _mapper.Map<UsuarioUpdateCommand>(model);
-           // command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
             await _bus.SendCommand(command);
         }
 
         public async Task Delete(Guid id)
         {
             var command = new UsuarioDeleteCommand(id);
-           // command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
             await _bus.SendCommand(command);
 
         }

@@ -4,9 +4,6 @@
     <form [formGroup]="criarContaForm" (ngSubmit)="onSubmit()">
 
       <div class="row mb-3">
-        <!-- <div class="col text-center text-secondary titulo-login">
-          Music Events
-        </div> -->
         <div class="col text-center">
           <img src="assets/img/logo.png" alt="" width="300px">
         </div>
@@ -24,9 +21,12 @@
       <div class="row">
         <mat-form-field class="col">
             <mat-label>Idade</mat-label>
-            <input matInput formControlName="idade" required/>
+            <input matInput formControlName="idade"type="number" min="18" required/>
             <mat-error *ngIf="criarContaForm.get('idade')?.touched && criarContaForm.get('idade')?.value.length == 0">
               Campo Obrigatório
+            </mat-error>
+            <mat-error *ngIf="criarContaForm.get('idade')?.touched && criarContaForm.get('idade')?.value < 18">
+              Desculpe! Só para maiores de 18 anos!
             </mat-error>
         </mat-form-field>
       </div>
@@ -47,6 +47,9 @@
         <mat-form-field class="col">
             <mat-label>Senha</mat-label>
             <input matInput type="password" formControlName="senha" minlength="8" maxlength="50" id="senha" required/>
+            <mat-error *ngIf="criarContaForm.get('senha')?.touched && criarContaForm.get('senha')?.value.length == 0">
+              Campo Obrigatório
+            </mat-error>
         </mat-form-field>
       </div>
 
@@ -55,7 +58,7 @@
           <button class="btn btn-danger" (click)="cancelar()"><i class="fa fa-sign-in"></i> Cancelar</button>
         </div>
         <div class="col text-end">
-          <button type="submit" [disabled]="criarContaForm.invalid" class="btn btn-warning"><i class="fa fa-sign-in"></i> Enviar</button>
+          <button type="submit" [disabled]="criarContaForm.invalid" class="btn btn-success"><i class="fa fa-sign-in"></i> Enviar</button>
         </div>
       </div>
     </form>

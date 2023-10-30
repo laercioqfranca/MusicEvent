@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
 
@@ -9,14 +10,22 @@ const routes: Routes = [
   // ADMINISTRAÇÃO
         // Autenticação  
 
-  { path: 'login', loadChildren: () => import('./login/login.module').then(x => x.LoginModule) },
+  { path: 'login', loadChildren: () => import('./auth/login/login.module').then(x => x.LoginModule) },
 
         // Usuário admin
-  { path: 'home', loadChildren: () => import('./home/home.module').then(x=>x.HomeModule), 
-    pathMatch:'full'},
+  { path: 'admin/home', loadChildren: () => import('./home/admin/admin.module').then(x=>x.AdminModule), 
+    pathMatch:'full', 
+    canActivate: [AuthGuard]
+  },
+
+  { path: 'cliente/home', loadChildren: () => import('./home/cliente/cliente.module').then(x=>x.ClienteModule), 
+    pathMatch:'full', 
+    canActivate: [AuthGuard]
+  },
   
   { path: 'criar-conta', loadChildren: () => import('./criar-conta/criar-conta.module').then(x=>x.CriarContaModule), 
-    pathMatch:'full'},
+    pathMatch:'full',
+  },
   
 ];
 

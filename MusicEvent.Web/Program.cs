@@ -123,9 +123,6 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-//using var scope = app.Services.CreateScope();
-//scope.ServiceProvider.GetRequiredService<IdentityInitializer>().Initialize();
-
 app.UseAuthentication();
 app.UseAuthorization();
 

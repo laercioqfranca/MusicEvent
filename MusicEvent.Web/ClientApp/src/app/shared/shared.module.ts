@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const mainModulesPack = [
   CommonModule,
@@ -52,6 +53,7 @@ const materialModulesPack = [
 const MODULOS_COMPARTILHADOS = [
     ...mainModulesPack,
     ...materialModulesPack,
+    BsDatepickerModule
 ]
 
 

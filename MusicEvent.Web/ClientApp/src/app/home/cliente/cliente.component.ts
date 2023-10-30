@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { EventoService } from 'src/app/services/evento.service';
+import { InscricaoService } from 'src/app/services/inscricao.service';
+import { AuthService } from 'src/app/services/root/auth.service';
+import { JwtService } from 'src/app/services/root/jwt.service';
+import { NotificationService } from 'src/app/services/root/notification.service';
 
 @Component({
   selector: 'app-cliente',
@@ -7,9 +13,105 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClienteComponent implements OnInit {
 
-  constructor() { }
+  evento!: any;
+  user!: any;
+
+  mostrarCriarEvento: boolean = true;
+  listaEventos: any[] = [];
+  listaMeusEventos: any[] = [];
+
+  constructor(
+    private notificationService: NotificationService,
+    private eventoService: EventoService,
+    private inscricaoService: InscricaoService,
+    private jwtService: JwtService,
+  ) { }
 
   ngOnInit() {
+
+    let token = this.jwtService.getToken()?.toString();
+    this.user = this.jwtService.decodeToken(token);
+
+    this.listarEventos();
+    this.listarMeusEventos(this.user?.id);
+
   }
+
+  inscrever(id: any) {
+    var model = { idUsuario: this.user?.id, idEvento: id };
+    this.inscricaoService.create(model).subscribe({
+      next: (res) => {
+        if (res?.success) {
+          this.notificationService.showSuccess('Inscrição feita com sucesso!', '');
+          this.listarMeusEventos(this.user.id);
+        }
+      },
+      error: (e) => {
+        this.notificationService.showError(e?.message)
+      },
+    });
+  }
+
+  deletar(id: any) {
+    if (id != null) {
+      this.inscricaoService.delete(id).subscribe(
+        {
+          next: (res) => {
+            if (res?.success) {
+              this.notificationService.showSuccess('Inscrição cancelada com sucesso!', '');
+              this.listarMeusEventos(this.user.id);
+            }
+          },
+          error: (e) => {
+            this.notificationService.showError(e?.message)
+          },
+        }
+
+      );
+    }
+  }
+
+  listarEventos() {
+    this.eventoService.getAll().subscribe(
+      {
+        next: (res) => {
+          if (res?.success) {
+            this.listaEventos = res.data;
+
+            this.listaEventos.forEach(element => {
+              element.data = new Date(element.data).toLocaleDateString();
+            });
+
+          }
+        },
+        error: (e) => {
+          this.notificationService.showError(e?.message)
+        },
+      }
+
+    );
+  }
+
+  listarMeusEventos(id: any) {
+    this.inscricaoService.getAllById(id).subscribe(
+      {
+        next: (res) => {
+          if (res?.success) {
+            this.listaMeusEventos = res.data;
+
+            this.listaMeusEventos.forEach(element => {
+              element.data = new Date(element.data).toLocaleDateString();
+            });
+            
+          }
+        },
+        error: (e) => {
+          this.notificationService.showError(e?.message)
+        },
+      }
+
+    );
+  }
+
 
 }

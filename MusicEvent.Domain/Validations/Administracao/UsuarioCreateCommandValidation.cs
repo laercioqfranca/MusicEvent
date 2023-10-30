@@ -16,13 +16,13 @@ namespace MusicEvent.Domain.Validations.Administracao
                 .NotEmpty().WithMessage("O Nome do usuário é obrigatório!");
 
             RuleFor(x => x.Idade)
-               .NotEmpty().WithMessage("A Idade do usuário é obrigatório!");
+               .NotEmpty().WithMessage("A Idade do usuário é obrigatória!");
 
             RuleFor(x => x.Email)
                .NotEmpty().WithMessage("O E-mail do usuário é obrigatório!");
 
-            RuleFor(x => x.IdPerfil)
-               .NotEmpty().WithMessage("O Grupo de Acesso é obrigatório!");
+            RuleFor(x => x.Senha)
+               .NotEmpty().WithMessage("A Senha é obrigatória!");
 
         }
     }

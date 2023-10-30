@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <img src="assets/img/logo.png" alt="" width="100px">
+      </div>
+    </div>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item logout">
+          <a class="nav-link text-dark">{{getUserName()}}</a>
+        </li>
+        <li class="nav-item logout">
+          <a class="nav-link text-dark" (click)="logout()"><i class="fa fa-sign-out text-secondary"
+              aria-hidden="true"></i> Sair</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
