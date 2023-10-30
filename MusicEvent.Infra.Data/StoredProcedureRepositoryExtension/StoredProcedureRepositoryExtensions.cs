@@ -20,7 +20,6 @@ namespace MusicEvent.Infra.Data.StoredProcedureRepositoryExtension
         public static DbCommand LoadStoredProcedure(this DbContext context, string storedProcName)
         {
             var command = context.Database.GetDbConnection().CreateCommand();
-            //command.CommandTimeout = 0;
             command.CommandText = storedProcName;
             command.CommandType = System.Data.CommandType.StoredProcedure;
             return command;
@@ -92,7 +91,6 @@ namespace MusicEvent.Infra.Data.StoredProcedureRepositoryExtension
 
             if (dr.HasRows)
             {
-                //bool firstRead = dr.Read();
                 while (dr.Read())
                 {
                     T obj = Activator.CreateInstance<T>();
@@ -102,7 +100,6 @@ namespace MusicEvent.Infra.Data.StoredProcedureRepositoryExtension
                         prop.SetValue(obj, val == DBNull.Value ? null : val);
                     }
                     objList.Add(obj);
-                    //firstRead = false;
                 }
             }
             return objList;

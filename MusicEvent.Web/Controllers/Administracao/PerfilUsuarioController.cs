@@ -23,7 +23,6 @@ namespace MusicEvent.Web.Controllers.Administracao
 
         [HttpGet]
         [Route("GetAll")]
-        //[Authorize]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -40,7 +39,6 @@ namespace MusicEvent.Web.Controllers.Administracao
 
         [HttpGet]
         [Route("GetPerfil")]
-        // [Authorize]
         public async Task<IActionResult> Get()
         {
             try

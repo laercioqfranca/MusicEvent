@@ -14,18 +14,14 @@ namespace MusicEvent.Application.AutoMapper
         {
             CreateMap<LoginViewModel, AutenticarCommand>();
 
-            CreateMap<AlterarSenhaUsuarioViewModel, AlterarSenhaCommand>();
-
-            //CreateMap<UsuarioViewModel, UsuarioCreateCommand>();
             CreateMap<UsuarioDTO, UsuarioCreateCommand>();
 
             CreateMap<UsuarioViewModel, UsuarioUpdateCommand>();
-            
-            CreateMap<ResetSenhaViewModel, ResetSenhaCommand>();
 
             CreateMap<InscricaoDTO, InscricaoCreateCommand>();
 
             CreateMap<EventoDTO, EventoCreateCommand>();
+
             CreateMap<EventoDTO, EventoUpdateCommand>();
         }
     }

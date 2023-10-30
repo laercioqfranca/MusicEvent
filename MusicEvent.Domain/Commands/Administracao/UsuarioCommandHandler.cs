@@ -54,13 +54,11 @@ namespace MusicEvent.Domain.Commands.Administracao
                     Guid idUsuario = Guid.NewGuid();
 
                     usuario.setUsuario(idUsuario, request.Nome,request.Idade, request.Senha, request.Email, request.IdPerfil);
-                    //var senha = usuario.setGerarSenhaAleatoria();
 
                     _repository.Add(usuario);
 
                     try
                     {
-                        //Envia o email com a senha criada
 
                         await Commit();
                         //Log de CREATE

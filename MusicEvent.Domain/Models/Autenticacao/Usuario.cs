@@ -42,13 +42,8 @@ namespace MusicEvent.Domain.Models.Autenticacao
             Excluido = excluido;
         }
 
-        public void setRedefinirSenha(bool redefinirSenha)
-        {
-            RedefinirSenha = redefinirSenha;
-        }
         public string setGerarSenhaAleatoria()
         {
-            //TO DO incluir gerador de senha aleatorioa
             string senhagerada = CreateRandomPassword();
             setCriptografia(senhagerada, "");
             return senhagerada;

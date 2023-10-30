@@ -48,27 +48,6 @@ namespace MusicEvent.Application.AppServices.Autenticacao
             return userViewModel;
         }
 
-        public async Task AlterarSenha(AlterarSenhaUsuarioViewModel commandAlterarSenha)
-        {
-            var command = _mapper.Map<AlterarSenhaCommand>(commandAlterarSenha);
-            //command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
-            await _bus.SendCommand(command);
-        }
-
-        public async Task ResetarSenhaPorEmail(ResetSenhaViewModel resetPasswordViewModel)
-        {
-            var command = _mapper.Map<ResetSenhaCommand>(resetPasswordViewModel);
-            await _bus.SendCommand(command);
-
-        }
-
-        public string GerarNovaSenha()
-        {
-            Usuario usuario = new Usuario();
-
-            return usuario.setGerarSenhaAleatoria();
-        }
-
         public void Dispose()
         {
             GC.SuppressFinalize(this);
