@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/root/auth.service';
 import { LoginService } from '../../services/root/login.service';
 import { Router } from '@angular/router';
@@ -22,6 +22,7 @@ export class MenuComponent {
     this.authService.isAuthenticated.subscribe((res) => {
       this.isLoggedIn = res;
     });
+
   }
 
   logout(){
