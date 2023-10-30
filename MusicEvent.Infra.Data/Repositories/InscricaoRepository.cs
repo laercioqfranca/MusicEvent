@@ -24,7 +24,7 @@ namespace MusicEvent.Infra.Data.Repositories
             var inscricoes = await _context.Set<Inscricao>()
                 .Include(x => x.Evento)
                 .Where(
-                    x => x.IdUsuario == idUsuario
+                    x => x.IdUsuario == idUsuario && !x.Evento.Excluido
             ).ToListAsync();
             return inscricoes;
         }

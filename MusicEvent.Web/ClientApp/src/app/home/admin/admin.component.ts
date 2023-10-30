@@ -22,39 +22,29 @@ export class AdminComponent implements OnInit {
     ) { }  
   
   ngOnInit() {
-    
     this.iniciarForm();
-
-    this.listaEventos.push(
-      { descricao: "Evento 1", data: "25/10/2023"},
-      { descricao: "Evento 2", data: "25/10/2023"},
-      { descricao: "Evento 3", data: "25/10/2023"},
-      { descricao: "Evento 4", data: "25/10/2023"},
-      { descricao: "Evento 5", data: "25/10/2023"}
-      
-      )
+    this.listarEventos();
   }
     
   iniciarForm(){
     this.criarEventoForm = new FormGroup({
-      descricao: new FormControl('', [Validators.required]),
-      data: new FormControl('', [Validators.required])
+      descricao: new FormControl(null, [Validators.required]),
+      data: new FormControl(null, [Validators.required])
     });
   }
 
   onSubmit(){
-    console.log(this.criarEventoForm); //teste
-    
     if(this.criarEventoForm.valid){
 
       if(!this.evento){
-        console.log("create"); //teste
         this.criarEvento(this.criarEventoForm?.value);
+        this.criarEventoForm.reset();
       }
       
       if(this.evento){ // se tiver algo na variável evento, então edita
-        console.log("update"); //teste
         this.autualizarEvento(this.criarEventoForm?.value);
+        this.criarEventoForm.reset();
+        this.evento = null;
       }
 
     }
@@ -65,7 +55,24 @@ export class AdminComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.evento = res.data;
-          console.log(this.evento); //teste
+          this.carregarDados(); // carrega os dados no formulário
+        },
+        error: (e) => {
+          this.notificationService.showError(e?.message)
+        },
+      });
+  }
+
+  listarEventos(){
+    this.eventoService.getAll()
+      .subscribe({
+        next: (res) => {
+          this.listaEventos = res.data;
+
+          this.listaEventos.forEach(element => {
+            element.data = new Date(element.data).toLocaleDateString();
+          });
+          
         },
         error: (e) => {
           this.notificationService.showError(e?.message)
@@ -74,31 +81,25 @@ export class AdminComponent implements OnInit {
   }
 
   editar(id:any){
-
-    this.obterEventoPorId(id); // busca o elemento selecionado e guarda na variável evento
-
-    console.log(id); //teste
-    console.log(this.evento); //teste
-
-    this.carregarDados(); // carrega os dados da variável evento no formulário
-
+    this.obterEventoPorId(id);
   } 
 
   carregarDados(){
     setTimeout(() => {
       this.criarEventoForm.get('descricao')?.setValue(this.evento.descricao);
-      this.criarEventoForm.get('data')?.setValue(this.evento.data);
+      this.criarEventoForm.get('data')?.setValue(new Date(this.evento.data));
     }, 1000);
+
   }
 
   deletar(id:any){
-    console.log(id); //teste
     if(id != null){
       this.eventoService.delete(id).subscribe(
         {
           next:(res) => {
             if (res?.success) {
                 this.notificationService.showSuccess('Evento excluído com sucesso!', '');
+                this.listarEventos();
             }
           },
           error: (e) => {
@@ -115,7 +116,7 @@ export class AdminComponent implements OnInit {
       next:(res) => {
         if (res?.success) {
           this.notificationService.showSuccess('Evento criado com sucesso!', '');
-          this.criarEventoForm.reset();
+          this.listarEventos();
         }
       },
       error: (e) => {
@@ -125,18 +126,28 @@ export class AdminComponent implements OnInit {
   }
 
   autualizarEvento(evento:any){
-    this.eventoService.update(evento).subscribe({
+    const viewModel = {
+      id: this.evento.id,
+      descricao: evento.descricao,
+      data: evento.data
+    }
+
+    this.eventoService.update(viewModel).subscribe({
       next:(res) => {
         if (res?.success) {
           this.notificationService.showSuccess('Evento atualizado com sucesso!', '');
-          this.evento = null;
-          this.criarEventoForm.reset();
+          this.listarEventos();
         }
       },
       error: (e) => {
         this.notificationService.showError(e?.message)
       },
     });
+  }
+
+  limpar(){
+    this.evento = null;
+    this.criarEventoForm.reset();
   }
 
 }

@@ -49,8 +49,6 @@ namespace MusicEvent.Infra.IoC
 
             // Domain - Commands
             services.AddScoped<IRequestHandler<AutenticarCommand, Unit>, AutenticacaoCommandHandler>();
-            services.AddScoped<IRequestHandler<AlterarSenhaCommand, Unit>, AutenticacaoCommandHandler>();
-            services.AddScoped<IRequestHandler<ResetSenhaCommand, Unit>, AutenticacaoCommandHandler>();
 
             services.AddScoped<IRequestHandler<UsuarioCreateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();

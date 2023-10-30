@@ -21,8 +21,6 @@ namespace MusicEvent.Application.ViewModels.Auth
 
         public UsuarioViewModel() { }
 
-        public bool RedefinirSenha { get; set; }
-
         public Guid? IdPerfil { get; set; }
         public PerfilUsuarioViewModel Perfil { get; set; }
         public IEnumerable<string> Claims { get; set; }

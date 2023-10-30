@@ -9,9 +9,7 @@ namespace MusicEvent.Application.Interfaces.Auth
 {
     public interface IAutenticacaoAppService : IDisposable
     {
-        Task AlterarSenha(AlterarSenhaUsuarioViewModel commandAlterarSenha);
         Task<UsuarioViewModel> Autenticar(LoginViewModel loginViewModel);
-        Task ResetarSenhaPorEmail(ResetSenhaViewModel resetPasswordViewModel);
-        string GerarNovaSenha();
+    
     }
 }

@@ -20,7 +20,6 @@ namespace MusicEvent.Infra.Data.Mappings.Autenticacao
             builder.Property(x => x.Email).IsRequired(false).HasMaxLength(100);
 
             builder.Property(x => x.Excluido).HasDefaultValue(false);
-            builder.Property(x => x.RedefinirSenha).HasDefaultValue(false);
 
             builder.HasOne(x => x.Perfil).WithMany().HasForeignKey(x => x.IdPerfil).IsRequired();
         }

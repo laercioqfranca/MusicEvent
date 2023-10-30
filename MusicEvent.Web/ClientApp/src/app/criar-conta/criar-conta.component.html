@@ -4,9 +4,6 @@
     <form [formGroup]="criarContaForm" (ngSubmit)="onSubmit()">
 
       <div class="row mb-3">
-        <!-- <div class="col text-center text-secondary titulo-login">
-          Music Events
-        </div> -->
         <div class="col text-center">
           <img src="assets/img/logo.png" alt="" width="300px">
         </div>
@@ -50,6 +47,9 @@
         <mat-form-field class="col">
             <mat-label>Senha</mat-label>
             <input matInput type="password" formControlName="senha" minlength="8" maxlength="50" id="senha" required/>
+            <mat-error *ngIf="criarContaForm.get('senha')?.touched && criarContaForm.get('senha')?.value.length == 0">
+              Campo Obrigatório
+            </mat-error>
         </mat-form-field>
       </div>
 
