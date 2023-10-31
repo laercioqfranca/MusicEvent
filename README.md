@@ -32,7 +32,7 @@ Senha: admin123
   * Cliente (Tem a permissão de se inscrever e cancelar a inscrição de um ou mais eventos)
 
 ## Critérios de aceite
-### Tela login
+### Tela de login
 * Permitir o acesso de um usuário existente no banco de dados atrvés da autenticação utilizando e-mail e senha
 * Bloquear o acesso por senha incorreta
 * Bloquear o acesso de usuário não cadastrado
