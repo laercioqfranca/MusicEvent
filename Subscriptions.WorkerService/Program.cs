@@ -12,13 +12,6 @@ NativeInjector.RegisterAppServices(builder.Services);
 
 IHost host = builder.Build();
 
-//IHost host = Host.CreateDefaultBuilder(args)
-//    .ConfigureServices(services =>
-//    {
-//        services.AddHostedService<Worker>();
-//    })
-//    .Build();
-
 host.Run();
 
 

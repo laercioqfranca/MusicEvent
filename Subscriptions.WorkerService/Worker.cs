@@ -9,12 +9,14 @@ namespace Subscriptions.WorkerService
 {
     public class Worker : BackgroundService
     {
-        //private readonly IInscricaoAppService _appService;
+        public IServiceScopeFactory _serviceScopeFactory;
+        public Worker(IServiceScopeFactory serviceScopeFactory, IServiceProvider services)
+        {
+            _serviceScopeFactory = serviceScopeFactory;
+            Services = services;
+        }
 
-        //public Worker(IInscricaoAppService appService)
-        //{
-        //    _appService = appService;
-        //}
+        public IServiceProvider Services { get; }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -35,9 +37,11 @@ namespace Subscriptions.WorkerService
                     var message = Encoding.UTF8.GetString(body);
                     var dto = JsonSerializer.Deserialize<InscricaoDTO>(body);
 
-                     //_appService.Create(dto);
-
-                    //Console.WriteLine(message?.ToString());
+                    using (var scope = Services.CreateScope())
+                    {
+                        var scoped = scope.ServiceProvider.GetRequiredService<IInscricaoAppService>();
+                        scoped.Create(dto);
+                    }
                 };
 
                 channel.BasicConsume(
