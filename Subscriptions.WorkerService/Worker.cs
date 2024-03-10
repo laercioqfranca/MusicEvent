@@ -1,11 +1,20 @@
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client;
 using System.Text;
+using Subscriptions.Application.Interfaces;
+using System.Text.Json;
+using Subscriptions.Application.DTO;
 
 namespace Subscriptions.WorkerService
 {
     public class Worker : BackgroundService
     {
+        //private readonly IInscricaoAppService _appService;
+
+        //public Worker(IInscricaoAppService appService)
+        //{
+        //    _appService = appService;
+        //}
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -24,8 +33,11 @@ namespace Subscriptions.WorkerService
                 {
                     var body = eventArgs.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
+                    var dto = JsonSerializer.Deserialize<InscricaoDTO>(body);
 
-                    Console.WriteLine(message?.ToString());
+                     //_appService.Create(dto);
+
+                    //Console.WriteLine(message?.ToString());
                 };
 
                 channel.BasicConsume(
