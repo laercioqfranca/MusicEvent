@@ -5,6 +5,9 @@ using MusicEvent.Core.Interfaces;
 using MusicEvent.Core.Notifications;
 using MusicEvent.Application.DTO;
 using MusicEvent.Application.Interfaces;
+using Microsoft.AspNetCore.Connections;
+using System.Text;
+using RabbitMQ.Client;
 
 namespace MusicEvent.Web.Controllers
 {
@@ -42,27 +45,65 @@ namespace MusicEvent.Web.Controllers
             }
         }
 
+        ////[Route("Create")]
+        ////[HttpPost]
+        ////[Authorize]
+        ////public async Task<IActionResult> Post([FromBody] InscricaoDTO inscricaoDTO)
+        ////{
+        ////    try
+        ////    {
+        ////        if (!ModelState.IsValid)
+        ////        {
+        ////            NotifyModelStateErrors();
+        ////            return Response(inscricaoDTO);
+        ////        }
+
+        ////        await _appService.Create(inscricaoDTO);
+
+        ////        return Response();
+        ////    }
+        ////    catch (Exception ex)
+        ////    {
+        ////        Console.WriteLine(ex.InnerException.Message);
+        ////        return HandleException(ex);
+        ////    }
+        ////}
+
         [Route("Create")]
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Post([FromBody] InscricaoDTO inscricaoDTO)
         {
+
             try
             {
-                if (!ModelState.IsValid)
+                var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+                using var connection = factory.CreateConnection();
+                using (var channel = connection.CreateModel())
                 {
-                    NotifyModelStateErrors();
-                    return Response(inscricaoDTO);
+                    channel.QueueDeclare(
+                        queue: "newSubscription",
+                        durable: false,
+                        exclusive: false,
+                        autoDelete: false,
+                        arguments: null);
+
+                    var body = Encoding.UTF8.GetBytes(inscricaoDTO.ToString());
+
+                    channel.BasicPublish(
+                        exchange: "",
+                        routingKey: "newSubscription",
+                        basicProperties: null,
+                        body: body);
                 }
 
-                await _appService.Create(inscricaoDTO);
+                return Ok("Subscription created!");
 
-                return Response();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Console.WriteLine(ex.InnerException.Message);
-                return HandleException(ex);
+                Console.WriteLine(e.Message);
+                return BadRequest(e.Message);
             }
         }
 
