@@ -39,7 +39,7 @@ namespace Subscriptions.Domain.Commands.Inscricao
                 NotifyValidationErrors(request);
             else
             {
-                Models.Inscricao inscricao = new((Guid)request.UsuarioRequerenteId, request.IdEvento);
+                Models.Inscricao inscricao = new(request.IdUsuario, request.IdEvento);
                 _repository.Add(inscricao);
                 
                 await Commit();

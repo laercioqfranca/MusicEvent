@@ -38,7 +38,7 @@ namespace Subscriptions.Application.AppServices
         public async Task Create(InscricaoDTO InscricaoDTO)
         {
             var command = _mapper.Map<InscricaoCreateCommand>(InscricaoDTO);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            //command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
             await _bus.SendCommand(command);
         }
 

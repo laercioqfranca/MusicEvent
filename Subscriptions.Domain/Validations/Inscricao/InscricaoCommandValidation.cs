@@ -9,7 +9,9 @@ namespace Subscriptions.Domain.Validations.Inscricao
         {
 
             RuleFor(x => x.IdEvento)
-               .NotEmpty().WithMessage("A IdEvento é obrigatória!");
+               .NotEmpty().WithMessage("O Evento é obrigatório!");
+            RuleFor(x => x.IdUsuario)
+              .NotEmpty().WithMessage("O Usuário é obrigatório!");
 
         }
     }

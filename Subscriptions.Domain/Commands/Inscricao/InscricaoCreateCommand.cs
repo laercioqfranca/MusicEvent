@@ -8,6 +8,7 @@ namespace Subscriptions.Domain.Commands.Inscricao
     {
         public InscricaoCreateCommand() { }
         public Guid IdEvento { get; protected set; }
+        public Guid IdUsuario { get; protected set; }
 
 
         public override bool IsValid()
