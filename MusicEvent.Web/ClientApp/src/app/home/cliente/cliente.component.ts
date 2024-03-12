@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { InscricaoModel } from 'src/app/models/InscricaoModel';
 import { EventoService } from 'src/app/services/evento.service';
 import { InscricaoService } from 'src/app/services/inscricao.service';
 import { AuthService } from 'src/app/services/root/auth.service';
@@ -38,12 +39,14 @@ export class ClienteComponent implements OnInit {
   }
 
   inscrever(id: any) {
-    var model = { idUsuario: this.user?.id, idEvento: id };
+    let model = new InscricaoModel(this.user?.id, id);
     this.inscricaoService.create(model).subscribe({
       next: (res) => {
         if (res?.success) {
           this.notificationService.showSuccess('Inscrição feita com sucesso!', '');
-          this.listarMeusEventos(this.user.id);
+          setTimeout(() => {
+            this.listarMeusEventos(this.user.id);
+          }, 2000);
         }
       },
       error: (e) => {

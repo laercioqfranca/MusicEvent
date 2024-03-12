@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Connections;
 using System.Text;
 using RabbitMQ.Client;
 using System.Text.Json;
+using RabbitMQ.Client.Events;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Threading.Channels;
 
 namespace MusicEvent.Web.Controllers
 {
@@ -75,7 +78,6 @@ namespace MusicEvent.Web.Controllers
         //[Authorize]
         public async Task<IActionResult> Post([FromBody] InscricaoDTO inscricaoDTO)
         {
-
             try
             {
                 var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
@@ -99,7 +101,7 @@ namespace MusicEvent.Web.Controllers
                         body: body);
                 }
 
-                return Ok("Subscription created!");
+                return Response();
 
             }
             catch (Exception e)

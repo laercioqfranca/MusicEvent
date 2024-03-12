@@ -4,6 +4,9 @@ using System.Text;
 using Subscriptions.Application.Interfaces;
 using System.Text.Json;
 using Subscriptions.Application.DTO;
+using MassTransit;
+using System;
+using System.Diagnostics.Tracing;
 
 namespace Subscriptions.WorkerService
 {

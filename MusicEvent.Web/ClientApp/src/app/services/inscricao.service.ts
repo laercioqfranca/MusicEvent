@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { InscricaoModel } from '../models/InscricaoModel';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class InscricaoService {
     );
   }
 
-  create(model: any): Observable<any> {
+  create(model: InscricaoModel): Observable<any> {
     return this.http.post('v1/Inscricao/Create', model).pipe(
       map((res: any) => {return res;})
     );
