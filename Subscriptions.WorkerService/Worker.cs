@@ -31,7 +31,8 @@ namespace Subscriptions.WorkerService
                                  arguments: null);
 
                 var consumer = new EventingBasicConsumer(channel);
-                consumer.Received += (sender, eventArgs) =>
+                
+                consumer.Received += async (sender, eventArgs) =>
                 {
                     var body = eventArgs.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
@@ -40,8 +41,20 @@ namespace Subscriptions.WorkerService
                     using (var scope = Services.CreateScope())
                     {
                         var scoped = scope.ServiceProvider.GetRequiredService<IInscricaoAppService>();
-                        scoped.Create(dto);
+                        try
+                        {
+
+                            using (var connection = factory.CreateConnection())
+                            {
+                                await scoped.Create(dto);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                     }
+
                 };
 
                 channel.BasicConsume(
