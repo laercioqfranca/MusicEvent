@@ -78,6 +78,7 @@ namespace MusicEvent.Web.Controllers
         //[Authorize]
         public async Task<IActionResult> Post([FromBody] InscricaoDTO inscricaoDTO)
         {
+            String status = null;
             try
             {
                 var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
@@ -99,9 +100,24 @@ namespace MusicEvent.Web.Controllers
                         routingKey: "newSubscription",
                         basicProperties: null,
                         body: body);
+
+
+                    // Fila para receber o status da operação
+                    var consumer = new EventingBasicConsumer(channel);
+                    consumer.Received += (sender, eventArgs) =>
+                    {
+                        var confirmationBody = eventArgs.Body.ToArray();
+                        var confirmationMessage = Encoding.UTF8.GetString(confirmationBody);
+                        status = confirmationMessage;
+                    };
+
+                    channel.BasicConsume(
+                        queue: "subscriptionStatus",
+                        autoAck: true,
+                        consumer: consumer);
                 }
 
-                return Response();
+                return Response(status);
 
             }
             catch (Exception e)

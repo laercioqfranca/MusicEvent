@@ -4,9 +4,8 @@ using System.Text;
 using Subscriptions.Application.Interfaces;
 using System.Text.Json;
 using Subscriptions.Application.DTO;
-using MassTransit;
-using System;
-using System.Diagnostics.Tracing;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace Subscriptions.WorkerService
 {
@@ -22,16 +21,28 @@ namespace Subscriptions.WorkerService
         public IServiceProvider Services { get; }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            String status = "Inscrição processada com sucesso!";
             while (!stoppingToken.IsCancellationRequested)
             {
+    
                 var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
                 using var connection = factory.CreateConnection();
                 using var channel = connection.CreateModel();
+                
+                // Fila de entrada das inscrições
                 channel.QueueDeclare(queue: "newSubscription",
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
+
+                // Fila para devolver o status do cadastro
+                channel.QueueDeclare(
+                queue: "subscriptionStatus",
+                durable: false,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
 
                 var consumer = new EventingBasicConsumer(channel);
                 
@@ -54,16 +65,25 @@ namespace Subscriptions.WorkerService
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine(ex.Message);
+                            status = ex.Message;
                         }
                     }
 
                 };
 
+                var statusBody = Encoding.UTF8.GetBytes(status);
+                channel.BasicPublish(
+                    exchange: "",
+                    routingKey: "subscriptionStatus",
+                    basicProperties: null,
+                    body: statusBody);
+
                 channel.BasicConsume(
                     queue: "newSubscription",
                     autoAck: true,
                     consumer: consumer);
+
+                // Tempo de espera para verifica novamente a fila
                 await Task.Delay(2000, stoppingToken);
             }
         }
