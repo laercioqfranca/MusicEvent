@@ -39,7 +39,7 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             services.AddScoped<IPerfilUsuarioAppService, PerfilUsuarioAppService>();
             services.AddScoped<IEventoAppService, EventoAppService>();
-            services.AddScoped<IInscricaoAppService, InscricaoAppService>();
+            services.AddScoped<ISubscriptionAppService, SubscriptionAppService>();
 
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();

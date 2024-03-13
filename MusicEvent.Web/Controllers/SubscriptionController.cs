@@ -17,11 +17,11 @@ namespace MusicEvent.Web.Controllers
 {
     [Route("v1/[controller]")]
     [ApiController]
-    public class InscricaoController : ApiController
+    public class SubscriptionController : ApiController
     {
-        private readonly IInscricaoAppService _appService;
+        private readonly ISubscriptionAppService _appService;
 
-        public InscricaoController(IInscricaoAppService appService, INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator)
+        public SubscriptionController(ISubscriptionAppService appService, INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator)
             : base(notifications, mediator)
         {
             _appService = appService;
@@ -73,7 +73,7 @@ namespace MusicEvent.Web.Controllers
         ////    }
         ////}
 
-        [Route("Create")]
+        [Route("CreateSubscription")]
         [HttpPost]
         //[Authorize]
         public async Task<IActionResult> Post([FromBody] InscricaoDTO inscricaoDTO)
@@ -127,7 +127,7 @@ namespace MusicEvent.Web.Controllers
             }
         }
 
-        [Route("Delete/{id}")]
+        [Route("DeleteSubscription/{id}")]
         [HttpDelete]
         [Authorize]
         public async Task<IActionResult> Delete(Guid id)

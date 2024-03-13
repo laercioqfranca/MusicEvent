@@ -54,7 +54,7 @@ namespace Subscriptions.WorkerService
 
                     using (var scope = Services.CreateScope())
                     {
-                        var scoped = scope.ServiceProvider.GetRequiredService<IInscricaoAppService>();
+                        var scoped = scope.ServiceProvider.GetRequiredService<ISubscriptionAppService>();
                         try
                         {
 

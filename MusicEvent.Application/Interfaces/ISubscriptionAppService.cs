@@ -6,7 +6,7 @@ using MusicEvent.Application.ViewModels;
 
 namespace MusicEvent.Application.Interfaces
 {
-    public interface IInscricaoAppService : IDisposable
+    public interface ISubscriptionAppService : IDisposable
     {
         Task<IEnumerable<EventoViewModel>> GetAllById(Guid id);
         Task Create(InscricaoDTO inscricaoDTO);
