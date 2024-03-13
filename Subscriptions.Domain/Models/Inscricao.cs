@@ -1,5 +1,4 @@
 ﻿using Subscriptions.Core.Models;
-using Subscriptions.Domain.Models.Autenticacao;
 using System;
 
 namespace Subscriptions.Domain.Models

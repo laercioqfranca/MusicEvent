@@ -8,7 +8,6 @@ using Subscriptions.Infra.Data.Configuration;
 using Subscriptions.Domain.Interfaces.Infra.Data;
 using Subscriptions.Infra.Data.EventSourcing;
 using Subscriptions.Infra.Data.Context;
-using Subscriptions.Domain.Interfaces.Infra.Data.Repositories.Auth;
 using Subscriptions.Infra.Data.Repositories.LogRepository;
 using Subscriptions.Domain.Commands.Inscricao;
 using Subscriptions.Application.Interfaces;

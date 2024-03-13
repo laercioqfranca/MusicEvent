@@ -1,4 +1,4 @@
-﻿using Subscriptions.Domain.Interfaces.Infra.Data.Repositories.Auth;
+﻿using Subscriptions.Domain.Interfaces.Infra.Data.Repositories;
 using Subscriptions.Domain.Models.Administracao;
 using Subscriptions.Infra.Data.Configuration;
 using Subscriptions.Infra.Data.Context;

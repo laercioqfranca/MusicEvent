@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Subscriptions.Domain.Models.Administracao;
 
-namespace Subscriptions.Domain.Interfaces.Infra.Data.Repositories.Auth
+namespace Subscriptions.Domain.Interfaces.Infra.Data.Repositories
 {
     public interface ILogHistoricoRepository : IRepository<LogHistorico>
     {

@@ -3,7 +3,7 @@ using Subscriptions.Domain.Utils;
 using System;
 using System.Collections.Generic;
 
-namespace Subscriptions.Domain.Models.Autenticacao
+namespace Subscriptions.Domain.Models
 {
     public class Usuario : Entity
     {
@@ -13,7 +13,7 @@ namespace Subscriptions.Domain.Models.Autenticacao
         public string Senha { get; private set; }
         public string Salt { get; private set; }
         public string Email { get; private set; }
-        public Guid? IdPerfil { get; private set; }      
+        public Guid? IdPerfil { get; private set; }
         public DateTime DataInclusao { get; private set; }
         public bool Excluido { get; private set; }
 
