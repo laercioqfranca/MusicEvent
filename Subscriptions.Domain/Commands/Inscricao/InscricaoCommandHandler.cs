@@ -7,7 +7,6 @@ using Subscriptions.Core.Notifications;
 using Subscriptions.Domain.Interfaces.Infra.Data;
 using Subscriptions.Domain.Interfaces.Infra.Data.Repositories;
 using Subscriptions.Domain.Interfaces.Infra.Data.Repositories.Auth;
-using Subscriptions.Domain.Models.Administracao;
 
 namespace Subscriptions.Domain.Commands.Inscricao
 {

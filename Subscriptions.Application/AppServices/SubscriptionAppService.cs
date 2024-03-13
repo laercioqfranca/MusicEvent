@@ -9,7 +9,6 @@ using Subscriptions.Application.DTO;
 using Subscriptions.Domain.Commands.Inscricao;
 using Subscriptions.Domain.Interfaces.Infra.Data.Repositories;
 using Subscriptions.Application.Interfaces;
-using Subscriptions.Application.ViewModels;
 
 namespace Subscriptions.Application.AppServices
 {
@@ -28,26 +27,11 @@ namespace Subscriptions.Application.AppServices
             _httpContextAcessor = httpContextAccessor;
         }
 
-        public async Task<IEnumerable<EventoViewModel>> GetAllById(Guid id)
-        {
-            var query = await _repository.GetAllById(id);
-            var evento = query.Select(x => x.Evento).OrderBy(x => x.Data);
-            return _mapper.Map<IEnumerable<EventoViewModel>>(evento);
-        }
-
         public async Task Create(InscricaoDTO InscricaoDTO)
         {
             var command = _mapper.Map<InscricaoCreateCommand>(InscricaoDTO);
             //command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
             await _bus.SendCommand(command);
-        }
-
-        public async Task Delete(Guid id)
-        {
-            var command = new InscricaoDeleteCommand(id);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
-            await _bus.SendCommand(command);
-
         }
 
         public void Dispose()

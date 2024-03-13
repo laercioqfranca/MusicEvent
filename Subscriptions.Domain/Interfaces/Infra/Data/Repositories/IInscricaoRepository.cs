@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Subscriptions.Domain.Models;
-using Subscriptions.Domain.Models.Autenticacao;
 
 namespace Subscriptions.Domain.Interfaces.Infra.Data.Repositories
 {

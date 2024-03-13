@@ -17,5 +17,8 @@
     <ProjectReference Include="..\Subscriptions.Core\Subscriptions.Core.csproj" />
     <ProjectReference Include="..\Subscriptions.Domain\Subscriptions.Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
 
 </Project>

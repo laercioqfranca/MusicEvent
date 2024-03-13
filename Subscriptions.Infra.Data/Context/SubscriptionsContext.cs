@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Subscriptions.Infra.Data.Mappings;
-using Subscriptions.Infra.Data.Mappings.Autenticacao;
 using Subscriptions.Infra.Data.Mappings.LogHistoricoMap;
 using System;
 
@@ -20,11 +19,6 @@ namespace Subscriptions.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new LogHistoricoMap());
-            modelBuilder.ApplyConfiguration(new UsuarioMap());
-            modelBuilder.ApplyConfiguration(new PerfilUsuarioMap());
-            modelBuilder.ApplyConfiguration(new ClaimUsuarioMap());
-            modelBuilder.ApplyConfiguration(new ClaimPerfilMap());
-            modelBuilder.ApplyConfiguration(new EventoMap());
             modelBuilder.ApplyConfiguration(new InscricaoMap());
 
 
