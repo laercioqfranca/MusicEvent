@@ -10,8 +10,6 @@ using System.Text;
 using RabbitMQ.Client;
 using System.Text.Json;
 using RabbitMQ.Client.Events;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using System.Threading.Channels;
 
 namespace MusicEvent.Web.Controllers
 {
@@ -49,33 +47,9 @@ namespace MusicEvent.Web.Controllers
             }
         }
 
-        ////[Route("Create")]
-        ////[HttpPost]
-        ////[Authorize]
-        ////public async Task<IActionResult> Post([FromBody] InscricaoDTO inscricaoDTO)
-        ////{
-        ////    try
-        ////    {
-        ////        if (!ModelState.IsValid)
-        ////        {
-        ////            NotifyModelStateErrors();
-        ////            return Response(inscricaoDTO);
-        ////        }
-
-        ////        await _appService.Create(inscricaoDTO);
-
-        ////        return Response();
-        ////    }
-        ////    catch (Exception ex)
-        ////    {
-        ////        Console.WriteLine(ex.InnerException.Message);
-        ////        return HandleException(ex);
-        ////    }
-        ////}
-
         [Route("CreateSubscription")]
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] InscricaoDTO inscricaoDTO)
         {
             String status = null;
