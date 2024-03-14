@@ -50,7 +50,7 @@ namespace MusicEvent.Domain.Commands.Inscricao
                 NotifyValidationErrors(request);
             else
             {
-                Usuario usuario = await _usuarioRepository.GetById(Guid.NewGuid());//(Guid)request.UsuarioRequerenteId);
+                Usuario usuario = await _usuarioRepository.GetById((Guid)request.UsuarioRequerenteId);
 
                 if (usuario == null)
                 {
