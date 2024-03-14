@@ -5,11 +5,6 @@ using MusicEvent.Core.Interfaces;
 using MusicEvent.Core.Notifications;
 using MusicEvent.Application.DTO;
 using MusicEvent.Application.Interfaces;
-using Microsoft.AspNetCore.Connections;
-using System.Text;
-using RabbitMQ.Client;
-using System.Text.Json;
-using RabbitMQ.Client.Events;
 
 namespace MusicEvent.Web.Controllers
 {

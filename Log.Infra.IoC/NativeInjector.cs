@@ -12,7 +12,6 @@ using Log.Infra.Data.Repositories.LogRepository;
 using Log.Application.Interfaces;
 using Log.Application.AppServices;
 using Log.Domain.Interfaces.Infra.Data.Repositories;
-using Log.Infra.Data.Repositories;
 using Log.Domain.Commands;
 
 namespace Log.Infra.IoC

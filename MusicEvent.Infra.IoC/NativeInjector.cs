@@ -15,7 +15,6 @@ using MusicEvent.Application.AppServices.Administracao;
 using MusicEvent.Application.Interfaces.Administracao;
 using MusicEvent.Application.AppServices.Auth;
 using MusicEvent.Application.Interfaces.Auth;
-using MusicEvent.Infra.Data.Repositories.LogRepository;
 using MusicEvent.Domain.Commands.Auth;
 using MusicEvent.Application.AppServices.Autenticacao;
 using MusicEvent.Domain.Commands.Inscricao;
@@ -63,7 +62,6 @@ namespace MusicEvent.Infra.IoC
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();
-            services.AddScoped<ILogHistoricoRepository, LogHistoricoRepository>();
 
             // Infra - Data
             services.AddDbContext<MusicEventContext>();

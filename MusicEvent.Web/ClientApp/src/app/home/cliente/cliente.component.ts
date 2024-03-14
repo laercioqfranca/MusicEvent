@@ -44,9 +44,7 @@ export class ClienteComponent implements OnInit {
       next: (res) => {
         if (res?.success) {
           this.notificationService.showSuccess('Inscrição feita com sucesso!', '');
-          setTimeout(() => {
-            this.listarMeusEventos(this.user.id);
-          }, 2000);
+          this.listarMeusEventos(this.user.id);
         }
       },
       error: (e) => {

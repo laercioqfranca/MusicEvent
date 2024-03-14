@@ -35,7 +35,7 @@ namespace Log.Domain.Commands
                 NotifyValidationErrors(request);
             else
             {
-                LogHistorico logHistorico = new LogHistorico(request.UsuarioId, request.EntidadeId, request.TipoLog, request.NomeEntidade, request.Descricao);
+                LogHistorico logHistorico = new LogHistorico(request.UsuarioId, request.EntidadeId, request.TipoLog, request.NomeEntidade, request.Descricao, request.Data);
                 _logHistoricoRepository.Add(logHistorico);
 
                 await Commit();

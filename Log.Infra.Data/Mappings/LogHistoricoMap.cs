@@ -10,7 +10,7 @@ namespace Log.Infra.Data.Mappings
         public void Configure(EntityTypeBuilder<LogHistorico> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).IsRequired().ValueGeneratedNever();
+
             builder.Property(x => x.Data);
             builder.Property(x => x.TipoLog);
 

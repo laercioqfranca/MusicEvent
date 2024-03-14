@@ -22,13 +22,11 @@ namespace MusicEvent.Domain.Commands.Auth
     {
         private readonly IMediatorHandler _bus;
         private readonly IUsuarioRepository _repository;
-        private readonly ILogHistoricoRepository _logHistoricoRepository;
         private readonly DomainNotificationHandler _notifications;
 
-        public AutenticacaoCommandHandler(IUsuarioRepository repository, IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications,
-            ILogHistoricoRepository logHistoricoRepository) : base(uow, bus, notifications)
+        public AutenticacaoCommandHandler(IUsuarioRepository repository, IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications
+        ) : base(uow, bus, notifications)
         {
-            _logHistoricoRepository = logHistoricoRepository;
             _repository = repository;
             _bus = bus;
             _notifications = (DomainNotificationHandler)notifications;
@@ -61,24 +59,24 @@ namespace MusicEvent.Domain.Commands.Auth
 
                 }
 
-                //Log Histórico
-                LogHistorico logHistorico = new LogHistorico();
-                var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
+                ////Log Histórico
+                //LogHistorico logHistorico = new LogHistorico();
+                //var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
 
 
-                if (userQuery != null)
-                {
-                    logHistorico = log.SaveLogHistorico(userQuery == null ? new Guid() : userQuery.Id, userQuery == null ? new Guid() : userQuery.Id, EnumTipoLog.LOGIN, "Usuario",
-                     $"{userQuery.Nome} Logou com Sucesso!", notificationsString != null ? $"{request.UsuarioRequerenteId}: {notificationsString}" : notificationsString);
-                }
-                else
-                {
-                    logHistorico = log.SaveLogHistorico(new Guid(), new Guid(), EnumTipoLog.LOGIN, "Usuario",
-                     "Erro", notificationsString != null ? $"{request.Login}: {notificationsString}" : notificationsString);
-                }
+                //if (userQuery != null)
+                //{
+                //    logHistorico = log.SaveLogHistorico(userQuery == null ? new Guid() : userQuery.Id, userQuery == null ? new Guid() : userQuery.Id, EnumTipoLog.LOGIN, "Usuario",
+                //     $"{userQuery.Nome} Logou com Sucesso!", notificationsString != null ? $"{request.UsuarioRequerenteId}: {notificationsString}" : notificationsString);
+                //}
+                //else
+                //{
+                //    logHistorico = log.SaveLogHistorico(new Guid(), new Guid(), EnumTipoLog.LOGIN, "Usuario",
+                //     "Erro", notificationsString != null ? $"{request.Login}: {notificationsString}" : notificationsString);
+                //}
 
 
-                _logHistoricoRepository.Add(logHistorico);
+                //_logHistoricoRepository.Add(logHistorico);
 
                 if (_notifications.HasNotifications()) await Commit(true);
                 if (!_notifications.HasNotifications()) await Commit();

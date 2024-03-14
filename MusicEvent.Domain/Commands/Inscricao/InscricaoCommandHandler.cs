@@ -13,6 +13,7 @@ using MusicEvent.Domain.Models.Administracao;
 using RabbitMQ.Client;
 using MusicEvent.Domain.Models.Autenticacao;
 using System.Linq;
+using MusicEvent.Domain.Enum;
 
 namespace MusicEvent.Domain.Commands.Inscricao
 {
@@ -24,17 +25,14 @@ namespace MusicEvent.Domain.Commands.Inscricao
         private readonly DomainNotificationHandler _notifications;
         private readonly IInscricaoRepository _repository;
         private readonly IUsuarioRepository _usuarioRepository;
-        private readonly ILogHistoricoRepository _logHistoricoRepository;
 
         public InscricaoCommandHandler(IInscricaoRepository repository,
             IMediatorHandler bus,
             IUnitOfWork uow,
             INotificationHandler<DomainNotification> notifications,
-            ILogHistoricoRepository logHistoricoRepository,
             IUsuarioRepository usuarioRepository)
             : base(uow, bus, notifications)
         {
-            _logHistoricoRepository = logHistoricoRepository;
             _bus = bus;
             _notifications = (DomainNotificationHandler)notifications;
             _repository = repository;
@@ -73,13 +71,13 @@ namespace MusicEvent.Domain.Commands.Inscricao
 
             if (notificationsString == null)
             {
-                log = new LogHistorico(inscricao.IdUsuario, inscricao.IdEvento, Enum.EnumTipoLog.CRIACAO, "Subscription", "User subscribed");
+                log = new LogHistorico(inscricao.IdUsuario, inscricao.IdEvento, EnumTipoLog.CRIACAO, "Subscription", "User subscribed");
             }
             else
             {
-                log.SaveLogHistorico(Enum.EnumTipoLog.CRIACAO, "Subscription", "Error", notificationsString);
+                //log = new LogHistorico(null, null, EnumTipoLog.CRIACAO, "Subscription", "User subscribed");
+                log = log.SaveLogHistorico(EnumTipoLog.CRIACAO, "Subscription", "Error", notificationsString);
             }
-
 
             var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
             using var connection = factory.CreateConnection();

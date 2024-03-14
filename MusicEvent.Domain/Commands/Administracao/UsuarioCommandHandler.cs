@@ -22,16 +22,13 @@ namespace MusicEvent.Domain.Commands.Administracao
         private readonly IMediatorHandler _bus;
         private readonly DomainNotificationHandler _notifications;
         private readonly IUsuarioRepository _repository;
-        private readonly ILogHistoricoRepository _logHistoricoRepository;
 
         public UsuarioCommandHandler(IUsuarioRepository repository,
             IMediatorHandler bus,
             IUnitOfWork uow,
-            INotificationHandler<DomainNotification> notifications,
-            ILogHistoricoRepository logHistoricoRepository)
+            INotificationHandler<DomainNotification> notifications)
             : base(uow, bus, notifications)
         {
-            _logHistoricoRepository = logHistoricoRepository;
             _bus = bus;
             _notifications = (DomainNotificationHandler)notifications;
             _repository = repository;
@@ -61,11 +58,11 @@ namespace MusicEvent.Domain.Commands.Administracao
                     {
 
                         await Commit();
-                        //Log de CREATE
-                        var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
+                        ////Log de CREATE
+                        //var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
 
-                        LogHistorico logHistorico = log.SaveLogHistorico(request.UsuarioRequerenteId.ToGuid(), usuario.Id, EnumTipoLog.CRIACAO, usuario.GetType().Name, $"Usuário {usuario.Login} foi criado", notificationsString);
-                        _logHistoricoRepository.Add(logHistorico);
+                        //LogHistorico logHistorico = log.SaveLogHistorico(request.UsuarioRequerenteId.ToGuid(), usuario.Id, EnumTipoLog.CRIACAO, usuario.GetType().Name, $"Usuário {usuario.Login} foi criado", notificationsString);
+                        //_logHistoricoRepository.Add(logHistorico);
 
                         if (_notifications.HasNotifications()) await Commit(true);
                         if (!_notifications.HasNotifications()) await Commit();
@@ -100,11 +97,11 @@ namespace MusicEvent.Domain.Commands.Administracao
                     _repository.Update(usuario);
                     await Commit();
 
-                    //Log de UPDATE
-                    var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
+                    ////Log de UPDATE
+                    //var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
 
-                    LogHistorico logHistorico = log.SaveLogHistorico(request.UsuarioRequerenteId.ToGuid(), usuario.Id, EnumTipoLog.ALTERACAO, usuario.GetType().Name, $"Usuário {usuario.Email} foi alterado", notificationsString);
-                    _logHistoricoRepository.Add(logHistorico);
+                    //LogHistorico logHistorico = log.SaveLogHistorico(request.UsuarioRequerenteId.ToGuid(), usuario.Id, EnumTipoLog.ALTERACAO, usuario.GetType().Name, $"Usuário {usuario.Email} foi alterado", notificationsString);
+                    //_logHistoricoRepository.Add(logHistorico);
 
                     if (_notifications.HasNotifications()) await Commit(true);
                     if (!_notifications.HasNotifications()) await Commit();
@@ -134,11 +131,11 @@ namespace MusicEvent.Domain.Commands.Administracao
 
                     await Commit();
 
-                    //Log de DELETE
-                    var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
+                    ////Log de DELETE
+                    //var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
 
-                    LogHistorico logHistorico = log.SaveLogHistorico(request.UsuarioRequerenteId.ToGuid(), usuario.Id, EnumTipoLog.EXCLUSAO, usuario.GetType().Name, $"Usuário {usuario.Login} foi excluido logicamente", notificationsString);
-                    _logHistoricoRepository.Add(logHistorico);
+                    //LogHistorico logHistorico = log.SaveLogHistorico(request.UsuarioRequerenteId.ToGuid(), usuario.Id, EnumTipoLog.EXCLUSAO, usuario.GetType().Name, $"Usuário {usuario.Login} foi excluido logicamente", notificationsString);
+                    //_logHistoricoRepository.Add(logHistorico);
 
                     if (_notifications.HasNotifications()) await Commit(true);
                     if (!_notifications.HasNotifications()) await Commit();

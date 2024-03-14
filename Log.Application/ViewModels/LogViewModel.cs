@@ -9,8 +9,9 @@ namespace Log.Application.ViewModels
 {
     public class LogViewModel
     {
-        public Guid UsuarioId { get; set; }
-        public Guid EntidadeId { get; set; }
+        public Guid? UsuarioId { get; set; }
+        public Guid? EntidadeId { get; set; }
+        public DateTime Data { get; set; }
         public EnumTipoLog TipoLog { get; set; }
         public string NomeEntidade { get; set; }
         public string Descricao { get; set; }

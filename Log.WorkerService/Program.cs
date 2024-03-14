@@ -12,5 +12,10 @@ NativeInjector.RegisterAppServices(builder.Services);
 
 IHost host = builder.Build();
 
+IConfiguration Config = new ConfigurationBuilder()
+.SetBasePath(Directory.GetCurrentDirectory())
+.AddJsonFile("appsettings.json", false, true)
+.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", false, true).Build();
+
 host.Run();
 
