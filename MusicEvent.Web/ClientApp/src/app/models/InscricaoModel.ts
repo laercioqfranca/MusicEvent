@@ -1,9 +1,7 @@
 export class InscricaoModel {
-    idUsuario: string;
     idEvento: string;
 
-    constructor(idUsuario:string, idEvento:string) {
-      this.idUsuario = idUsuario;
+    constructor(idEvento:string) {
       this.idEvento = idEvento;
   
     }

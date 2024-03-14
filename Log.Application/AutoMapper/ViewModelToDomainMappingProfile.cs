@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Log.Application.DTO;
-using Log.Domain.Commands.Inscricao;
+using Log.Application.ViewModels;
+using Log.Domain.Commands;
 
 namespace Log.Application.AutoMapper
 {
@@ -8,7 +9,7 @@ namespace Log.Application.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
-            CreateMap<InscricaoDTO, InscricaoCreateCommand>();
+            CreateMap<LogViewModel, LogCreateCommand>();
         }
     }
 }

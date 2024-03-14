@@ -6,6 +6,7 @@ using System.Text.Json;
 using Log.Application.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Log.Application.ViewModels;
 
 namespace Log.WorkerService
 {
@@ -21,7 +22,6 @@ namespace Log.WorkerService
         public IServiceProvider Services { get; }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            String status = "Inscrição processada com sucesso!";
             while (!stoppingToken.IsCancellationRequested)
             {
     
@@ -36,21 +36,13 @@ namespace Log.WorkerService
                                  autoDelete: false,
                                  arguments: null);
 
-                // Fila para devolver o status do cadastro
-                channel.QueueDeclare(
-                queue: "Log.atus",
-                durable: false,
-                exclusive: false,
-                autoDelete: false,
-                arguments: null);
-
                 var consumer = new EventingBasicConsumer(channel);
                 
                 consumer.Received += async (sender, eventArgs) =>
                 {
                     var body = eventArgs.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-                    var dto = JsonSerializer.Deserialize<InscricaoDTO>(body);
+                    var log = JsonSerializer.Deserialize<LogViewModel>(body);
 
                     using (var scope = Services.CreateScope())
                     {
@@ -60,23 +52,16 @@ namespace Log.WorkerService
 
                             using (var connection = factory.CreateConnection())
                             {
-                                await scoped.Create(dto);
+                                await scoped.CreateLog(log);
                             }
                         }
                         catch (Exception ex)
                         {
-                            status = ex.Message;
+                            Console.WriteLine(ex.Message);
                         }
                     }
 
                 };
-
-                var statusBody = Encoding.UTF8.GetBytes(status);
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: "Log.atus",
-                    basicProperties: null,
-                    body: statusBody);
 
                 channel.BasicConsume(
                     queue: "log",

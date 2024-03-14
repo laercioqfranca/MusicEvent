@@ -88,8 +88,7 @@ namespace MusicEvent.Domain.Commands.Administracao
                 NotifyValidationErrors(request);
             else
             {
-                var query = await _repository.GetById(request.Id);
-                Usuario usuario = query.FirstOrDefault();
+                Usuario usuario = await _repository.GetById(request.Id);
 
                 if (usuario == null)
                     await _bus.RaiseEvent(new DomainNotification(request.MessageType, "Registro não existe!"));
@@ -123,8 +122,7 @@ namespace MusicEvent.Domain.Commands.Administracao
                 NotifyValidationErrors(request);
             else
             {
-                var query = await _repository.GetById(request.IdUsuario);
-                Usuario usuario = query.FirstOrDefault();
+                Usuario usuario = await _repository.GetById(request.IdUsuario);
 
                 if (usuario == null)
                     await _bus.RaiseEvent(new DomainNotification("Exclusão negada!", "O usuário não existe no banco de dados!"));

@@ -9,11 +9,11 @@ using Log.Domain.Interfaces.Infra.Data;
 using Log.Infra.Data.EventSourcing;
 using Log.Infra.Data.Context;
 using Log.Infra.Data.Repositories.LogRepository;
-using Log.Domain.Commands.Inscricao;
 using Log.Application.Interfaces;
 using Log.Application.AppServices;
 using Log.Domain.Interfaces.Infra.Data.Repositories;
 using Log.Infra.Data.Repositories;
+using Log.Domain.Commands;
 
 namespace Log.Infra.IoC
 {
@@ -34,8 +34,7 @@ namespace Log.Infra.IoC
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
             // Domain - Commands
-            services.AddScoped<IRequestHandler<InscricaoCreateCommand, Unit>, InscricaoCommandHandler>();
-            services.AddScoped<IRequestHandler<InscricaoDeleteCommand, Unit>, InscricaoCommandHandler>();
+            services.AddScoped<IRequestHandler<LogCreateCommand, Unit>, LogCommandHandler>();
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();
@@ -44,7 +43,6 @@ namespace Log.Infra.IoC
             // Infra - Data
             services.AddDbContext<LogContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IInscricaoRepository, InscricaoRepository>();
 
             // Infra - Service
         }

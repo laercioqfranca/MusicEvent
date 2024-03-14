@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Log.Domain.Models.Administracao;
 
 
-namespace Log.Infra.Data.Mappings.LogHistoricoMap
+namespace Log.Infra.Data.Mappings
 {
     class LogHistoricoMap : IEntityTypeConfiguration<LogHistorico>
     {

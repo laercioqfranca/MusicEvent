@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Log.Application.DTO;
 using Log.Application.Interfaces;
 using Log.Core.Interfaces;
 using Log.Domain.Interfaces.Infra.Data.Repositories;
-using Log.Domain.Commands.Inscricao;
+using Log.Application.ViewModels;
+using Log.Domain.Commands;
 
 namespace Log.Application.AppServices
 {
@@ -12,10 +12,10 @@ namespace Log.Application.AppServices
     {
         private readonly IMapper _mapper;
         private readonly IMediatorHandler _bus;
-        private readonly IInscricaoRepository _repository;
+        private readonly ILogHistoricoRepository _repository;
         private readonly IHttpContextAccessor _httpContextAcessor;
 
-        public LogAppService(IMapper mapper, IMediatorHandler bus, IInscricaoRepository repository, IHttpContextAccessor httpContextAccessor)
+        public LogAppService(IMapper mapper, IMediatorHandler bus, ILogHistoricoRepository repository, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _bus = bus;
@@ -23,10 +23,9 @@ namespace Log.Application.AppServices
             _httpContextAcessor = httpContextAccessor;
         }
 
-        public async Task Create(InscricaoDTO InscricaoDTO)
+        public async Task CreateLog(LogViewModel logViewModel)
         {
-            var command = _mapper.Map<InscricaoCreateCommand>(InscricaoDTO);
-            //command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            var command = _mapper.Map<LogCreateCommand>(logViewModel);
             await _bus.SendCommand(command);
         }
 

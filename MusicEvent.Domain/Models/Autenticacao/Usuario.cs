@@ -2,6 +2,7 @@
 using MusicEvent.Domain.Utils;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MusicEvent.Domain.Models.Autenticacao
 {

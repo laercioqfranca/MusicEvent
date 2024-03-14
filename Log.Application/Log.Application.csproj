@@ -17,8 +17,5 @@
     <ProjectReference Include="..\Log.Core\Log.Core.csproj" />
     <ProjectReference Include="..\Log.Domain\Log.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
 
 </Project>

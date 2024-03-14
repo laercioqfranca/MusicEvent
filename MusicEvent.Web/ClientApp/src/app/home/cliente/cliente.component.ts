@@ -38,8 +38,8 @@ export class ClienteComponent implements OnInit {
 
   }
 
-  inscrever(id: any) {
-    let model = new InscricaoModel(this.user?.id, id);
+  inscrever(idEvento: any) {
+    let model = new InscricaoModel(idEvento);
     this.inscricaoService.create(model).subscribe({
       next: (res) => {
         if (res?.success) {

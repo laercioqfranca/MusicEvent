@@ -39,14 +39,14 @@ namespace MusicEvent.Infra.Data.Repositories.Auth
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Usuario>> GetById(Guid id)
+        public async Task<Usuario> GetById(Guid id)
         {
-            var usuario = await _context.Set<Usuario>()
+            Usuario usuario = await _context.Set<Usuario>()
                 .Include(u => u.Perfil)
                 .Where(
                     u => !u.Excluido && 
                     u.Id == id
-            ).ToListAsync();
+            ).FirstOrDefaultAsync();
             return usuario;
         }
 

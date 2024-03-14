@@ -14,6 +14,7 @@ namespace MusicEvent.Domain.Models.Administracao
         public EnumTipoLog TipoLog { get; private set; }
         public string NomeEntidade { get; private set; }
         public string Descricao { get; private set; }
+
         public LogHistorico() { }
 
         public LogHistorico(Guid usuarioId, Guid entidadeId, EnumTipoLog tipoLog, string nomeEntidade, string descricao)

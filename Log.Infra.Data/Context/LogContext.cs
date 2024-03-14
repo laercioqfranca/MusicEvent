@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Log.Infra.Data.Mappings;
-using Log.Infra.Data.Mappings.LogHistoricoMap;
 using System;
 
 namespace Log.Infra.Data.Context
@@ -19,8 +18,6 @@ namespace Log.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new LogHistoricoMap());
-            modelBuilder.ApplyConfiguration(new InscricaoMap());
-
 
             #region Mapeamento das Tabelas de tipos e domínios
 
