@@ -48,7 +48,7 @@ export class ClienteComponent implements OnInit {
         }
       },
       error: (e) => {
-        this.notificationService.showError(e?.message)
+        this.notificationService.showError("Ocorreu algum erro durante a inscrição!", "Ops...");
       },
     });
   }
@@ -64,7 +64,7 @@ export class ClienteComponent implements OnInit {
             }
           },
           error: (e) => {
-            this.notificationService.showError(e?.message)
+            this.notificationService.showError("Ocorreu algum erro durante o cancelamento da inscrição!", "Ops...");
           },
         }
 
@@ -86,7 +86,7 @@ export class ClienteComponent implements OnInit {
           }
         },
         error: (e) => {
-          this.notificationService.showError(e?.message)
+          this.notificationService.showError("Ocorreu algum erro ao carregar os seus eventos!", "Ops...");
         },
       }
 
@@ -107,7 +107,7 @@ export class ClienteComponent implements OnInit {
           }
         },
         error: (e) => {
-          this.notificationService.showError(e?.message)
+          this.notificationService.showError("Ocorreu algum erro ao carregar os seus eventos!", "Ops...");
         },
       }
 

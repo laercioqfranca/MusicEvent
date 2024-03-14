@@ -3,7 +3,6 @@ export class InscricaoModel {
 
     constructor(idEvento:string) {
       this.idEvento = idEvento;
-  
     }
     
   }

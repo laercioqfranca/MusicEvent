@@ -14,6 +14,7 @@ using RabbitMQ.Client;
 using MusicEvent.Domain.Models.Autenticacao;
 using System.Linq;
 using MusicEvent.Domain.Enum;
+using MusicEvent.Domain.Models;
 
 namespace MusicEvent.Domain.Commands.Inscricao
 {
@@ -42,7 +43,7 @@ namespace MusicEvent.Domain.Commands.Inscricao
         public async Task<Unit> Handle(SubscriptionCreateCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
-            Models.Subscription inscricao = null;
+            Subscription subscription = null;
 
             if (!request.IsValid())
                 NotifyValidationErrors(request);
@@ -52,14 +53,14 @@ namespace MusicEvent.Domain.Commands.Inscricao
 
                 if (usuario == null)
                 {
-                    await _bus.RaiseEvent(new DomainNotification(request.MessageType, $"Non-existent user"));
+                    await _bus.RaiseEvent(new DomainNotification(request.MessageType, $"Create error: Non-existent user"));
                 }
                 else
                 {
 
-                    inscricao = new((Guid)request.UsuarioRequerenteId, request.IdEvento);
+                    subscription = new((Guid)request.UsuarioRequerenteId, request.IdEvento);
 
-                    _repository.Add(inscricao);
+                    _repository.Add(subscription);
                 
                     await Commit();
 
@@ -71,12 +72,11 @@ namespace MusicEvent.Domain.Commands.Inscricao
 
             if (notificationsString == null)
             {
-                log = new LogHistorico(inscricao.IdUsuario, inscricao.IdEvento, EnumTipoLog.CRIACAO, "Subscription", "User subscribed");
+                log = new LogHistorico(subscription.IdUsuario, subscription.IdEvento, EnumTipoLog.CREATE, "Subscription", "User subscribed");
             }
             else
             {
-                //log = new LogHistorico(null, null, EnumTipoLog.CRIACAO, "Subscription", "User subscribed");
-                log = log.SaveLogHistorico(EnumTipoLog.CRIACAO, "Subscription", "Error", notificationsString);
+                log = log.SaveLogHistorico(EnumTipoLog.CREATE, "Subscription", "Error", notificationsString);
             }
 
             var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
@@ -105,14 +105,54 @@ namespace MusicEvent.Domain.Commands.Inscricao
 
         public async Task<Unit> Handle(SubscriptionDeleteCommand request, CancellationToken cancellationToken)
         {
+            LogHistorico log = new LogHistorico();
+            Subscription subscription = await _repository.GetById(Guid.NewGuid(), request.IdEvento); ;
+
             if (!request.IsValid())
                 NotifyValidationErrors(request);
             else
             {
-                Models.Subscription inscricao = await _repository.GetById((Guid)request.UsuarioRequerenteId, request.IdEvento);
-                _repository.Remove(inscricao);
+                if(subscription == null)
+                {
+                    await _bus.RaiseEvent(new DomainNotification(request.MessageType, $"Delete error: Non-existent subscription"));
+                }
+                else
+                {
+                    _repository.Remove(subscription);
+                    await Commit();
+                }
+            }
 
-                await Commit();
+            var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
+
+            if (notificationsString == null)
+            {
+                log = new LogHistorico(subscription.IdUsuario, subscription.IdEvento, EnumTipoLog.DELETE, "Subscription", "User unsubscribed");
+            }
+            else
+            {
+                log = log.SaveLogHistorico(EnumTipoLog.DELETE, "Subscription", "Error", notificationsString);
+            }
+
+            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+            using var connection = factory.CreateConnection();
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(
+                    queue: "log",
+                    durable: false,
+                    exclusive: false,
+                    autoDelete: false,
+                    arguments: null);
+
+                string message = JsonSerializer.Serialize(log);
+                var body = Encoding.UTF8.GetBytes(message);
+
+                channel.BasicPublish(
+                    exchange: "",
+                    routingKey: "log",
+                    basicProperties: null,
+                    body: body);
             }
 
             return Unit.Value;

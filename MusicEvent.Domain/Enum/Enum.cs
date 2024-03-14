@@ -3,9 +3,9 @@
     public enum EnumTipoLog : short
     {
         LOGIN = 1,
-        ALTERACAO,
-        CRIACAO,
-        EXCLUSAO
+        UPDATE,
+        CREATE,
+        DELETE
     }
 
     public enum EnumTipoPerfil : int
