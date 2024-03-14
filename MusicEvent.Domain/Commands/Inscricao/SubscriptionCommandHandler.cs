@@ -17,16 +17,16 @@ using MusicEvent.Domain.Enum;
 
 namespace MusicEvent.Domain.Commands.Inscricao
 {
-    public class InscricaoCommandHandler : CommandHandler, IRequestHandler<InscricaoCreateCommand>
-       , IRequestHandler<InscricaoDeleteCommand>
+    public class SubscriptionCommandHandler : CommandHandler, IRequestHandler<SubscriptionCreateCommand>
+       , IRequestHandler<SubscriptionDeleteCommand>
     {
 
         private readonly IMediatorHandler _bus;
         private readonly DomainNotificationHandler _notifications;
-        private readonly IInscricaoRepository _repository;
+        private readonly ISubscriptionRepository _repository;
         private readonly IUsuarioRepository _usuarioRepository;
 
-        public InscricaoCommandHandler(IInscricaoRepository repository,
+        public SubscriptionCommandHandler(ISubscriptionRepository repository,
             IMediatorHandler bus,
             IUnitOfWork uow,
             INotificationHandler<DomainNotification> notifications,
@@ -39,10 +39,10 @@ namespace MusicEvent.Domain.Commands.Inscricao
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<Unit> Handle(InscricaoCreateCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(SubscriptionCreateCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
-            Models.Inscricao inscricao = null;
+            Models.Subscription inscricao = null;
 
             if (!request.IsValid())
                 NotifyValidationErrors(request);
@@ -103,13 +103,13 @@ namespace MusicEvent.Domain.Commands.Inscricao
             return Unit.Value;
         }
 
-        public async Task<Unit> Handle(InscricaoDeleteCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(SubscriptionDeleteCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
                 NotifyValidationErrors(request);
             else
             {
-                Models.Inscricao inscricao = await _repository.GetById((Guid)request.UsuarioRequerenteId, request.IdEvento);
+                Models.Subscription inscricao = await _repository.GetById((Guid)request.UsuarioRequerenteId, request.IdEvento);
                 _repository.Remove(inscricao);
 
                 await Commit();

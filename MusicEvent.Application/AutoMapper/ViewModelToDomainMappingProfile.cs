@@ -18,7 +18,7 @@ namespace MusicEvent.Application.AutoMapper
 
             CreateMap<UsuarioViewModel, UsuarioUpdateCommand>();
 
-            CreateMap<InscricaoDTO, InscricaoCreateCommand>();
+            CreateMap<SubscriptionDTO, SubscriptionCreateCommand>();
 
             CreateMap<EventoDTO, EventoCreateCommand>();
 

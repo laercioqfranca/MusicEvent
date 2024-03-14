@@ -3,11 +3,11 @@ using MusicEvent.Core.Commands;
 
 namespace MusicEvent.Domain.Commands.Inscricao
 {
-    public class InscricaoDeleteCommand : Command
+    public class SubscriptionDeleteCommand : Command
     {
         public Guid IdEvento { get; protected set; }
 
-        public InscricaoDeleteCommand(Guid idEvento)
+        public SubscriptionDeleteCommand(Guid idEvento)
         {
             IdEvento = idEvento;
 

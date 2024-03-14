@@ -2,7 +2,7 @@
 
 namespace MusicEvent.Application.DTO
 {
-    public class InscricaoDTO
+    public class SubscriptionDTO
     {
         public Guid IdEvento { get; set; }
     }

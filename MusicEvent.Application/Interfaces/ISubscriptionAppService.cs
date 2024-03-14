@@ -9,7 +9,7 @@ namespace MusicEvent.Application.Interfaces
     public interface ISubscriptionAppService : IDisposable
     {
         Task<IEnumerable<EventoViewModel>> GetAllById(Guid id);
-        Task Create(InscricaoDTO inscricaoDTO);
+        Task Create(SubscriptionDTO inscricaoDTO);
         Task Delete(Guid id);
 
     }

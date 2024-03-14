@@ -4,9 +4,9 @@ using MusicEvent.Domain.Models;
 
 namespace MusicEvent.Infra.Data.Mappings
 {
-    public class InscricaoMap : IEntityTypeConfiguration<Inscricao>
+    public class SubscriptionMap : IEntityTypeConfiguration<Subscription>
     {
-        public void Configure(EntityTypeBuilder<Inscricao> builder)
+        public void Configure(EntityTypeBuilder<Subscription> builder)
         {
             builder.HasKey(x => new { x.IdUsuario, x.IdEvento });
 

@@ -23,7 +23,7 @@ namespace MusicEvent.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new ClaimUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimPerfilMap());
             modelBuilder.ApplyConfiguration(new EventoMap());
-            modelBuilder.ApplyConfiguration(new InscricaoMap());
+            modelBuilder.ApplyConfiguration(new SubscriptionMap());
 
 
             #region Mapeamento das Tabelas de tipos e domínios

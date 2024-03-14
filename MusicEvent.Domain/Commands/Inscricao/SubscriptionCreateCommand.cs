@@ -4,9 +4,9 @@ using MusicEvent.Domain.Validations.Inscricao;
 
 namespace MusicEvent.Domain.Commands.Inscricao
 {
-    public class InscricaoCreateCommand : Command
+    public class SubscriptionCreateCommand : Command
     {
-        public InscricaoCreateCommand() { }
+        public SubscriptionCreateCommand() { }
         public Guid IdEvento { get; protected set; }
 
 

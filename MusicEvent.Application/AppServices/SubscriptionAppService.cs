@@ -17,10 +17,10 @@ namespace MusicEvent.Application.AppServices
     {
         private readonly IMapper _mapper;
         private readonly IMediatorHandler _bus;
-        private readonly IInscricaoRepository _repository;
+        private readonly ISubscriptionRepository _repository;
         private readonly IHttpContextAccessor _httpContextAcessor;
 
-        public SubscriptionAppService(IMapper mapper, IMediatorHandler bus, IInscricaoRepository repository, IHttpContextAccessor httpContextAccessor)
+        public SubscriptionAppService(IMapper mapper, IMediatorHandler bus, ISubscriptionRepository repository, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _bus = bus;
@@ -35,16 +35,16 @@ namespace MusicEvent.Application.AppServices
             return _mapper.Map<IEnumerable<EventoViewModel>>(evento);
         }
 
-        public async Task Create(InscricaoDTO InscricaoDTO)
+        public async Task Create(SubscriptionDTO InscricaoDTO)
         {
-            var command = _mapper.Map<InscricaoCreateCommand>(InscricaoDTO);
+            var command = _mapper.Map<SubscriptionCreateCommand>(InscricaoDTO);
             command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
             await _bus.SendCommand(command);
         }
 
         public async Task Delete(Guid id)
         {
-            var command = new InscricaoDeleteCommand(id);
+            var command = new SubscriptionDeleteCommand(id);
             command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
             await _bus.SendCommand(command);
 

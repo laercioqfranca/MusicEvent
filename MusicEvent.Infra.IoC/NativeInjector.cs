@@ -53,8 +53,8 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
 
-            services.AddScoped<IRequestHandler<InscricaoCreateCommand, Unit>, InscricaoCommandHandler>();
-            services.AddScoped<IRequestHandler<InscricaoDeleteCommand, Unit>, InscricaoCommandHandler>();
+            services.AddScoped<IRequestHandler<SubscriptionCreateCommand, Unit>, SubscriptionCommandHandler>();
+            services.AddScoped<IRequestHandler<SubscriptionDeleteCommand, Unit>, SubscriptionCommandHandler>();
 
             services.AddScoped<IRequestHandler<EventoCreateCommand, Unit>, EventoCommandHandler>();
             services.AddScoped<IRequestHandler<EventoUpdateCommand, Unit>, EventoCommandHandler>();
@@ -69,7 +69,7 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
             services.AddScoped<IEventoRepository, EventoRepository>();
-            services.AddScoped<IInscricaoRepository, InscricaoRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
             // Infra - Service
         }
