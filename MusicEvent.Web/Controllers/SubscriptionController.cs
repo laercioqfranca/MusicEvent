@@ -49,7 +49,7 @@ namespace MusicEvent.Web.Controllers
 
         [Route("CreateSubscription")]
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Post([FromBody] InscricaoDTO inscricaoDTO)
         {
             String status = null;
@@ -86,7 +86,7 @@ namespace MusicEvent.Web.Controllers
                     };
 
                     channel.BasicConsume(
-                        queue: "subscriptionStatus",
+                        queue: "Log.atus",
                         autoAck: true,
                         consumer: consumer);
                 }
@@ -101,7 +101,27 @@ namespace MusicEvent.Web.Controllers
             }
         }
 
-        [Route("DeleteSubscription/{id}")]
+        [Route("CreateSubscription2")]
+        [HttpPost]
+        public async Task<IActionResult> CreateSubscription2([FromBody] InscricaoDTO inscricaoDTO)
+        {
+
+            try
+            {
+                await _appService.Create(inscricaoDTO);
+                return Response();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        
+        
+        }
+
+            [Route("DeleteSubscription/{id}")]
         [HttpDelete]
         [Authorize]
         public async Task<IActionResult> Delete(Guid id)

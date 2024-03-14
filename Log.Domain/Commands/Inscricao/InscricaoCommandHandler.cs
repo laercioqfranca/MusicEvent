@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Text.Json;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MusicEvent.Core.Interfaces;
-using MusicEvent.Core.Notifications;
-using MusicEvent.Domain.Interfaces.Infra.Data;
-using MusicEvent.Domain.Interfaces.Infra.Data.Repositories;
-using MusicEvent.Domain.Interfaces.Infra.Data.Repositories.Auth;
-using MusicEvent.Domain.Models.Administracao;
-using RabbitMQ.Client;
+using Log.Core.Interfaces;
+using Log.Core.Notifications;
+using Log.Domain.Interfaces.Infra.Data;
+using Log.Domain.Interfaces.Infra.Data.Repositories;
 
-namespace MusicEvent.Domain.Commands.Inscricao
+namespace Log.Domain.Commands.Inscricao
 {
     public class InscricaoCommandHandler : CommandHandler, IRequestHandler<InscricaoCreateCommand>
        , IRequestHandler<InscricaoDeleteCommand>
@@ -42,31 +37,10 @@ namespace MusicEvent.Domain.Commands.Inscricao
                 NotifyValidationErrors(request);
             else
             {
-                Models.Inscricao inscricao = new((Guid)request.UsuarioRequerenteId, request.IdEvento);
+                Models.Inscricao inscricao = new(request.IdUsuario, request.IdEvento);
                 _repository.Add(inscricao);
                 
                 await Commit();
-
-                var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-                using var connection = factory.CreateConnection();
-                using (var channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(
-                        queue: "log",
-                        durable: false,
-                        exclusive: false,
-                        autoDelete: false,
-                        arguments: null);
-
-                    string message = JsonSerializer.Serialize(inscricao);
-                    var body = Encoding.UTF8.GetBytes(message);
-
-                    channel.BasicPublish(
-                        exchange: "",
-                        routingKey: "log",
-                        basicProperties: null,
-                        body: body);
-                }
             }
             return Unit.Value;
         }
