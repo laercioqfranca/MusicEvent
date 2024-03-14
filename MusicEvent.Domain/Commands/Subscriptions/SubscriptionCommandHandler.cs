@@ -106,7 +106,7 @@ namespace MusicEvent.Domain.Commands.Inscricao
         public async Task<Unit> Handle(SubscriptionDeleteCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
-            Subscription subscription = await _repository.GetById(Guid.NewGuid(), request.IdEvento); ;
+            Subscription subscription = await _repository.GetById((Guid)request.UsuarioRequerenteId, request.IdEvento); ;
 
             if (!request.IsValid())
                 NotifyValidationErrors(request);
