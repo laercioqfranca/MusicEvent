@@ -15,6 +15,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
+using RabbitMQ.Client;
+using System.Text.Json;
 
 namespace MusicEvent.Domain.Commands.Auth
 {
@@ -39,7 +41,6 @@ namespace MusicEvent.Domain.Commands.Auth
             if (!request.IsValid()) NotifyValidationErrors(request);
             else
             {
-
                 var usersByLogin = await _repository.GetByLogin(request.Login);
                 Usuario userQuery = usersByLogin.FirstOrDefault();
 
@@ -59,30 +60,46 @@ namespace MusicEvent.Domain.Commands.Auth
 
                 }
 
-                ////Log Histórico
-                //LogHistorico logHistorico = new LogHistorico();
-                //var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
+                //Log Histórico
+                LogHistorico logHistorico = new LogHistorico();
+                var notificationsString = _notifications.HasNotifications() ? string.Join(";", _notifications.GetNotifications().Select(x => x.Value)) : null;
 
+                if (notificationsString == null)
+                {
+                    log = log.SaveLogHistorico(userQuery == null ? new Guid() : userQuery.Id, userQuery == null ? new Guid() : userQuery.Id, EnumTipoLog.LOGIN, "Usuario",
+                     $"{userQuery.Nome} Logou com Sucesso!", notificationsString != null ? $"{request.UsuarioRequerenteId}: {notificationsString}" : notificationsString);
+                }
+                else
+                {
+                    log = log.SaveLogHistorico(new Guid(), new Guid(), EnumTipoLog.LOGIN, "Usuario",
+                     "Erro", notificationsString != null ? $"{request.Login}: {notificationsString}" : notificationsString);
+                }
 
-                //if (userQuery != null)
-                //{
-                //    logHistorico = log.SaveLogHistorico(userQuery == null ? new Guid() : userQuery.Id, userQuery == null ? new Guid() : userQuery.Id, EnumTipoLog.LOGIN, "Usuario",
-                //     $"{userQuery.Nome} Logou com Sucesso!", notificationsString != null ? $"{request.UsuarioRequerenteId}: {notificationsString}" : notificationsString);
-                //}
-                //else
-                //{
-                //    logHistorico = log.SaveLogHistorico(new Guid(), new Guid(), EnumTipoLog.LOGIN, "Usuario",
-                //     "Erro", notificationsString != null ? $"{request.Login}: {notificationsString}" : notificationsString);
-                //}
+                var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+                using var connection = factory.CreateConnection();
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare(
+                        queue: "log",
+                        durable: false,
+                        exclusive: false,
+                        autoDelete: false,
+                        arguments: null);
 
+                    string message = JsonSerializer.Serialize(log);
+                    var body = Encoding.UTF8.GetBytes(message);
 
-                //_logHistoricoRepository.Add(logHistorico);
-
-                if (_notifications.HasNotifications()) await Commit(true);
-                if (!_notifications.HasNotifications()) await Commit();
+                    channel.BasicPublish(
+                        exchange: "",
+                        routingKey: "log",
+                        basicProperties: null,
+                        body: body);
+                }
 
             }
+
             return Unit.Value;
+
         }
 
         private string GetSalt()

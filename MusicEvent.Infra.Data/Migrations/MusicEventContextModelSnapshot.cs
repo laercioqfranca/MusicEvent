@@ -34,7 +34,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasIndex("IdPerfil");
 
-                    b.ToTable("ClaimPerfil");
+                    b.ToTable("ClaimPerfil", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.ClaimUsuario", b =>
@@ -58,7 +58,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ClaimUsuario");
+                    b.ToTable("ClaimUsuario", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.PerfilUsuario", b =>
@@ -85,7 +85,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PerfilUsuario");
+                    b.ToTable("PerfilUsuario", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.Usuario", b =>
@@ -137,7 +137,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasIndex("IdPerfil");
 
-                    b.ToTable("Usuario");
+                    b.ToTable("Usuario", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Evento", b =>
@@ -161,7 +161,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Evento");
+                    b.ToTable("Evento", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Subscription", b =>
@@ -176,7 +176,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasIndex("IdEvento");
 
-                    b.ToTable("Subscription");
+                    b.ToTable("Subscription", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.ClaimPerfil", b =>

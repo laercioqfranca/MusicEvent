@@ -9,7 +9,7 @@ namespace MusicEvent.Domain.Models
         public Guid IdUsuario { get; set; }
         public Guid IdEvento { get; set; }
         public virtual Usuario Usuario { get; private set; }
-        public virtual Evento Evento { get; private set; }
+        public virtual Eventos Evento { get; private set; }
 
         public Subscription(Guid idUsuario, Guid idEvento)
         {

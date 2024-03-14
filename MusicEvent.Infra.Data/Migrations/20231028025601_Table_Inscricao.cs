@@ -23,7 +23,7 @@ namespace MusicEvent.Infra.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Inscricao_Evento_IdEvento",
                         column: x => x.IdEvento,
-                        principalTable: "Evento",
+                        principalTable: "Eventos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(

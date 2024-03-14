@@ -9,9 +9,9 @@ using MusicEvent.Domain.Models.Autenticacao;
 
 namespace MusicEvent.Domain.Interfaces.Infra.Data.Repositories
 {
-    public interface IEventoRepository : IRepository<Evento>
+    public interface IEventoRepository : IRepository<Eventos>
     {
-        Task<IEnumerable<Evento>> GetAll();
-        Task<Evento> GetById(Guid idEvento);
+        Task<IEnumerable<Eventos>> GetAll();
+        Task<Eventos> GetById(Guid idEvento);
     }
 }

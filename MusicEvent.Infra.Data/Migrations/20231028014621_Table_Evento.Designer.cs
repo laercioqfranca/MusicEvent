@@ -13,7 +13,7 @@ namespace MusicEvent.Infra.Data.Migrations
 {
     [DbContext(typeof(MusicEventContext))]
     [Migration("20231028014621_Table_Evento")]
-    partial class Table_Evento
+    partial class Table_Eventos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -192,7 +192,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Evento");
+                    b.ToTable("Eventos");
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.ClaimPerfil", b =>
