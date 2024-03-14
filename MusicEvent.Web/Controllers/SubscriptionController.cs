@@ -44,6 +44,7 @@ namespace MusicEvent.Web.Controllers
 
         [Route("CreateSubscription")]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateSubscription2([FromBody] SubscriptionDTO inscricaoDTO)
         {
             try
