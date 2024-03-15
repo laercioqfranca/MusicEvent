@@ -13,51 +13,7 @@ Senha: admin123
 
 # Documentação
 
-## Requisitos
-
-1. Construir uma API com as seguintes funcionalidades: <br>
-- Autenticação: login <br>
-- Usuario: Cadastro, edição, listagem e exclusão <br>
-- Eventos: Cadastro, edição, listagem e exclusão <br>
-- Inscrição: Cadastro, exclusão e busca por ID <br>
-- PerfilUsuario: Listagem <br>
-
-2. Registrar os logs no banco de dados
-3. Tela de login
-4. Tela de cadastro de usuários
-5. Página inicial do Administrador
-6. Página inicial do cliente
-7. O sistema precisa ter dois tipos de usuários:
-  * Administrador (Tem a permissão de cadastrar, listar, editar e excluir eventos)
-  * Cliente (Tem a permissão de se inscrever e cancelar a inscrição de um ou mais eventos)
-
-## Critérios de aceite
-### Tela login
-* Permitir o acesso de um usuário existente no banco de dados atrvés da autenticação utilizando e-mail e senha
-* Bloquear o acesso por senha incorreta
-* Bloquear o acesso de usuário não cadastrado
-* O campo de e-mail só pode aceitar um formato de e-mail válido
-
-### Tela de cadastro de usuário
-* Para realizar o cadastro, o usuário precisa informar: 
-  * Nome
-  * Um e-mail válido
-  * Idade - Precisa ser maior ou igual a 18 anos
-  * Senha com no mínimo 8 caracteres
-* Todos os campos são obrigatórios e o formulário não deve liberar o botão de enviar enquanto todos os campos não forem preenchidos corretamente
-
-### Página inicial do administrador
-* Ao fazer o login, o usuário deve ser redirecionado para a página inicial do administrador
-* O menu precisa exibir o nome do usuário e um botão de 'Sair'
-* Para criar um evento, o usuário precisa informar a descrição e a data. Cada evento criado deve ser adicionado imediatamente à lista de eventos
-* Ao clicar em editar evento, o formulário deve exibir os dados e permitir a edição. Ao editar, o evento deve ser atualizado na lista
-* Ao clicar em excluir evento, o mesmo deve sair imediatamente da lista
-
-### Página inicial do cliente
-* Ao fazer o login, o usuário deve ser redirecionado para a página inicial do cliente
-* A lista NOVIDADES precisa mostrar todos os eventos criados pelo administrador
-* Ao clicar no botão de inscrição de um evento, este deve ser mostrado imediatamente na lista de Meus Eventos
-* Ao clicar em cancelar um evento, este deve ser removido da lista de Meus Eventos
+* [Tecnologias utilizadas](#tecnologias-utilizadas)
 
 ## Protótipos
 ### Tela de login
