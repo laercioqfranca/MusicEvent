@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { InscricaoModel } from 'src/app/models/InscricaoModel';
 import { EventoService } from 'src/app/services/evento.service';
 import { InscricaoService } from 'src/app/services/inscricao.service';
 import { AuthService } from 'src/app/services/root/auth.service';
@@ -37,8 +38,8 @@ export class ClienteComponent implements OnInit {
 
   }
 
-  inscrever(id: any) {
-    var model = { idUsuario: this.user?.id, idEvento: id };
+  inscrever(idEvento: any) {
+    let model = new InscricaoModel(idEvento);
     this.inscricaoService.create(model).subscribe({
       next: (res) => {
         if (res?.success) {
@@ -47,7 +48,7 @@ export class ClienteComponent implements OnInit {
         }
       },
       error: (e) => {
-        this.notificationService.showError(e?.message)
+        this.notificationService.showError("Ocorreu algum erro durante a inscrição!", "Ops...");
       },
     });
   }
@@ -63,7 +64,7 @@ export class ClienteComponent implements OnInit {
             }
           },
           error: (e) => {
-            this.notificationService.showError(e?.message)
+            this.notificationService.showError("Ocorreu algum erro durante o cancelamento da inscrição!", "Ops...");
           },
         }
 
@@ -85,7 +86,7 @@ export class ClienteComponent implements OnInit {
           }
         },
         error: (e) => {
-          this.notificationService.showError(e?.message)
+          this.notificationService.showError("Ocorreu algum erro ao carregar os seus eventos!", "Ops...");
         },
       }
 
@@ -106,7 +107,7 @@ export class ClienteComponent implements OnInit {
           }
         },
         error: (e) => {
-          this.notificationService.showError(e?.message)
+          this.notificationService.showError("Ocorreu algum erro ao carregar os seus eventos!", "Ops...");
         },
       }
 

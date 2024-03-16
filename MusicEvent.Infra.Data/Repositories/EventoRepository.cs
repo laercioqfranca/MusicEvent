@@ -10,7 +10,7 @@ using MusicEvent.Infra.Data.Context;
 
 namespace MusicEvent.Infra.Data.Repositories
 {
-    public class EventoRepository : Repository<Evento>, IEventoRepository
+    public class EventoRepository : Repository<Eventos>, IEventoRepository
     {
         private readonly MusicEventContext _context;
         public EventoRepository(MusicEventContext dbContext) : base(dbContext)
@@ -18,15 +18,15 @@ namespace MusicEvent.Infra.Data.Repositories
             _context = dbContext;
         }
 
-        public async Task<IEnumerable<Evento>> GetAll()
+        public async Task<IEnumerable<Eventos>> GetAll()
         {
-            IQueryable<Evento> query = DbSet.Where(x => !x.Excluido).OrderBy(x => x.Data);
+            IQueryable<Eventos> query = DbSet.Where(x => !x.Excluido).OrderByDescending(x => x.Data);
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<Evento> GetById(Guid idEvento)
+        public async Task<Eventos> GetById(Guid idEvento)
         {
-            var evento = await _context.Set<Evento>()
+            var evento = await _context.Set<Eventos>()
                 .Where(
                     x => x.Id == idEvento && !x.Excluido
             ).FirstOrDefaultAsync();

@@ -4,9 +4,9 @@ using MusicEvent.Domain.Models;
 
 namespace MusicEvent.Infra.Data.Mappings
 {
-    public class EventoMap : IEntityTypeConfiguration<Evento>
+    public class EventoMap : IEntityTypeConfiguration<Eventos>
     {
-        public void Configure(EntityTypeBuilder<Evento> builder)
+        public void Configure(EntityTypeBuilder<Eventos> builder)
         {
             builder.HasKey(x => x.Id);
 

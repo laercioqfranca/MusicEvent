@@ -10,7 +10,7 @@ namespace MusicEvent.Infra.Data.Migrations
         {
             migrationBuilder.AddColumn<bool>(
                 name: "Excluido",
-                table: "Evento",
+                table: "Eventos",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
@@ -20,7 +20,7 @@ namespace MusicEvent.Infra.Data.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Excluido",
-                table: "Evento");
+                table: "Eventos");
         }
     }
 }

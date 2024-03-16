@@ -3,7 +3,7 @@ using MusicEvent.Domain.Commands.Inscricao;
 
 namespace MusicEvent.Domain.Validations.Inscricao
 {
-    public class InscricaoCommandValidation : CommandValidation<InscricaoCreateCommand>
+    public class InscricaoCommandValidation : CommandValidation<SubscriptionCreateCommand>
     {
         public InscricaoCommandValidation()
         {

@@ -43,7 +43,7 @@ export class CriarContaComponent implements OnInit {
           }
         },
         error: (e) => {
-          this.notificationService.showError(e.message);
+          this.notificationService.showError("Ocorreu algum erro ao criar a conta!", "Ops...");
         },
     });
     }

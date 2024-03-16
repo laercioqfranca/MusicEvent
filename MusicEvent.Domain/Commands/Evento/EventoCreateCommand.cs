@@ -10,7 +10,6 @@ namespace MusicEvent.Domain.Commands.Evento
         public string Descricao { get; protected set; }
         public DateTime Data { get; protected set; }
 
-
         public override bool IsValid()
         {
             ValidationResult = new EventoCreateCommandValidation().Validate(this);

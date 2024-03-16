@@ -58,7 +58,7 @@ export class AdminComponent implements OnInit {
           this.carregarDados(); // carrega os dados no formulário
         },
         error: (e) => {
-          this.notificationService.showError(e?.message)
+          this.notificationService.showError("Ocorreu algum erro ao carregar o evento!", "Ops...");
         },
       });
   }
@@ -75,7 +75,7 @@ export class AdminComponent implements OnInit {
           
         },
         error: (e) => {
-          this.notificationService.showError(e?.message)
+          this.notificationService.showError("Ocorreu algum erro ao carregar os eventos!", "Ops...");
         },
       });
   }
@@ -103,7 +103,7 @@ export class AdminComponent implements OnInit {
             }
           },
           error: (e) => {
-            this.notificationService.showError(e?.message)
+            this.notificationService.showError("Ocorreu algum erro ao deletar o evento!", "Ops...");
           },
         }
 
@@ -120,7 +120,7 @@ export class AdminComponent implements OnInit {
         }
       },
       error: (e) => {
-        this.notificationService.showError(e?.message)
+        this.notificationService.showError("Ocorreu algum erro ao criar o evento!", "Ops...");
       },
     });
   }
@@ -140,7 +140,7 @@ export class AdminComponent implements OnInit {
         }
       },
       error: (e) => {
-        this.notificationService.showError(e?.message)
+        this.notificationService.showError("Ocorreu algum erro ao atualizar o evento!", "Ops...");
       },
     });
   }
