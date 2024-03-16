@@ -64,7 +64,7 @@ O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma
 * Em seguida, abra o navegador e acesse o RabbitMQ através da porta 15672 no endereço http://localhost:15672
 <a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/pageserver-rabbitmq.png "Fluxograma da aplicação")</a>
 * Utilize as credenciais padrão do RabbitMQ para acessar o sistema digitando a palavra "guest" em USERNAME e PASSWORD. Sem aspas!
-* <a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/home-rabbitmq.png "Fluxograma da aplicação")</a>
+<a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/home-rabbitmq.png "Fluxograma da aplicação")</a>
 
 ### 4. Executar o projeto
 * Para executar o projeto, clique com o botão direito no projeto web "MusicEvent.Web", selecione "Set as Startup Project" e no botão "executar" na parte superior central, selecione "IIS Express" e clique em executar para carregar a página do Swagger.
