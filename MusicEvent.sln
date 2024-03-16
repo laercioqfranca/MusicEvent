@@ -79,6 +79,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events.Infra.Data", "Events
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events.Infra.IoC", "Events.Infra.IoC\Events.Infra.IoC.csproj", "{B0515EB6-537E-4D60-804F-01880B2F820D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. OcelotAPIGateway", "3. OcelotAPIGateway", "{9E7F82A8-33E5-4945-BCC4-7E5AA39EC29F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.Web", "Gateway.Web\Gateway.Web.csproj", "{5C1A31CC-921A-43C6-9161-1D89DCFA93BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. JwtTokenAuthentication", "4. JwtTokenAuthentication", "{4D74675E-AB75-40A7-B9FC-4BF77FFD8D7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtTokenAuthentication", "JwtTokenAuthentication\JwtTokenAuthentication.csproj", "{414E05FD-492C-43E4-A6C0-A1D47024DCD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +177,14 @@ Global
 		{B0515EB6-537E-4D60-804F-01880B2F820D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0515EB6-537E-4D60-804F-01880B2F820D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0515EB6-537E-4D60-804F-01880B2F820D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C1A31CC-921A-43C6-9161-1D89DCFA93BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C1A31CC-921A-43C6-9161-1D89DCFA93BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C1A31CC-921A-43C6-9161-1D89DCFA93BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C1A31CC-921A-43C6-9161-1D89DCFA93BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{414E05FD-492C-43E4-A6C0-A1D47024DCD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{414E05FD-492C-43E4-A6C0-A1D47024DCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{414E05FD-492C-43E4-A6C0-A1D47024DCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{414E05FD-492C-43E4-A6C0-A1D47024DCD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,6 +226,8 @@ Global
 		{5F8D1939-0A12-45F7-B247-06230DA5AB1E} = {5C3C9B6A-6730-477F-970A-890539342093}
 		{106E6D45-6860-4F08-B0C4-20AE7BFF8043} = {5C3C9B6A-6730-477F-970A-890539342093}
 		{B0515EB6-537E-4D60-804F-01880B2F820D} = {5C3C9B6A-6730-477F-970A-890539342093}
+		{5C1A31CC-921A-43C6-9161-1D89DCFA93BC} = {9E7F82A8-33E5-4945-BCC4-7E5AA39EC29F}
+		{414E05FD-492C-43E4-A6C0-A1D47024DCD2} = {4D74675E-AB75-40A7-B9FC-4BF77FFD8D7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4483CEB5-3216-4F72-9C55-11FC9EF5092D}

@@ -10,11 +10,11 @@ namespace Events.Web.Controllers
 {
     [Route("v1/[controller]")]
     [ApiController]
-    public class EventoController : ApiController
+    public class EventsController : ApiController
     {
         private readonly IEventoAppService _appService;
 
-        public EventoController(IEventoAppService appService, INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator)
+        public EventsController(IEventoAppService appService, INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator)
             : base(notifications, mediator)
         {
             _appService = appService;

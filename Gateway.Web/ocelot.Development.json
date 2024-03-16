@@ -1,0 +1,284 @@
+{
+  "Routes": [
+
+    /* ================================== CORP SSP ======================================================================== */
+
+    {
+      "UpstreamPathTemplate": "/gateway/login",
+      "UpstreamHttpMethod": [ "Post", "Put" ],
+      "DownstreamPathTemplate": "/v1/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/unidade/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/unidade/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/usuarioSolicitacao/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/v1/usuarioSolicitacao/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/instituicao/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/instituicao/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/orgao/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/orgao/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/funcao/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/funcao/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/cargo/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/cargo/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/usuario/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/v1/usuario/{everything}",
+      "DownstreamScheme": "https",
+      "QoSOptions": {
+        "TimeoutValue": 360000
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/UsuarioHistorico/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/usuarioHistorico/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Perfil",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/v1/Perfil",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Perfil/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/Claim/{everything}/Permissoes",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Funcionalidades",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/Claim/pai",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Funcionalidades/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/Claim/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Permissoes/{everything}/{idfuncionalidade}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "DownstreamPathTemplate": "/v1/Claim/Permissoes/{everything}/{idfuncionalidade}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44397
+        }
+      ]
+    },
+
+    /* ========================================================================================================================= */
+
+    /* ================================== CORP MuralhaPaulista ================================================================= */
+
+    {
+      "UpstreamPathTemplate": "/gateway/login2",
+      "UpstreamHttpMethod": [ "Post", "Put" ],
+      "DownstreamPathTemplate": "/v1/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Colaborador/{everything}",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamPathTemplate": "/v1/Colaborador/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Colaborador/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/Colaborador/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Camera/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
+      "DownstreamPathTemplate": "/v1/Camera/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Empresa/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/v1/Empresa/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/TipoLocal/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/TipoLocal/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Correios/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamPathTemplate": "/v1/Correios/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/LogHistorico/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/v1/LogHistorico/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44333
+        }
+      ]
+    }
+
+    /* ========================================================================================================================= */
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7246"
+  }
+}

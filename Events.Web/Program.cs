@@ -33,7 +33,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API-MusicEvent", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API-Events", Version = "v1" });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -104,7 +104,7 @@ else
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "MusicEvent API v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Events API v1");
     });
 
 }
