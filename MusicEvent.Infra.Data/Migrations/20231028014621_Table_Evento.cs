@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MusicEvent.Infra.Data.Migrations
 {
-    public partial class Table_Evento : Migration
+    public partial class Table_Eventos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Evento",
+                name: "Eventos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -26,7 +26,7 @@ namespace MusicEvent.Infra.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Evento");
+                name: "Eventos");
         }
     }
 }

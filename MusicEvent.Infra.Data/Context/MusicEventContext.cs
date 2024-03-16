@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using MusicEvent.Infra.Data.Mappings;
 using MusicEvent.Infra.Data.Mappings.Autenticacao;
-using MusicEvent.Infra.Data.Mappings.LogHistoricoMap;
 using System;
 
 namespace MusicEvent.Infra.Data.Context
@@ -19,13 +18,12 @@ namespace MusicEvent.Infra.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new LogHistoricoMap());
             modelBuilder.ApplyConfiguration(new UsuarioMap());
             modelBuilder.ApplyConfiguration(new PerfilUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimUsuarioMap());
             modelBuilder.ApplyConfiguration(new ClaimPerfilMap());
             modelBuilder.ApplyConfiguration(new EventoMap());
-            modelBuilder.ApplyConfiguration(new InscricaoMap());
+            modelBuilder.ApplyConfiguration(new SubscriptionMap());
 
 
             #region Mapeamento das Tabelas de tipos e domínios

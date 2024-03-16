@@ -15,7 +15,6 @@ using MusicEvent.Application.AppServices.Administracao;
 using MusicEvent.Application.Interfaces.Administracao;
 using MusicEvent.Application.AppServices.Auth;
 using MusicEvent.Application.Interfaces.Auth;
-using MusicEvent.Infra.Data.Repositories.LogRepository;
 using MusicEvent.Domain.Commands.Auth;
 using MusicEvent.Application.AppServices.Autenticacao;
 using MusicEvent.Domain.Commands.Inscricao;
@@ -39,7 +38,7 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();
             services.AddScoped<IPerfilUsuarioAppService, PerfilUsuarioAppService>();
             services.AddScoped<IEventoAppService, EventoAppService>();
-            services.AddScoped<IInscricaoAppService, InscricaoAppService>();
+            services.AddScoped<ISubscriptionAppService, SubscriptionAppService>();
 
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
@@ -54,8 +53,8 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IRequestHandler<UsuarioUpdateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioDeleteCommand, Unit>, UsuarioCommandHandler>();
 
-            services.AddScoped<IRequestHandler<InscricaoCreateCommand, Unit>, InscricaoCommandHandler>();
-            services.AddScoped<IRequestHandler<InscricaoDeleteCommand, Unit>, InscricaoCommandHandler>();
+            services.AddScoped<IRequestHandler<SubscriptionCreateCommand, Unit>, SubscriptionCommandHandler>();
+            services.AddScoped<IRequestHandler<SubscriptionDeleteCommand, Unit>, SubscriptionCommandHandler>();
 
             services.AddScoped<IRequestHandler<EventoCreateCommand, Unit>, EventoCommandHandler>();
             services.AddScoped<IRequestHandler<EventoUpdateCommand, Unit>, EventoCommandHandler>();
@@ -63,7 +62,6 @@ namespace MusicEvent.Infra.IoC
 
             // Infra - Data EventSourcing
             services.AddScoped<IEventStore, EventStore>();
-            services.AddScoped<ILogHistoricoRepository, LogHistoricoRepository>();
 
             // Infra - Data
             services.AddDbContext<MusicEventContext>();
@@ -71,7 +69,7 @@ namespace MusicEvent.Infra.IoC
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IPerfilUsuarioRepository, PerfilUsuarioRepository>();
             services.AddScoped<IEventoRepository, EventoRepository>();
-            services.AddScoped<IInscricaoRepository, InscricaoRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
             // Infra - Service
         }

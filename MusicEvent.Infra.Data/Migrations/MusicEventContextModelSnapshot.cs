@@ -22,35 +22,6 @@ namespace MusicEvent.Infra.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("MusicEvent.Domain.Models.Administracao.LogHistorico", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("EntidadeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("NomeEntidade")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<short>("TipoLog")
-                        .HasColumnType("smallint");
-
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LogHistorico");
-                });
-
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.ClaimPerfil", b =>
                 {
                     b.Property<Guid>("IdClaim")
@@ -63,7 +34,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasIndex("IdPerfil");
 
-                    b.ToTable("ClaimPerfil");
+                    b.ToTable("ClaimPerfil", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.ClaimUsuario", b =>
@@ -87,7 +58,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ClaimUsuario");
+                    b.ToTable("ClaimUsuario", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.PerfilUsuario", b =>
@@ -114,7 +85,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PerfilUsuario");
+                    b.ToTable("PerfilUsuario", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.Usuario", b =>
@@ -166,7 +137,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasIndex("IdPerfil");
 
-                    b.ToTable("Usuario");
+                    b.ToTable("Usuario", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Evento", b =>
@@ -190,10 +161,10 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Evento");
+                    b.ToTable("Evento", (string)null);
                 });
 
-            modelBuilder.Entity("MusicEvent.Domain.Models.Inscricao", b =>
+            modelBuilder.Entity("MusicEvent.Domain.Models.Subscription", b =>
                 {
                     b.Property<Guid>("IdUsuario")
                         .HasColumnType("uniqueidentifier");
@@ -205,7 +176,7 @@ namespace MusicEvent.Infra.Data.Migrations
 
                     b.HasIndex("IdEvento");
 
-                    b.ToTable("Inscricao");
+                    b.ToTable("Subscription", (string)null);
                 });
 
             modelBuilder.Entity("MusicEvent.Domain.Models.Autenticacao.ClaimPerfil", b =>
@@ -238,7 +209,7 @@ namespace MusicEvent.Infra.Data.Migrations
                     b.Navigation("Perfil");
                 });
 
-            modelBuilder.Entity("MusicEvent.Domain.Models.Inscricao", b =>
+            modelBuilder.Entity("MusicEvent.Domain.Models.Subscription", b =>
                 {
                     b.HasOne("MusicEvent.Domain.Models.Evento", "Evento")
                         .WithMany()

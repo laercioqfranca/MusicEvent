@@ -10,7 +10,7 @@ namespace MusicEvent.Domain.Interfaces.Infra.Data.Repositories.Auth
     public interface IUsuarioRepository : IRepository<Usuario>
     {
         Task<IEnumerable<Usuario>> GetAll();
-        Task<IEnumerable<Usuario>> GetById(Guid id);
+        Task<Usuario> GetById(Guid id);
         Task<IEnumerable<Usuario>> GetByLogin(string login);
         Task<IEnumerable<Usuario>> GetByFiltro(string nome, string email, string cpf);
     }

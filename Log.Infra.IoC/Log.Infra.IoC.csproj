@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Log.Application\Log.Application.csproj" />
+    <ProjectReference Include="..\Log.Core\Log.Core.csproj" />
+    <ProjectReference Include="..\Log.Domain\Log.Domain.csproj" />
+    <ProjectReference Include="..\Log.Infra.Bus\Log.Infra.Bus.csproj" />
+    <ProjectReference Include="..\Log.Infra.Data\Log.Infra.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="TextoPadrao.Designer.cs">
+      <DependentUpon>TextoPadrao.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="TextoPadrao.resx">
+      <LastGenOutput>TextoPadrao.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
