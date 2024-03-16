@@ -1,0 +1,6 @@
+@Events.Web_HostAddress = http://localhost:5275
+
+GET {{Events.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
