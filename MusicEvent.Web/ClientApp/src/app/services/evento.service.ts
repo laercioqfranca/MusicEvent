@@ -10,7 +10,7 @@ export class EventoService {
   constructor(private http:HttpClient) { }
 
   getAll(): Observable<any> {
-    return this.http.get('v1/Events/GetAll').pipe(
+    return this.http.get('/Events/GetAll').pipe(
       map((response: any) => ({
         data: response.data,
         success: response.success,

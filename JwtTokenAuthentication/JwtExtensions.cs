@@ -6,7 +6,7 @@ using System.Text;
 namespace JwtTokenAuthentication;
 public static class JwtExtensions
 {
-    public const string SecurityKey = "portalMuralhaPaulistaSSPJwt@secretK";
+    public const string SecurityKey = "musicEventJwt@secretK";
 
     public static void AddJwtAuthentication(this IServiceCollection services)
     {
@@ -22,15 +22,6 @@ public static class JwtExtensions
                 case "Development":
                 default:
                     iss = "https://localhost:34637";
-                    break;
-                case "Test":
-                    iss = "http://ssp.corpssp.web.test";
-                    break;
-                case "Homolog":
-                    iss = "http://ssp.corpssp.web.hml";
-                    break;
-                case "Prod":
-                    iss = "http://back_corpssp";
                     break;
             }
             options.TokenValidationParameters = new TokenValidationParameters

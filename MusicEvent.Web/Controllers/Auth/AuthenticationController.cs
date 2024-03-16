@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using JwtTokenAuthentication;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MusicEvent.Application.Interfaces.Administracao;
@@ -11,6 +12,7 @@ using MusicEvent.Web.Configurations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
+using System.Text;
 
 namespace MusicEvent.Web.Controllers.Auth
 {
@@ -43,10 +45,6 @@ namespace MusicEvent.Web.Controllers.Auth
 
         private Token GetJwtToken(UsuarioViewModel user)
         {
-            // Use a variável 'validFor' para configurar a expiração do token
-            TimeSpan validFor = TimeSpan.FromDays(1);
-            DateTime creationTime = DateTime.Now;
-            DateTime expirationTime = creationTime + validFor;
 
             // Extraia informações do usuário e prepare as claims
             var claims = new List<Claim>
@@ -58,31 +56,39 @@ namespace MusicEvent.Web.Controllers.Auth
                 new Claim(Util.GetEnumDescription(ClaimAuthenticatedUser.EnumPerfil), user.Perfil.IdTipoPerfil.ToString() ?? "")
             };
 
-            // Crie a identidade do usuário
             ClaimsIdentity identity = new(
-                new GenericIdentity(user.Id.ToString(), "UsuarioID"), claims);
+             new GenericIdentity(user.Id!.ToString(), "UsuarioID"), claims);
 
-            // Crie o token de segurança
-            var handler = new JwtSecurityTokenHandler();
-            var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+            DateTime dataCriacao = DateTime.Now;
+            DateTime dataExpiracao = dataCriacao + TimeSpan.FromDays(1);
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtExtensions.SecurityKey));
+            var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+            string iss;
+            switch (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"))
             {
-                Issuer = _tokenConfigurations.Issuer,
-                Audience = _tokenConfigurations.Audience,
-                SigningCredentials = _signingConfigurations.SigningCredentials,
-                Subject = identity,
-                NotBefore = creationTime,
-                Expires = expirationTime
-            });
+                case "Development":
+                default:
+                    iss = "https://localhost:34637";
+                    break;
+            }
 
-            // Gere o token final
-            var token = handler.WriteToken(securityToken);
+            var tokenOptions = new JwtSecurityToken(
+                issuer: iss,
+                claims: claims,
+                expires: dataExpiracao,
+                signingCredentials: signingCredentials
+            );
+
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
             return new()
             {
                 Authenticated = true,
-                Created = creationTime.ToString("yyyy-MM-dd HH:mm:ss"),
-                Expiration = expirationTime.ToString("yyyy-MM-dd HH:mm:ss"),
-                AccessToken = token,
+                Created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
+                Expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
+                AccessToken = tokenString,
                 Message = "OK"
             };
         }

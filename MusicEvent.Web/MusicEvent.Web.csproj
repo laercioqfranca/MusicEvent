@@ -27,7 +27,9 @@
 	<ItemGroup>
 		<ProjectReference Include="..\MusicEvent.Application\MusicEvent.Application.csproj" />
 		<ProjectReference Include="..\MusicEvent.Core\MusicEvent.Core.csproj" />
+		<ProjectReference Include="..\MusicEvent.Domain\MusicEvent.Domain.csproj" />
 		<ProjectReference Include="..\MusicEvent.Infra.IoC\MusicEvent.Infra.IoC.csproj" />
+    <ProjectReference Include="..\JwtTokenAuthentication\JwtTokenAuthentication.csproj" />
 	</ItemGroup>
 
 </Project>
