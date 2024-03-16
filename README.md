@@ -41,8 +41,8 @@ Senha: admin123
 
 # Arquitetura
 O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma API que controla as funcionalidades básicas da aplicação e um microsserviço que faz o registro de logs, como pode ser observado no seguinte fluxograma. 
-Cada microsserviço possui seu próprio banco de dados e ao executar ações como criação de eventos, autenticação, criação de contas, etc, o MusicEvent que atua como "producer", envia os logs para a fila de mesmo nome presente no RabbitMQ. 
-Em seguinda, o microsserviço LogService que atua como "consumer", está sempre em execução "ouvindo" a fila de logs, assim que os dados chegam, ele retira os logs enfileirados e faz o registro no banco de dados LogSystem.
+Cada microsserviço possui seu próprio banco de dados e ao executar ações como criação de eventos, autenticação, criação de contas, etc, o MusicEvent que atua como "producer" e envia os logs para a fila de mesmo nome presente no RabbitMQ. 
+Em seguinda, o microsserviço LogService, que atua como "consumer", está sempre em execução "ouvindo" a fila de logs, assim que os dados chegam, ele retira os logs enfileirados e faz o registro no banco de dados LogSystem.
 
 <a href="#">![Fluxograma da aplicação](MusicEvent.Web/ClientApp/src/assets/img/rabbitmq-design.png "Fluxograma da aplicação")</a>
 
