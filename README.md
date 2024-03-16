@@ -40,9 +40,11 @@ Senha: admin123
 <a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/home-cliente.png "Página Inicial - Cliente")</a>
 
 # Arquitetura
-O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma API que controla as funcionalidades básicas da aplicação e um microsserviço que faz o registro de logs, como pode ser observado no seguinte fluxograma.
+O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma API que controla as funcionalidades básicas da aplicação e um microsserviço que faz o registro de logs, como pode ser observado no seguinte fluxograma. 
+Cada microsserviço possui seu próprio banco de dados e ao executar ações como criação de eventos, autenticação, criação de contas, etc, o MusicEvent que atua como "producer" e envia os logs para a fila de mesmo nome presente no RabbitMQ. 
+Em seguinda, o microsserviço LogService, que atua como "consumer", está sempre em execução "ouvindo" a fila de logs, assim que os dados chegam, ele retira os logs enfileirados e faz o registro no banco de dados LogSystem.
 
-<a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/rabbitmq-design.png "Fluxograma da aplicação")</a>
+<a href="#">![Fluxograma da aplicação](MusicEvent.Web/ClientApp/src/assets/img/rabbitmq-design.png "Fluxograma da aplicação")</a>
 
 # Como executar o projeto
 ### 1. Clonar o projeto
@@ -50,21 +52,27 @@ O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma
 * Ao clonar o projeto, deve ser executado o arquivo no diretório "MusicEvent\MusicEvent.sln".
 
 ### 2. Restaurar o backup do banco de dados
-* Para executar o migration da criação do DB, acesse:
-    * "Tools" > "NuGet Package Manager" > "Package Manager Console",
-    * Selecione o "Default project: 4. Infrastructure\MusicEvent.Infra.Data" e execute o comando "update-database -context MusicEventContext"
+* Executar o migration da criação do DB no Visual Studio:
+   * MusicEvent
+      * Clique com o botão direito no projeto MusicEvent.Web e selecione "Set as Startup Project"
+      * Acesse "Tools" > "NuGet Package Manager" > "Package Manager Console",
+      * Selecione o "Default project: 1. Core\MusicEvent\4.Infrastructure\MusicEvent.Infra.Data" e execute o comando "update-database -context MusicEventContext"
+   * LogService
+      * Clique com o botão direito no projeto Log.WorkerService e selecione "Set as Startup Project"
+      * Acesse "Tools" > "NuGet Package Manager" > "Package Manager Console"
+      * Selecione o "Default project: 2. Microsservices\LogService\1. Worker\Log.Infra.Data" e execute o comando "update-database -context LogContext"
 * Para restaurar a base criada no SQL Server Management Studio, clique com o botão direito em:
     * "Databases" > "Restore Database...".
-    * Selecione o arquivo na pasta "MusicEvent\SQL\DB_MusicEvent.bak".
+    * Selecione o arquivo na pasta "MusicEvent\SQL\DB_MusicEvent.bak" e "MusicEvent\SQL\DB_LogSystem.bak" 
 
 ### 3. Executar o RabbitMQ
 * Instale o Docker na sua máquina
 * Após instalar o Docker, utilize o seguinte comando para baixar e executar o RabbitMQ
     * docker run -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
 * Em seguida, abra o navegador e acesse o RabbitMQ através da porta 15672 no endereço http://localhost:15672
-<a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/pageserver-rabbitmq.png "Fluxograma da aplicação")</a>
+<a href="#">![Página do RabbitMQ](MusicEvent.Web/ClientApp/src/assets/img/pageserver-rabbitmq.png "Página do RabbitMQ")</a>
 * Utilize as credenciais padrão do RabbitMQ para acessar o sistema digitando a palavra "guest" em USERNAME e PASSWORD. Sem aspas!
-<a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/home-rabbitmq.png "Fluxograma da aplicação")</a>
+<a href="#">![Página do RabbitMQ](MusicEvent.Web/ClientApp/src/assets/img/home-rabbitmq.png "Página do RabbitMQ")</a>
 
 ### 4. Executar o projeto
 * Para executar o projeto, clique com o botão direito no projeto web "MusicEvent.Web", selecione "Set as Startup Project" e no botão "executar" na parte superior central, selecione "IIS Express" e clique em executar para carregar a página do Swagger.
