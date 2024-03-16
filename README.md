@@ -50,12 +50,18 @@ O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma
 * Ao clonar o projeto, deve ser executado o arquivo no diretório "MusicEvent\MusicEvent.sln".
 
 ### 2. Restaurar o backup do banco de dados
-* Para executar o migration da criação do DB, acesse:
-    * "Tools" > "NuGet Package Manager" > "Package Manager Console",
-    * Selecione o "Default project: 4. Infrastructure\MusicEvent.Infra.Data" e execute o comando "update-database -context MusicEventContext"
+* Executar o migration da criação do DB no Visual Studio:
+   * MusicEvent
+      * Clique com o botão direito no projeto MusicEvent.Web e selecione "Set as Startup Project"
+      * Acesse "Tools" > "NuGet Package Manager" > "Package Manager Console",
+      * Selecione o "Default project: 1. Core\MusicEvent\4.Infrastructure\MusicEvent.Infra.Data" e execute o comando "update-database -context MusicEventContext"
+   * LogService
+      * Clique com o botão direito no projeto Log.WorkerService e selecione "Set as Startup Project"
+      * Acesse "Tools" > "NuGet Package Manager" > "Package Manager Console"
+      * Selecione o "Default project: 2. Microsservices\LogService\1. Worker\Log.Infra.Data" e execute o comando "update-database -context LogContext"
 * Para restaurar a base criada no SQL Server Management Studio, clique com o botão direito em:
     * "Databases" > "Restore Database...".
-    * Selecione o arquivo na pasta "MusicEvent\SQL\DB_MusicEvent.bak".
+    * Selecione o arquivo na pasta "MusicEvent\SQL\DB_MusicEvent.bak" e "MusicEvent\SQL\DB_LogSystem.bak" 
 
 ### 3. Executar o RabbitMQ
 * Instale o Docker na sua máquina
