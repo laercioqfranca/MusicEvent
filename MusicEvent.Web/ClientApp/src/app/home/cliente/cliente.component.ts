@@ -29,13 +29,11 @@ export class ClienteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     let token = this.jwtService.getToken()?.toString();
     this.user = this.jwtService.decodeToken(token);
 
     this.listarEventos();
     this.listarMeusEventos(this.user?.id);
-
   }
 
   inscrever(idEvento: any) {

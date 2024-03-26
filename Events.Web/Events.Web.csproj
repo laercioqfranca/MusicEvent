@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Events.Application\Events.Application.csproj" />
     <ProjectReference Include="..\Events.Infra.IoC\Events.Infra.IoC.csproj" />
+    <ProjectReference Include="..\JwtTokenAuthentication\JwtTokenAuthentication.csproj" />
   </ItemGroup>
 
 </Project>

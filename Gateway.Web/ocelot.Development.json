@@ -62,7 +62,7 @@
     {
       "UpstreamPathTemplate": "/gateway/authentication2",
       "UpstreamHttpMethod": [ "Post", "Put" ],
-      "DownstreamPathTemplate": "/v1/login",
+      "DownstreamPathTemplate": "/v1/authentication",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -84,9 +84,9 @@
       ]
     },
     {
-      "UpstreamPathTemplate": "/gateway/Subscriptions/{everything}",
+      "UpstreamPathTemplate": "/gateway/Subscription/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
-      "DownstreamPathTemplate": "/v1/Subscriptions/{everything}",
+      "DownstreamPathTemplate": "/v1/Subscription/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {

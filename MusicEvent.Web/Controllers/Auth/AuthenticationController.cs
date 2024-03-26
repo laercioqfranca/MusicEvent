@@ -16,7 +16,7 @@ using System.Text;
 
 namespace MusicEvent.Web.Controllers.Auth
 {
-    [Route("v1/authentication")]
+    [Route("v1/[controller]")]
     [ApiController]
     public class AuthenticationController : ApiController
     {
@@ -98,7 +98,7 @@ namespace MusicEvent.Web.Controllers.Auth
 
         #region POST
 
-        [HttpPost("login")]
+        [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginViewModel loginViewModel)
         {
             try

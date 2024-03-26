@@ -5,16 +5,14 @@ using Events.Application.AutoMapper;
 using Events.Core.JWT;
 using System.Text.Json.Serialization;
 using Events.Infra.IoC;
+using JwtTokenAuthentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 // Add services to the container.
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-});
+builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 builder.Services.AddMediatR(typeof(NativeInjector));
@@ -64,20 +62,23 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
+builder.Services.AddJwtAuthentication();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-var tokeConfigurations = new TokenConfigurations();
-new ConfigureFromConfigurationOptions<TokenConfigurations>(
-    builder.Configuration.GetSection("TokenConfigurations"))
-        .Configure(tokeConfigurations);
+//var tokeConfigurations = new TokenConfigurations();
+//new ConfigureFromConfigurationOptions<TokenConfigurations>(
+//    builder.Configuration.GetSection("TokenConfigurations"))
+//        .Configure(tokeConfigurations);
 
 // Aciona a extensão que irá configurar o uso de
 // autenticação e autorização via tokens
-builder.Services.AddJwtSecurity(tokeConfigurations, connectionString);
+//builder.Services.AddJwtSecurity(tokeConfigurations, connectionString);
 
 // Acionar caso seja necessário criar usuários para testes
 //builder.Services.AddScoped<IdentityInitializer>();
 
+builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -106,7 +107,6 @@ else
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Events API v1");
     });
-
 }
 
 IConfiguration Config = new ConfigurationBuilder()
@@ -116,10 +116,6 @@ IConfiguration Config = new ConfigurationBuilder()
 
 app.UseRouting();
 app.UseCors();
-
-
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

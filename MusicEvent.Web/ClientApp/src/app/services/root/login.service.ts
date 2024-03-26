@@ -16,7 +16,7 @@ export class LoginService {
   }
 
   login(credentials:any): Observable<ILogin> {
-    return this.http.post<ILogin>('/authentication/login', credentials);
+    return this.http.post<ILogin>('authentication', credentials);
   }
 
   logout() {
