@@ -10,8 +10,6 @@ using JwtTokenAuthentication;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-// Add services to the container.
 builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
@@ -65,18 +63,6 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddJwtAuthentication();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-//var tokeConfigurations = new TokenConfigurations();
-//new ConfigureFromConfigurationOptions<TokenConfigurations>(
-//    builder.Configuration.GetSection("TokenConfigurations"))
-//        .Configure(tokeConfigurations);
-
-// Aciona a extensão que irá configurar o uso de
-// autenticação e autorização via tokens
-//builder.Services.AddJwtSecurity(tokeConfigurations, connectionString);
-
-// Acionar caso seja necessário criar usuários para testes
-//builder.Services.AddScoped<IdentityInitializer>();
 
 builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
