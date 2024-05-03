@@ -1,3 +1,4 @@
+using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -77,6 +78,19 @@ builder.Services.AddJwtSecurity(tokeConfigurations, connectionString);
 
 // Acionar caso seja necessário criar usuários para testes
 //builder.Services.AddScoped<IdentityInitializer>();
+
+// MassTransit Azure configuration
+var configurarion = builder.Configuration;
+var conexao = configurarion.GetSection("MassTransitAzure")["Conexao"] ?? string.Empty;
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingAzureServiceBus((context, cfg) =>
+    {
+        cfg.Host(conexao);
+    });
+});
+
 
 var app = builder.Build();
 

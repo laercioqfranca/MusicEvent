@@ -19,7 +19,7 @@ namespace MusicEvent.Infra.Data.Repositories
             _context = dbContext;
         }
 
-        public async Task<IEnumerable<Subscription>> GetAllById(Guid idUsuario)
+        public async Task<IEnumerable<Subscription>> GetAllByUserId(Guid idUsuario)
         {
             var inscricoes = await _context.Set<Subscription>()
                 .Include(x => x.Evento)

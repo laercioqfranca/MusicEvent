@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ILogin } from '../../interfaces/interfaces';
-import { AlterarSenhaModel } from '../../models/alterarSenhaModel';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -28,7 +27,7 @@ export class LoginService  {
     return this.http.put(`v1/authentication/reset-password`, resetSenha);
   }
 
-  changePassword(alterar: AlterarSenhaModel): Observable<any> {
-    return this.http.put(`v1/authentication/change-password`, alterar);
-  }
+  //changePassword(alterar: AlterarSenhaModel): Observable<any> {
+  //  return this.http.put(`v1/authentication/change-password`, alterar);
+  //}
 }

@@ -30,7 +30,7 @@ namespace MusicEvent.Application.AppServices
 
         public async Task<IEnumerable<EventoViewModel>> GetAllById(Guid id)
         {
-            var query = await _repository.GetAllById(id);
+            var query = await _repository.GetAllByUserId(id);
             var evento = query.Select(x => x.Evento).OrderBy(x => x.Data);
             return _mapper.Map<IEnumerable<EventoViewModel>>(evento);
         }
