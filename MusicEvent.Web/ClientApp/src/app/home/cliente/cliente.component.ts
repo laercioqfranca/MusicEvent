@@ -43,7 +43,6 @@ export class ClienteComponent implements OnInit {
     let inscricaoExistente = this.listaMeusEventos.filter(e => e.id == idEvento);
 
     if(inscricaoExistente.length == 0){
-
       this.inscricaoService.create(model).subscribe({
         next: (res) => {
           if (res?.success) {

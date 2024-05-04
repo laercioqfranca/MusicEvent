@@ -43,7 +43,7 @@ namespace MusicEvent.Domain.Commands.Inscricao
         public async Task<Unit> Handle(SubscriptionCreateCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
-            Subscription subscription = null;
+            Subscription subscription = _repository.GetById((Guid)request.UsuarioRequerenteId, request.IdEvento).Result;
 
             if (!request.IsValid())
                 NotifyValidationErrors(request);
@@ -55,15 +55,15 @@ namespace MusicEvent.Domain.Commands.Inscricao
                 {
                     await _bus.RaiseEvent(new DomainNotification(request.MessageType, $"Create error: Non-existent user"));
                 }
+                else if (subscription != null)
+                {
+                    await _bus.RaiseEvent(new DomainNotification(request.MessageType, $"Create error: existent subscription"));
+                }
                 else
                 {
-
                     subscription = new((Guid)request.UsuarioRequerenteId, request.IdEvento);
-
                     _repository.Add(subscription);
-                
                     await Commit();
-
                 }
 
             }
