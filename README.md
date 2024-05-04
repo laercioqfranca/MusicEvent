@@ -75,7 +75,7 @@ Elaborar a página inicial do cliente para que possa se increver em eventos ou f
 * Ao tentar se inscrever em um evento
 ---
 # Arquitetura
-O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma API que controla as funcionalidades básicas da aplicação e um microsserviço que faz o registro de logs, como pode ser observado no seguinte fluxograma. 
+O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma API que controla as funcionalidades da aplicação e um microsserviço que faz o registro de logs, como pode ser observado no seguinte fluxograma. 
 Cada microsserviço possui seu próprio banco de dados e ao executar ações como criação de eventos, autenticação, criação de contas, etc, o MusicEvent que atua como "producer" e envia os logs para a fila de mesmo nome presente no RabbitMQ. 
 Em seguinda, o microsserviço LogService, que atua como "consumer", está sempre em execução "ouvindo" a fila de logs, assim que os dados chegam, ele retira os logs enfileirados e faz o registro no banco de dados LogSystem.
 
