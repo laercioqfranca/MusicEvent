@@ -40,17 +40,25 @@ export class ClienteComponent implements OnInit {
 
   inscrever(idEvento: any) {
     let model = new InscricaoModel(idEvento);
-    this.inscricaoService.create(model).subscribe({
-      next: (res) => {
-        if (res?.success) {
-          this.notificationService.showSuccess('Inscrição feita com sucesso!', '');
-          this.listarMeusEventos(this.user.id);
-        }
-      },
-      error: (e) => {
-        this.notificationService.showError("Ocorreu algum erro durante a inscrição!", "Ops...");
-      },
-    });
+    let inscricaoExistente = this.listaMeusEventos.filter(e => e.id == idEvento);
+
+    if(inscricaoExistente.length == 0){
+
+      this.inscricaoService.create(model).subscribe({
+        next: (res) => {
+          if (res?.success) {
+            this.notificationService.showSuccess('Inscrição feita com sucesso!', '');
+            this.listarMeusEventos(this.user.id);
+          }
+        },
+        error: (e) => {
+          this.notificationService.showError("Ocorreu algum erro durante a inscrição!", "Ops...");
+        },
+      });
+    }else{
+      this.notificationService.showWarning("Você já se inscreveu nesse evento!", "Ops...");
+    }
+
   }
 
   deletar(id: any) {
