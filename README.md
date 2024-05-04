@@ -14,7 +14,7 @@ Senha: admin123
 
 # Documentação
 
-* [Protótipos](#protótipos)
+* [Requisitos](#requisitos)
     * [Tela de login](#tela-de-login)
     * [Tela de cadastro de usuário](#tela-de-cadastro-de-usuário)
     * [Página inicial do administrador](#página-inicial-do-administrador)
@@ -27,19 +27,53 @@ Senha: admin123
     * [Executar o projeto](#4-executar-o-projeto)
 * [Tecnologias utilizadas](#tecnologias-utilizadas)
 
-# Protótipos
-### Tela de login
+# Requisitos
+
+## Tela de login
+Elaborar tela de login para permitir autenticação dos usuários.
+### Protótipo
 <a href="#">![Tela de login!](MusicEvent.Web/ClientApp/src/assets/img/tela-login.png "Tela de login")</a>
-
-### Tela de cadastro de usuário
+### Critérios de aceite
+* O login deverá ser realizado através de e-mail e senha
+* Ao tentar entrar com um usuário inexistente, mostrar a mensagem "Acesso negado"
+* Ao digitar a senha de forma incorreta, mostrar a mensagem "Usuário ou senha incorretos"
+---
+## Tela de cadastro de usuário
+Elaborar tela de cadastro para permitir o registro de novos usuários.
+### Protótipo
 <a href="#">![Tela de cadastro de usuário!](MusicEvent.Web/ClientApp/src/assets/img/tela-criar-conta.png "Tela de cadastro")</a>
-
-### Página inicial do administrador
+### Critérios de aceite
+* O formuário deve conter os campos Nome, Idade, E-mail e Senha
+* Todos os campos são obrigatórios
+* Permitir apenas idade igual ou maior que 18 anos
+* A senha deve conter no mínimo 8 caracteres
+* Ao clicar no botão Enviar, mostrar a mensagem "Conta criada com sucesso" e voltar para a tela de login
+* Ao clicar no botão Cancelar, limpar o formulário e voltar para a tela de login
+* Ao clicar no botão Limpar, deve-se reiniciar o formulário
+* Os eventos criados deverão estar listados em "Todos os eventos" com o ícone de editar e excluir evento
+---
+## Página inicial do administrador
+Elaborar a página inicial do administrador para que possa criar, editar e excluir eventos.
+### Protótipo
 <a href="#">![Página Inicial - Administrador!](MusicEvent.Web/ClientApp/src/assets/img/admin-home.png "Página Inicial - Administrador")</a>
-
-### Página inicial do cliente
+### Critérios de aceite
+* O menu deve mostrar o nome do Administrador e o botão de Sair da conta
+* Deve-se disponibilizar um formulário com os campos Descrição e Data para que o usuário possa cadastrar um evento
+* Ao clicar em Criar, o evento precisa ser criado no banco de dados e aparecer instantaneamente na lista de Todos os eventos
+* Ao criar um evento, mostrar a mensagem "Evento criado com sucesso!"
+---
+## Página inicial do cliente
+Elaborar a página inicial do cliente para que possa se increver em eventos ou fazer o cancelamento dos mesmos.
+### Protótipo
 <a href="#">![Página Inicial - Cliente!](MusicEvent.Web/ClientApp/src/assets/img/home-cliente.png "Página Inicial - Cliente")</a>
-
+### Critérios de aceite
+* O menu deve mostrar o nome do Cliente e o botão de Sair da conta
+* Em novidades, serão listados os eventos criados pelo Administrador
+* O usuário poderá se inscrever em um evento clicando no botão de "+"
+* Ao clicar no botão de inscrição, o evento deverá ser listado em Meus Eventos e exibir a mensagem "Inscrição realizada com sucesso!"
+* Ao clicar no ícone de lixeira, o evento deverá ser removido da lista e exibir a mensagem "Inscrição cancelada com sucesso!"
+* Ao tentar se inscrever em um evento
+---
 # Arquitetura
 O projeto utiliza uma arquitetura básica de Microsserviços dividindo-se em uma API que controla as funcionalidades básicas da aplicação e um microsserviço que faz o registro de logs, como pode ser observado no seguinte fluxograma. 
 Cada microsserviço possui seu próprio banco de dados e ao executar ações como criação de eventos, autenticação, criação de contas, etc, o MusicEvent que atua como "producer" e envia os logs para a fila de mesmo nome presente no RabbitMQ. 
