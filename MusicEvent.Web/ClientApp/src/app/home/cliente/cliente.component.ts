@@ -42,7 +42,7 @@ export class ClienteComponent implements OnInit {
     let model = new InscricaoModel(idEvento);
     let eventoExistente = this.listaMeusEventos.filter(e => e.id == idEvento);
 
-    if(eventoExistente){
+    if(eventoExistente.length > 0){
       this.notificationService.showWarning("Você já se inscreveu nesse evento!", "Ops...");
     }else{
 

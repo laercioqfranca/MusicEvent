@@ -24,49 +24,49 @@ namespace Log.WorkerService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-    
-                var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-                using var connection = factory.CreateConnection();
-                using var channel = connection.CreateModel();
-                
-                // Fila de entrada das inscrições
-                channel.QueueDeclare(queue: "log",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
 
-                var consumer = new EventingBasicConsumer(channel);
-                
-                consumer.Received += async (sender, eventArgs) =>
-                {
-                    var body = eventArgs.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    var log = JsonSerializer.Deserialize<LogViewModel>(body);
+                //var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+                //using var connection = factory.CreateConnection();
+                //using var channel = connection.CreateModel();
 
-                    using (var scope = Services.CreateScope())
-                    {
-                        var scoped = scope.ServiceProvider.GetRequiredService<ILogAppService>();
-                        try
-                        {
+                //// Fila de entrada das inscrições
+                //channel.QueueDeclare(queue: "log",
+                //                 durable: false,
+                //                 exclusive: false,
+                //                 autoDelete: false,
+                //                 arguments: null);
 
-                            using (var connection = factory.CreateConnection())
-                            {
-                                await scoped.CreateLog(log);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                    }
+                //var consumer = new EventingBasicConsumer(channel);
 
-                };
+                //consumer.Received += async (sender, eventArgs) =>
+                //{
+                //    var body = eventArgs.Body.ToArray();
+                //    var message = Encoding.UTF8.GetString(body);
+                //    var log = JsonSerializer.Deserialize<LogViewModel>(body);
 
-                channel.BasicConsume(
-                    queue: "log",
-                    autoAck: true,
-                    consumer: consumer);
+                //    using (var scope = Services.CreateScope())
+                //    {
+                //        var scoped = scope.ServiceProvider.GetRequiredService<ILogAppService>();
+                //        try
+                //        {
+
+                //            using (var connection = factory.CreateConnection())
+                //            {
+                //                await scoped.CreateLog(log);
+                //            }
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            Console.WriteLine(ex.Message);
+                //        }
+                //    }
+
+                //};
+
+                //channel.BasicConsume(
+                //    queue: "log",
+                //    autoAck: true,
+                //    consumer: consumer);
 
                 // Tempo de espera para verifica novamente a fila
                 await Task.Delay(2000, stoppingToken);

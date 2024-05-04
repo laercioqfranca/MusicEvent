@@ -119,7 +119,7 @@ namespace MusicEvent.Domain.Commands.Inscricao
             var nomeFila = _configuration.GetSection("MassTransitAzure")["NomeFila"] ?? string.Empty;
             var endpoint = await _bus.GetSendEndpoint(new Uri($"queue:{nomeFila}"));
 
-            await endpoint.Send(log);
+            await endpoint.Send(new LogHistorico(subscription.IdUsuario, subscription.IdEvento, EnumTipoLog.CREATE, "Subscription", "User subscribed"));
 
             return Unit.Value;
         }
@@ -155,26 +155,26 @@ namespace MusicEvent.Domain.Commands.Inscricao
                 log = log.SaveLogHistorico(EnumTipoLog.DELETE, "Subscription", "Error", notificationsString);
             }
 
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-            using var connection = factory.CreateConnection();
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(
-                    queue: "log",
-                    durable: false,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+            //var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+            //using var connection = factory.CreateConnection();
+            //using (var channel = connection.CreateModel())
+            //{
+            //    channel.QueueDeclare(
+            //        queue: "log",
+            //        durable: false,
+            //        exclusive: false,
+            //        autoDelete: false,
+            //        arguments: null);
 
-                string message = JsonSerializer.Serialize(log);
-                var body = Encoding.UTF8.GetBytes(message);
+            //    string message = JsonSerializer.Serialize(log);
+            //    var body = Encoding.UTF8.GetBytes(message);
 
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: "log",
-                    basicProperties: null,
-                    body: body);
-            }
+            //    channel.BasicPublish(
+            //        exchange: "",
+            //        routingKey: "log",
+            //        basicProperties: null,
+            //        body: body);
+            //}
 
             return Unit.Value;
         }
