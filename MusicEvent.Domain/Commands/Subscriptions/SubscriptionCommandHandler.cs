@@ -43,7 +43,7 @@ namespace MusicEvent.Domain.Commands.Inscricao
         public async Task<Unit> Handle(SubscriptionCreateCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
-            Subscription subscription = null;
+            Subscription subscription = _repository.GetById((Guid)request.UsuarioRequerenteId, request.IdEvento).Result;
 
             if (!request.IsValid())
                 NotifyValidationErrors(request);
@@ -55,15 +55,15 @@ namespace MusicEvent.Domain.Commands.Inscricao
                 {
                     await _bus.RaiseEvent(new DomainNotification(request.MessageType, $"Create error: Non-existent user"));
                 }
+                else if (subscription != null)
+                {
+                    await _bus.RaiseEvent(new DomainNotification(request.MessageType, $"Create error: existent subscription"));
+                }
                 else
                 {
-
                     subscription = new((Guid)request.UsuarioRequerenteId, request.IdEvento);
-
                     _repository.Add(subscription);
-                
                     await Commit();
-
                 }
 
             }
@@ -79,26 +79,26 @@ namespace MusicEvent.Domain.Commands.Inscricao
                 log = log.SaveLogHistorico(EnumTipoLog.CREATE, "Subscription", "Error", notificationsString);
             }
 
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-            using var connection = factory.CreateConnection();
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(
-                    queue: "log",
-                    durable: false,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+            //var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+            //using var connection = factory.CreateConnection();
+            //using (var channel = connection.CreateModel())
+            //{
+            //    channel.QueueDeclare(
+            //        queue: "log",
+            //        durable: false,
+            //        exclusive: false,
+            //        autoDelete: false,
+            //        arguments: null);
 
-                string message = JsonSerializer.Serialize(log);
-                var body = Encoding.UTF8.GetBytes(message);
+            //    string message = JsonSerializer.Serialize(log);
+            //    var body = Encoding.UTF8.GetBytes(message);
 
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: "log",
-                    basicProperties: null,
-                    body: body);
-            }
+            //    channel.BasicPublish(
+            //        exchange: "",
+            //        routingKey: "log",
+            //        basicProperties: null,
+            //        body: body);
+            //}
 
             return Unit.Value;
         }
@@ -134,26 +134,26 @@ namespace MusicEvent.Domain.Commands.Inscricao
                 log = log.SaveLogHistorico(EnumTipoLog.DELETE, "Subscription", "Error", notificationsString);
             }
 
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-            using var connection = factory.CreateConnection();
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(
-                    queue: "log",
-                    durable: false,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+            //var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+            //using var connection = factory.CreateConnection();
+            //using (var channel = connection.CreateModel())
+            //{
+            //    channel.QueueDeclare(
+            //        queue: "log",
+            //        durable: false,
+            //        exclusive: false,
+            //        autoDelete: false,
+            //        arguments: null);
 
-                string message = JsonSerializer.Serialize(log);
-                var body = Encoding.UTF8.GetBytes(message);
+            //    string message = JsonSerializer.Serialize(log);
+            //    var body = Encoding.UTF8.GetBytes(message);
 
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: "log",
-                    basicProperties: null,
-                    body: body);
-            }
+            //    channel.BasicPublish(
+            //        exchange: "",
+            //        routingKey: "log",
+            //        basicProperties: null,
+            //        body: body);
+            //}
 
             return Unit.Value;
         }
