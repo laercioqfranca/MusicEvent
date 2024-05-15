@@ -7,10 +7,8 @@ namespace MusicEvent.Domain.Validations.Inscricao
     {
         public InscricaoCommandValidation()
         {
-
             RuleFor(x => x.IdEvento)
-               .NotEmpty().WithMessage("A IdEvento é obrigatória!");
-
+               .NotEmpty().WithMessage("O Evento é obrigatório!");
         }
     }
 }
