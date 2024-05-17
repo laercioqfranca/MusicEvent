@@ -8,9 +8,12 @@ using MusicEvent.Core.Interfaces;
 using MusicEvent.Core.JWT;
 using MusicEvent.Core.Notifications;
 using MusicEvent.Web.Configurations;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Security.Principal;
+using System.Text;
 
 namespace MusicEvent.Web.Controllers.Auth
 {
@@ -93,7 +96,7 @@ namespace MusicEvent.Web.Controllers.Auth
         #region POST
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel loginViewModel)
+        public async Task<IActionResult> Login([FromBody] LoginEncryptViewModel loginEncrypt)
         {
             try
             {
@@ -103,12 +106,42 @@ namespace MusicEvent.Web.Controllers.Auth
                     return Response();
                 }
 
+                string decrypted = DecryptString(loginEncrypt.encrypted);
+                var loginViewModel = JsonConvert.DeserializeObject<LoginViewModel>(decrypted);
+
                 var user = await _appService.Autenticar(loginViewModel);
                 return user != null ? Response(GetJwtToken(user)) : Response();
             }
             catch (Exception ex)
             {
                 return HandleException(ex);
+            }
+        }
+
+        private string DecryptString(string cipherText)
+        {
+            var key = Encoding.UTF8.GetBytes("sJgppTL83sr1HILcta0LX0yEMJUo8qs3"); // replace with your secret key
+            var iv = Encoding.UTF8.GetBytes("HR$2pIjHR$2pIj12"); // replace with your initialization vector
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = key;
+                aes.IV = iv;
+                aes.Padding = PaddingMode.PKCS7;
+                aes.Mode = CipherMode.CBC;
+
+                var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                using (var memoryStream = new MemoryStream(Convert.FromBase64String(cipherText)))
+                {
+                    using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (var streamReader = new StreamReader(cryptoStream))
+                        {
+                            return streamReader.ReadToEnd();
+                        }
+                    }
+                }
             }
         }
 
