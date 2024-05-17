@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using System.Net;
+using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace MusicEvent.Test.IntegrationTest
 {
@@ -14,7 +12,7 @@ namespace MusicEvent.Test.IntegrationTest
         }
 
         [Fact]
-        public async Task GetAll_ReturnsOkResult_WhenCalled()
+        public async Task GetAll_ReturnsSuccessStatusCode()
         {
             // Arrange
             var client = _factory.CreateClient();
@@ -23,7 +21,21 @@ namespace MusicEvent.Test.IntegrationTest
             var response = await client.GetAsync("/v1/Evento/GetAll");
 
             // Assert
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task GetById_ReturnsSuccessStatusCode()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            var id = Guid.NewGuid();
+
+            // Act
+            var response = await client.GetAsync($"/v1/Evento/GetById/{id}");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
         }
     }
 }

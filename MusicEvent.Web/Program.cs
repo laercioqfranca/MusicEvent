@@ -126,6 +126,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+if (app.Environment.IsDevelopment())
+    app.MapControllers().AllowAnonymous();
+else
+    app.MapControllers();
 
 app.Run();
+public partial class Program { }
