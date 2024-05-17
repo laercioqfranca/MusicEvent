@@ -20,7 +20,6 @@ namespace MusicEvent.Test.UnitTest
         private readonly EventoController _controller;
         private readonly Mock<DomainNotificationHandler> _mockNotificationHandler;
 
-
         public EventoControllerTests()
         {
             _mockAppService = new Mock<IEventoAppService>();

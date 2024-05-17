@@ -10,12 +10,10 @@ namespace MusicEvent.Test.UnitTest
 {
     public class SubscriptionControllerTests
     {
-
         private readonly Mock<ISubscriptionAppService> _mockAppService;
         private readonly Mock<IMediatorHandler> _mockMediatorHandler;
         private readonly SubscriptionController _controller;
         private readonly Mock<DomainNotificationHandler> _mockNotificationHandler;
-
 
         public SubscriptionControllerTests()
         {
