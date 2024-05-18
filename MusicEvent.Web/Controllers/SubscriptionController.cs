@@ -59,7 +59,7 @@ namespace MusicEvent.Web.Controllers
             }
         }
 
-            [Route("DeleteSubscription/{id}")]
+        [Route("DeleteSubscription/{id}")]
         [HttpDelete]
         [Authorize]
         public async Task<IActionResult> Delete(Guid id)

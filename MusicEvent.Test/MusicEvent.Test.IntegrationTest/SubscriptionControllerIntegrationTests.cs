@@ -23,10 +23,11 @@ namespace MusicEvent.Test.IntegrationTest
         {
             // Arrange
             var client = _factory.CreateClient();
-            var id = Guid.NewGuid();
+            var eventoDTO = new EventoDTO { Id = Guid.NewGuid(), Descricao = "Subscription Integration Tests GetAllById", Data = DateTime.Now };
+            await client.PostAsJsonAsync("/v1/Evento/Create", eventoDTO);
 
             // Act
-            var response = await client.GetAsync($"/v1/Subscription/GetAllById/{id}");
+            var response = await client.GetAsync($"/v1/Subscription/GetAllById/{eventoDTO.Id}");
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -37,7 +38,10 @@ namespace MusicEvent.Test.IntegrationTest
         {
             // Arrange
             var client = _factory.CreateClient();
-            var subscriptionDTO = new SubscriptionDTO { IdEvento = Guid.NewGuid() };
+            var eventoDTO = new EventoDTO { Id = Guid.NewGuid(), Descricao = "Subscription Integration Tests Create", Data = DateTime.Now };
+            await client.PostAsJsonAsync("/v1/Evento/Create", eventoDTO);
+
+            var subscriptionDTO = new SubscriptionDTO { IdEvento = (Guid)eventoDTO.Id };
 
             // Act
             var response = await client.PostAsJsonAsync("/v1/Subscription/CreateSubscription", subscriptionDTO);
@@ -51,10 +55,14 @@ namespace MusicEvent.Test.IntegrationTest
         {
             // Arrange
             var client = _factory.CreateClient();
-            var id = Guid.NewGuid();
+            var eventoDTO = new EventoDTO { Id = Guid.NewGuid(), Descricao = "Subscription Integration Tests Delete", Data = DateTime.Now };
+            await client.PostAsJsonAsync("/v1/Evento/Create", eventoDTO);
+
+            var subscriptionDTO = new SubscriptionDTO { IdEvento = (Guid)eventoDTO.Id };
+            await client.PostAsJsonAsync("/v1/Subscription/CreateSubscription", subscriptionDTO);
 
             // Act
-            var response = await client.DeleteAsync($"/v1/Subscription/DeleteSubscription/{id}");
+            var response = await client.DeleteAsync($"/v1/Subscription/DeleteSubscription/{subscriptionDTO.IdEvento}");
 
             // Assert
             response.EnsureSuccessStatusCode();
