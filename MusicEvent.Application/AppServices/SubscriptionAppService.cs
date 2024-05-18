@@ -38,14 +38,14 @@ namespace MusicEvent.Application.AppServices
         public async Task Create(SubscriptionDTO InscricaoDTO)
         {
             var command = _mapper.Map<SubscriptionCreateCommand>(InscricaoDTO);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            command.UsuarioRequerenteId = _httpContextAcessor.HttpContext.User.Identity.Name != null ? Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name) : Guid.Parse("0368ED88-FF1F-4262-B33B-2599F5B47427");
             await _bus.SendCommand(command);
         }
 
         public async Task Delete(Guid id)
         {
             var command = new SubscriptionDeleteCommand(id);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            command.UsuarioRequerenteId = _httpContextAcessor.HttpContext.User.Identity.Name != null ? Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name) : Guid.Parse("0368ED88-FF1F-4262-B33B-2599F5B47427");
             await _bus.SendCommand(command);
 
         }

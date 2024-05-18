@@ -37,7 +37,7 @@ namespace MusicEvent.Test.IntegrationTest
         {
             // Arrange
             var client = _factory.CreateClient();
-            var subscriptionDTO = new SubscriptionDTO { /* set properties here */ };
+            var subscriptionDTO = new SubscriptionDTO { IdEvento = Guid.NewGuid() };
 
             // Act
             var response = await client.PostAsJsonAsync("/v1/Subscription/CreateSubscription", subscriptionDTO);

@@ -9,8 +9,9 @@ namespace MusicEvent.Domain.Models
         public DateTime Data { get; private set; }
         public bool Excluido { get; private set; }
 
-        public Eventos(string descricao, DateTime data)
+        public Eventos(Guid id, string descricao, DateTime data)
         {
+            Id = id;
             Descricao = descricao;
             Data = data;
         }

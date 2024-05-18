@@ -37,7 +37,7 @@ namespace MusicEvent.Domain.Commands.Evento
         public async Task<Unit> Handle(EventoCreateCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
-            Eventos evento = new Eventos(request.Descricao, request.Data);
+            Eventos evento = new Eventos(request.Id, request.Descricao, request.Data);
 
             if (!request.IsValid())
                 NotifyValidationErrors(request);
