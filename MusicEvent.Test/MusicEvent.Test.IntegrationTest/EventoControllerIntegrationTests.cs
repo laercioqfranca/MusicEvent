@@ -1,26 +1,26 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using MusicEvent.Application.DTO;
+using MusicEvent.Domain.Interfaces.Infra.Data.Repositories;
 using System.Net.Http.Json;
+using System.Collections.Generic;
 
 namespace MusicEvent.Test.IntegrationTest
 {
     public class EventoControllerIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
-        //private Guid IdEvento = Guid.NewGuid();
-        private Guid IdEvento = Guid.Parse("4F6C0DE7-20EF-4A2A-8EE7-D30E28B4B718");
+
         public EventoControllerIntegrationTests(WebApplicationFactory<Program> factory)
         {
             _factory = factory;
         }
 
-
-        [Fact, Priority(5)]
+        [Fact]
         public async Task Post_ReturnsSuccessStatusCode()
         {
             // Arrange
             var client = _factory.CreateClient();
-            var eventoDTO = new EventoDTO { Id = IdEvento, Descricao = "Evento Integration Tests Post", Data = DateTime.Now };
+            var eventoDTO = new EventoDTO { Id = Guid.NewGuid(), Descricao = "Evento Integration Tests Post", Data = DateTime.Now };
 
             // Act
             var response = await client.PostAsJsonAsync("/v1/Evento/Create", eventoDTO);
@@ -29,9 +29,11 @@ namespace MusicEvent.Test.IntegrationTest
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact, Priority(4)]
+
+        [Fact]
         public async Task GetAll_ReturnsSuccessStatusCode()
         {
+
             // Arrange
             var client = _factory.CreateClient();
 
@@ -42,26 +44,28 @@ namespace MusicEvent.Test.IntegrationTest
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact, Priority(3)]
+        [Fact]
         public async Task GetById_ReturnsSuccessStatusCode()
         {
             // Arrange
             var client = _factory.CreateClient();
-            var id = IdEvento;
+            var eventoDTO = new EventoDTO { Id = Guid.NewGuid(), Descricao = "Evento Integration Tests GetById", Data = DateTime.Now };
+            await client.PostAsJsonAsync("/v1/Evento/Create", eventoDTO);
 
             // Act
-            var response = await client.GetAsync($"/v1/Evento/GetById/{id}");
+            var response = await client.GetAsync($"/v1/Evento/GetById/{eventoDTO.Id}");
 
             // Assert
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact, Priority(2)]
+        [Fact]
         public async Task Update_ReturnsSuccessStatusCode()
         {
             // Arrange
             var client = _factory.CreateClient();
-            var eventoDTO = new EventoDTO { Id = IdEvento, Descricao = "Evento Integration Tests Put", Data = DateTime.Now };
+            var eventoDTO = new EventoDTO { Id = Guid.NewGuid(), Descricao = "Evento Integration Tests Put", Data = DateTime.Now };
+            await client.PostAsJsonAsync("/v1/Evento/Create", eventoDTO);
 
             // Act
             var response = await client.PutAsJsonAsync("/v1/Evento/Update", eventoDTO);
@@ -70,15 +74,16 @@ namespace MusicEvent.Test.IntegrationTest
             response.EnsureSuccessStatusCode();
         }
 
-        [Fact, Priority(1)]
+        [Fact]
         public async Task Delete_ReturnsSuccessStatusCode()
         {
             // Arrange
             var client = _factory.CreateClient();
-            var id = IdEvento;
+            var eventoDTO = new EventoDTO { Id = Guid.NewGuid(), Descricao = "Evento Integration Tests Delete", Data = DateTime.Now };
+            await client.PostAsJsonAsync("/v1/Evento/Create", eventoDTO);
 
             // Act
-            var response = await client.DeleteAsync($"/v1/Evento/Delete/{id}");
+            var response = await client.DeleteAsync($"/v1/Evento/Delete/{eventoDTO.Id}");
 
             // Assert
             response.EnsureSuccessStatusCode();
