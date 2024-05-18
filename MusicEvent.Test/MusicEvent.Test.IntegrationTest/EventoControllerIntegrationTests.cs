@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
+using MusicEvent.Application.DTO;
+using System.Net.Http.Json;
 
 namespace MusicEvent.Test.IntegrationTest
 {
@@ -37,5 +39,48 @@ namespace MusicEvent.Test.IntegrationTest
             // Assert
             response.EnsureSuccessStatusCode();
         }
+
+        [Fact]
+        public async Task Post_ReturnsSuccessStatusCode()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            var eventoDTO = new EventoDTO { /* set properties here */ };
+
+            // Act
+            var response = await client.PostAsJsonAsync("/v1/Evento/Create", eventoDTO);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task Update_ReturnsSuccessStatusCode()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            var eventoDTO = new EventoDTO { /* set properties here */ };
+
+            // Act
+            var response = await client.PutAsJsonAsync("/v1/Evento/Update", eventoDTO);
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+        }
+
+        [Fact]
+        public async Task Delete_ReturnsSuccessStatusCode()
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+            var id = Guid.NewGuid();
+
+            // Act
+            var response = await client.DeleteAsync($"/v1/Evento/Delete/{id}");
+
+            // Assert
+            response.EnsureSuccessStatusCode();
+        }
+
     }
 }
