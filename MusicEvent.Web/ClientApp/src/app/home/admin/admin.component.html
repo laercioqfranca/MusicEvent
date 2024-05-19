@@ -1,7 +1,7 @@
 
 <div class="row py-2">
   <div class="col titulo">
-    Criar evento <i class="fa fa-plus" aria-hidden="true"></i>
+    Criar Evento <i class="fa fa-plus" aria-hidden="true"></i>
   </div>
 </div>
 
@@ -29,17 +29,17 @@
 
 <div class="row py-2">
   <div class="col titulo">
-    Todos os eventos
+    Todos os Eventos
   </div>
 </div>
 
 <div class="flex-container">
   <div class="card" *ngFor="let item of listaEventos">
-    <div><b>{{item.descricao}}</b></div>
-    <div>{{item.data}}</div>
-    <div>
-      <i class="fa-solid fa-pen-to-square me-3 text-primary active" (click)="editar(item.id)"></i>
-      <i class="fa fa-trash text-danger active" aria-hidden="true" (click)="deletar(item.id)"></i>
+    <div class="col"><b>{{item.descricao}}</b></div>
+    <div class="col">{{item.data}}</div>
+    <div class="col">
+      <abbr title="Editar"><i class="fa-solid fa-pen-to-square me-3 text-primary active" (click)="editar(item.id)"></i></abbr>
+      <abbr title="Excluir"><i class="fa fa-trash text-danger active" (click)="deletar(item.id)"></i></abbr>
     </div>
   </div>
 </div>

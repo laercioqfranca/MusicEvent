@@ -44,21 +44,21 @@ namespace MusicEvent.Application.AppServices
         public async Task Create(EventoDTO eventoDTO)
         {
             var command = _mapper.Map<EventoCreateCommand>(eventoDTO);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            command.UsuarioRequerenteId = _httpContextAcessor.HttpContext.User.Identity.Name != null ? Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name) : Guid.Parse("0368ED88-FF1F-4262-B33B-2599F5B47427");
             await _bus.SendCommand(command);
         }
 
         public async Task Update(EventoDTO eventoDTO)
         {
             var command = _mapper.Map<EventoUpdateCommand>(eventoDTO);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            command.UsuarioRequerenteId = _httpContextAcessor.HttpContext.User.Identity.Name != null ? Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name) : Guid.Parse("0368ED88-FF1F-4262-B33B-2599F5B47427"); ;
             await _bus.SendCommand(command);
         }
 
         public async Task Delete(Guid id)
         {
             var command = new EventoDeleteCommand(id);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name);
+            command.UsuarioRequerenteId = _httpContextAcessor.HttpContext.User.Identity.Name != null ? Guid.Parse(_httpContextAcessor.HttpContext.User.Identity.Name) : Guid.Parse("0368ED88-FF1F-4262-B33B-2599F5B47427"); ;
             await _bus.SendCommand(command);
 
         }

@@ -28,7 +28,7 @@ namespace MusicEvent.Infra.Data.Repositories
         {
             var evento = await _context.Set<Eventos>()
                 .Where(
-                    x => x.Id == idEvento && !x.Excluido
+                    x => x.Id == idEvento //&& !x.Excluido
             ).FirstOrDefaultAsync();
             return evento;
         }

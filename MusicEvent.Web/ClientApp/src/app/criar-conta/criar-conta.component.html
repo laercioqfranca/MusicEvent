@@ -50,6 +50,9 @@
             <mat-error *ngIf="criarContaForm.get('senha')?.touched && criarContaForm.get('senha')?.value.length == 0">
               Campo Obrigatório
             </mat-error>
+            <mat-error *ngIf="criarContaForm.get('senha')?.touched && criarContaForm.get('senha')?.value && criarContaForm.get('senha')?.value.length < 8">
+              Mínimo de 8 caracteres
+            </mat-error>
         </mat-form-field>
       </div>
 

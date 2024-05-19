@@ -5,12 +5,11 @@
   </div>
 </div>
 
-<div class="flex-container">
+<div class="flex-container" *ngIf="listaMeusEventos.length > 0">
   <div class="card" *ngFor="let item of listaMeusEventos">
     <div><b>{{item.descricao}}</b></div>
     <div>{{item.data}}</div>
     <div>
-      
       <abbr title="Cancelar inscrição"><i class="fa fa-trash text-danger active" aria-hidden="true" (click)="deletar(item.id)"></i></abbr>
     </div>
   </div>
@@ -27,7 +26,7 @@
     <div class="col"><b>{{item.descricao}}</b></div>
     <div class="col">{{item.data}}</div>
     <div class="col">
-      <abbr title="Inscreva-se"><i class="fa-solid fa-plus mt-3 me-3 active btn-add" (click)="inscrever(item.id)"></i></abbr>
+      <abbr [title]="this.inscricaoExistente(item.id)? 'Inscrito' : 'Inscreva-se'"><i [ngClass]="this.inscricaoExistente(item.id)? 'fa-solid text-success fa-check mt-3 me-3 active' : 'fa-solid fa-plus mt-3 me-3 active btn-add'" (click)="inscrever(item.id)"></i></abbr>
     </div>
   </div>
 </div>

@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { JwtService } from 'src/app/core/services/root/jwt.service';
+import { AES, enc, mode, pad } from 'crypto-js';
 
 export const BASE_API_URL = new InjectionToken<string>('baseApiUrl');
 export const BASE_REPORT_URL = new InjectionToken<string>('baseReportUrl');
@@ -20,7 +21,7 @@ export class ApiUrlInterceptor implements HttpInterceptor {
     @Inject(AMBIENTE_PRODUCTION) private router: Router,
     private jwtService: JwtService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.requisitions == 0)
@@ -40,14 +41,30 @@ export class ApiUrlInterceptor implements HttpInterceptor {
       this.isExpired();
     }
 
-    if (req.url.search(/report:/gi) >= 0)
-      req = req.clone({ url: this.prepareUrlReport(req.url.replace('report:', '')) });
-    else
-      req = req.clone({ url: this.prepareUrl(req.url), setHeaders: headersConfig });
+    if (req.url.search('/login') >= 0) {
+      const key = enc.Utf8.parse('sJgppTL83sr1HILcta0LX0yEMJUo8qs3'); // replace with your secret key
+      const iv = enc.Utf8.parse('HR$2pIjHR$2pIj12'); // replace with your initialization vector
+      const encrypted = AES.encrypt(JSON.stringify(req.body), key,
+        {
+          keySize: 128 / 8,
+          iv: iv,
+          mode: mode.CBC,
+          padding: pad.Pkcs7
+        }).toString();
+
+      const encryptedObj = { encrypted };
+      req = req.clone({ url: this.prepareUrl(req.url), setHeaders: headersConfig, body: encryptedObj });
+
+    } else {
+      if (req.url.search(/report:/gi) >= 0)
+        req = req.clone({ url: this.prepareUrlReport(req.url.replace('report:', '')) });
+      else
+        req = req.clone({ url: this.prepareUrl(req.url), setHeaders: headersConfig });
+    }
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorStatusMessage:any;
+        let errorStatusMessage: any;
         let errorMessage: string | string[];
         if (error.error instanceof ErrorEvent) {
           // Erro do lado do cliente ou de rede
@@ -88,38 +105,38 @@ export class ApiUrlInterceptor implements HttpInterceptor {
     );
   }
 
-     private prepareUrl(url: string): string {
-         url = this.isAbsoluteUrl(url) || this.apiUrl === '/' ? url : this.apiUrl + '/' + url;
-         return url.replace(/([^:]\/)\/+/g, '$1');
-     }
+  private prepareUrl(url: string): string {
+    url = this.isAbsoluteUrl(url) || this.apiUrl === '/' ? url : this.apiUrl + '/' + url;
+    return url.replace(/([^:]\/)\/+/g, '$1');
+  }
 
-    private prepareUrlReport(url: string): string {
-        url = this.reportUrl + '/' + url;
-        return url.replace(/([^:]\/)\/+/g, '$1');
+  private prepareUrlReport(url: string): string {
+    url = this.reportUrl + '/' + url;
+    return url.replace(/([^:]\/)\/+/g, '$1');
+  }
+
+  private isAbsoluteUrl(url: string): boolean {
+    const absolutePattern = /^https?:\/\//i;
+    return absolutePattern.test(url);
+  }
+
+  isExpired(): void {
+    var tokenExpired = this.jwtService.isTokenExpired()
+
+    if (tokenExpired === null) {
+      this.jwtService.destroyToken();
+      this.router.navigateByUrl('/admin/login');
     }
-
-    private isAbsoluteUrl(url: string): boolean {
-        const absolutePattern = /^https?:\/\//i;
-        return absolutePattern.test(url);
+    else if (tokenExpired) {
+      this.jwtService.destroyToken();
+      this.router.navigateByUrl('/admin/login');
     }
+  }
 
-    isExpired(): void {
-        var tokenExpired = this.jwtService.isTokenExpired()
-
-        if (tokenExpired === null) {
-            this.jwtService.destroyToken();
-            this.router.navigateByUrl('/admin/login');
-        }
-        else if (tokenExpired) {
-            this.jwtService.destroyToken();
-            this.router.navigateByUrl('/admin/login');
-        }
-    }
-
-    newGuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
+  newGuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
 }

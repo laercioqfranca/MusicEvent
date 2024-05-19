@@ -37,7 +37,7 @@ namespace MusicEvent.Domain.Commands.Evento
         public async Task<Unit> Handle(EventoCreateCommand request, CancellationToken cancellationToken)
         {
             LogHistorico log = new LogHistorico();
-            Eventos evento = new Eventos(request.Descricao, request.Data);
+            Eventos evento = new Eventos(request.Id, request.Descricao, request.Data);
 
             if (!request.IsValid())
                 NotifyValidationErrors(request);
@@ -58,26 +58,26 @@ namespace MusicEvent.Domain.Commands.Evento
                 log = log.SaveLogHistorico(EnumTipoLog.CREATE, "Event", "Error", notificationsString);
             }
 
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-            using var connection = factory.CreateConnection();
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(
-                    queue: "log",
-                    durable: false,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+            //var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+            //using var connection = factory.CreateConnection();
+            //using (var channel = connection.CreateModel())
+            //{
+            //    channel.QueueDeclare(
+            //        queue: "log",
+            //        durable: false,
+            //        exclusive: false,
+            //        autoDelete: false,
+            //        arguments: null);
 
-                string message = JsonSerializer.Serialize(log);
-                var body = Encoding.UTF8.GetBytes(message);
+            //    string message = JsonSerializer.Serialize(log);
+            //    var body = Encoding.UTF8.GetBytes(message);
 
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: "log",
-                    basicProperties: null,
-                    body: body);
-            }
+            //    channel.BasicPublish(
+            //        exchange: "",
+            //        routingKey: "log",
+            //        basicProperties: null,
+            //        body: body);
+            //}
 
             return Unit.Value;
         }
@@ -113,26 +113,26 @@ namespace MusicEvent.Domain.Commands.Evento
                 log = log.SaveLogHistorico(EnumTipoLog.UPDATE, "Event", "Error", notificationsString);
             }
 
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-            using var connection = factory.CreateConnection();
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(
-                    queue: "log",
-                    durable: false,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+            //var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+            //using var connection = factory.CreateConnection();
+            //using (var channel = connection.CreateModel())
+            //{
+            //    channel.QueueDeclare(
+            //        queue: "log",
+            //        durable: false,
+            //        exclusive: false,
+            //        autoDelete: false,
+            //        arguments: null);
 
-                string message = JsonSerializer.Serialize(log);
-                var body = Encoding.UTF8.GetBytes(message);
+            //    string message = JsonSerializer.Serialize(log);
+            //    var body = Encoding.UTF8.GetBytes(message);
 
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: "log",
-                    basicProperties: null,
-                    body: body);
-            }
+            //    channel.BasicPublish(
+            //        exchange: "",
+            //        routingKey: "log",
+            //        basicProperties: null,
+            //        body: body);
+            //}
 
             return Unit.Value;
         }
@@ -169,26 +169,26 @@ namespace MusicEvent.Domain.Commands.Evento
                 log = log.SaveLogHistorico(EnumTipoLog.DELETE, "Event", "Error", notificationsString);
             }
 
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-            using var connection = factory.CreateConnection();
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(
-                    queue: "log",
-                    durable: false,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+            //var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+            //using var connection = factory.CreateConnection();
+            //using (var channel = connection.CreateModel())
+            //{
+            //    channel.QueueDeclare(
+            //        queue: "log",
+            //        durable: false,
+            //        exclusive: false,
+            //        autoDelete: false,
+            //        arguments: null);
 
-                string message = JsonSerializer.Serialize(log);
-                var body = Encoding.UTF8.GetBytes(message);
+            //    string message = JsonSerializer.Serialize(log);
+            //    var body = Encoding.UTF8.GetBytes(message);
 
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: "log",
-                    basicProperties: null,
-                    body: body);
-            }
+            //    channel.BasicPublish(
+            //        exchange: "",
+            //        routingKey: "log",
+            //        basicProperties: null,
+            //        body: body);
+            //}
 
             return Unit.Value;
         }
