@@ -1,0 +1,6 @@
+{
+    "apiServer": {
+        "url": "/",
+        "version": "v1"
+    }
+}

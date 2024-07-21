@@ -16,7 +16,8 @@ namespace MusicEvent.Application.AutoMapper
             CreateMap<PerfilUsuario, PerfilUsuarioViewModel>();
 
             CreateMap<Eventos, EventoViewModel>()
-                .ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data.ToString("dd/MM/yyyy")));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
+                //.ForMember(dest => dest.Data, opt => opt.MapFrom(src => src.Data.ToString("dd/MM/yyyy")));
 
         }
     }
