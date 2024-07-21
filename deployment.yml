@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-music-event-deployment # Name of the deployment
+  name: backend-musicevent-deployment # Name of the deployment
 spec:
   replicas: 3 # Number of desired replicas (pods)
   selector:
     matchLabels:
-      app: backend-music-event # Label selector to match pods controlled by this deployment
+      app: backend-musicevent # Label selector to match pods controlled by this deployment
   template:
     metadata:
       labels:
-        app: backend-music-event # Labels applied to pods created by this deployment
+        app: backend-musicevent # Labels applied to pods created by this deployment
     spec:
       containers:
-        - name: backend-music-event # Name of the container
-          image: laercioqf93/backend-music-event:latest # Docker image to use
+        - name: backend-musicevent # Name of the container
+          image: laercioqf93/backend-musicevent:latest # Docker image to use
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80 # Port to expose within the pod

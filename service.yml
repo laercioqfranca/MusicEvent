@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend-music-event-service # Name of the service
+  name: backend-musicevent-service # Name of the service
 spec:
   selector:
-    app: backend-music-event # Label selector to target pods with this label
+    app: backend-musicevent # Label selector to target pods with this label
   ports:
     - protocol: TCP
       port: 80
